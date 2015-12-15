@@ -21,6 +21,8 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
     
     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/media-stylesheet.css" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
  	
 	
@@ -31,6 +33,7 @@
     
 	<script type="text/javascript" src="<?php bloginfo('template_url') ?>/js/jetmenu.js"></script>
 	<script type="text/javascript" src="<?php bloginfo('template_url') ?>/js/jquery.countdown.js"></script>
+	<script type="text/javascript" src="<?php bloginfo('template_url') ?>/js/general.js"></script>
     <link href="<?php bloginfo('template_url') ?>/css/jetmenu.css" rel="stylesheet">
 
 	<script type="text/javascript">

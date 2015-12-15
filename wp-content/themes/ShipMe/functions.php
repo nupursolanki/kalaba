@@ -3850,4 +3850,12 @@ function shipme_jquery_shp_as() {
 }
 add_action( 'after_setup_theme', 'shipme_jquery_shp_as' ); // Theme active, include function
 
+
+
+require_once('includes/function-custom.php');
+
+
+
+
+
 ?>
