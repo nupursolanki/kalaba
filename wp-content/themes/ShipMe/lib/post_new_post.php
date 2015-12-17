@@ -23,9 +23,13 @@ do_action('shipme_post_new_post_post',$pid);
 if(isset($_POST['job_submit_step2']))
 {
 	$projectOK = 1;
-	
+	//echo $_POST['need_a_helper'];exit;
 	update_post_meta($pid, 'featured', $_POST['featured']);
 	update_post_meta($pid, 'sealed_bidding', $_POST['sealed_bidding']);
+	update_field('field_567054c74e4e6', $_POST['need_a_helper'], $pid);
+	update_field('field_567056a74e4a7', $_POST['fragile_materials'], $pid);
+	update_field('field_5670571a4e4a8', $_POST['commercial_purpose'], $pid);
+	update_field('field_5670574e4e4a9', $_POST['packing_services'], $pid);
 	
 	$arr = $_POST['custom_field_id'];
 		for($i=0;$i<count($arr);$i++)
@@ -123,49 +127,63 @@ if(isset($_POST['job_submit_step1']))
 	update_post_meta($pid, "price", 		$price);
 	
 	
-	$weight = $_POST['weight'];
-	$height = $_POST['height'];
-	$width = $_POST['width'];
-	$length = $_POST['length'];
+	//$weight = $_POST['weight'];
+	//$height = $_POST['height'];
+	//$width = $_POST['width'];
+	//$length = $_POST['length'];
 	
-	update_post_meta($pid, "length", 		trim($_POST['length']));
-	update_post_meta($pid, "weight", 		trim($_POST['weight']));
-	update_post_meta($pid, "height", 		trim($_POST['height']));
-	update_post_meta($pid, "width", 		trim($_POST['width']));
+	//update_post_meta($pid, "length", 		trim($_POST['length']));
+	//update_post_meta($pid, "weight", 		trim($_POST['weight']));
+	//update_post_meta($pid, "height", 		trim($_POST['height']));
+	//update_post_meta($pid, "width", 		trim($_POST['width']));
 	
-	if(empty($width))
-	{
+	//if(empty($width))
+	//{
+	//	$projectOK = 0;
+	//	$MYerror['width'] 	= __('You need to type in a value.','shipme');
+	//	$class_errors['width']		= 'error_class_post_new';  
+	//
+	//}
+	//
+	//if(empty($height))
+	//{
+	//	$projectOK = 0;
+	//	$MYerror['height'] 	= __('You need to type in a value.','shipme');
+	//	$class_errors['height']		= 'error_class_post_new';  
+	//
+	//}
+	//
+	//if(empty($weight))
+	//{
+	//	$projectOK = 0;
+	//	$MYerror['weight'] 	= __('You need to type in a value.','shipme');
+	//	$class_errors['weight']		= 'error_class_post_new';  
+	//
+	//}
+	//
+	//if(empty($length))
+	//{
+	//	$projectOK = 0;
+	//	$MYerror['length'] 	= __('You need to type in a value.','shipme');
+	//	$class_errors['length']		= 'error_class_post_new';  
+	//
+	//}
+	update_post_meta($pid, "package_detail", 		$_POST['package_detail']);
+	foreach($_POST['package_detail'] as $single_package){
+		foreach( $single_package as $single_value){
+			if(!is_numeric($single_value))
+			$projectOK = 0;
+		$MYerror['num_of_package'] 	= __('You need to enter ineteger value in Length,Height,Width,Number Of package.','shipme');
+		$class_errors['num_of_package']		= 'You need to enter ineteger value in Length,Height,Width,Number Of package.'; 
+			}
+		}
+	if(empty($_POST['package_detail'])){
+		
 		$projectOK = 0;
-		$MYerror['width'] 	= __('You need to type in a value.','shipme');
-		$class_errors['width']		= 'error_class_post_new';  
-	
-	}
-	
-	if(empty($height))
-	{
-		$projectOK = 0;
-		$MYerror['height'] 	= __('You need to type in a value.','shipme');
-		$class_errors['height']		= 'error_class_post_new';  
-	
-	}
-	
-	if(empty($weight))
-	{
-		$projectOK = 0;
-		$MYerror['weight'] 	= __('You need to type in a value.','shipme');
-		$class_errors['weight']		= 'error_class_post_new';  
-	
-	}
-	
-	if(empty($length))
-	{
-		$projectOK = 0;
-		$MYerror['length'] 	= __('You need to type in a value.','shipme');
-		$class_errors['length']		= 'error_class_post_new';  
-	
-	}
-	
-	
+		$MYerror['num_of_package'] 	= __('You need to type in a pickup location.','shipme');
+		$class_errors['num_of_package']		= 'You need to enter ineteger value in Length,Height,Width,Number Of package.'; 
+		//$class_errors['pickup_location']		= 'error_class_post_new'; 
+		}
 	
 	if(empty($pickup_location))
 	{
@@ -239,7 +257,7 @@ if(isset($_POST['job_submit_step1']))
 	}
 	
 	//---------------------------------
-	
+	/*
 		if(get_option('shipme_enable_multi_cats') == "yes")
 		{
 			$slg_arr = array();
@@ -294,7 +312,7 @@ if(isset($_POST['job_submit_step1']))
 			}
 			
 		}
-	
+	*/
 	
 	if($projectOK == 1)
 	{

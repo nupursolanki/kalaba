@@ -2368,7 +2368,7 @@ function shipme_theme_job_dts()
         
        <?php endif; ?>
        
-       
+       <!--
        
         <li class="<?php echo shipme_get_post_new_error_thing('length') ?>">
         <?php echo shipme_get_post_new_error_thing_display('length') ?>
@@ -2454,7 +2454,7 @@ function shipme_theme_job_dts()
 		}
 		 ?>" class="do_input"  /></p>
         </li>
-        
+        -->
  <script>
 
 jQuery(document).ready(function() {

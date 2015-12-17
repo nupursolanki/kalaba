@@ -1348,14 +1348,38 @@ myDropzone.on("removedfile", function(file, response) {
 		
 		//---------------------------------
  		
-          	$shipme_enable_featured_option = get_option('shipme_enable_featured_option');						   
-						   	if($shipme_enable_featured_option != "no"):
+		
+     //     	$shipme_enable_featured_option = get_option('shipme_enable_featured_option');						   
+	//					   	if($shipme_enable_featured_option != "no"):
 						   
 						   ?>
 		
-	 
+	 <li>
+     <h2><?php _e("Need a Helper?",'shipme'); ?></h2>
+     <p><input type="checkbox" class="do_input_new" name="need_a_helper" value="1" 
+		<?php $feature =  get_field('need_a_helper', $pid, true);  echo ($feature == "1" ? "checked='checked'" : ""); ?>  /> You want Helper For carry Loaded Package?</p>
+     </li>
+     
+     <li>
+     <h2><?php _e("Fragile Materials",'shipme'); ?></h2>
+     <p><input type="checkbox" class="do_input_new" name="fragile_materials" value="1" 
+		<?php $feature =  get_field('fragile_materials', $pid, true);  echo ($feature == "1" ? "checked='checked'" : ""); ?>  /> Is there any fragile materials?</p>
+     </li>
+     
+     <li>
+     <h2><?php _e("Commercial Purpose",'shipme'); ?></h2>
+     <p><input type="checkbox" class="do_input_new" name="commercial_purpose" value="1" 
+		<?php $feature =  get_field('commercial_purpose', $pid, true);  echo ($feature == "1" ? "checked='checked'" : ""); ?>  /> For Commercial Purpose ?</p>
+     </li>
+     
+     <li>
+     <h2><?php _e("Packing Services",'shipme'); ?></h2>
+     <p><input type="checkbox" class="do_input_new" name="packing_services" value="1" 
+		<?php $feature =  get_field('packing_services', $pid, true);  echo ($feature == "1" ? "checked='checked'" : ""); ?>  /> Do you need packing services?</p>
+     </li>
       
       
+   <!--   
         <li>
         <h2><?php _e("Feature job?",'shipme'); ?></h2>
         <p><input type="checkbox" class="do_input_new" name="featured" value="1" 
@@ -1371,7 +1395,7 @@ myDropzone.on("removedfile", function(file, response) {
 		printf(__("By clicking this checkbox you mark your job as featured. %s", 'shipme'), $sl); ?></p>
         </li>
         
-        <?php endif; ?>
+        <?php// endif; ?>
         
         
         
@@ -1401,7 +1425,7 @@ myDropzone.on("removedfile", function(file, response) {
         </li>
         
         <?php endif; ?>
-    
+    -->
      <li>
      	&nbsp;
      </li>
@@ -1477,7 +1501,7 @@ if($new_job_step == "1")
         <li>
         	<h3><?php _e('Items to Transport','shipme'); ?></h3>
         </li>
-        
+        <!--
         <li class="<?php echo shipme_get_post_new_error_thing('length') ?>">
         <?php echo shipme_get_post_new_error_thing_display('length') ?>
         <h2><?php echo __('Length', 'shipme'); ?></h2>
@@ -1504,6 +1528,78 @@ if($new_job_step == "1")
         <h2><?php echo __('Weight', 'shipme'); ?></h2>
         <p><input type="text" size="50" class="do_input form-control" name="weight" id="weight" placeholder="<?php echo shipme_get_weight_measure() ?>" value="<?php echo get_post_meta($pid,'weight',true); ?>" /></p>
         </li>
+        -->
+        <!--code for add custome box of package -->
+        <?php
+        $package_detail=array();
+    $package_detail = get_post_meta($pid,'package_detail',true);
+	
+
+    $c = 0;
+    if ( count( $package_detail ) > 0 && is_array($package_detail) ) {
+        foreach( $package_detail as $track ) {
+            if ( isset( $track['num_of_package'] ) || isset( $track['height'] ) || isset( $track['width'] )|| isset( $track['length'] )|| isset( $track['weight']) ) {
+		?>		<div class="package-detail-front">
+				<li class="<?php echo shipme_get_post_new_error_thing('num_of_package') ?>">
+        <?php echo shipme_get_post_new_error_thing_display('num_of_package') ?>
+        <h2><?php echo __('Number of package', 'shipme'); ?></h2>
+        <p><input type="text" size="50" class="do_input form-control" name="package_detail[<?php echo $c; ?>][num_of_package]" id="package_detail[<?php echo $c; ?>][num_of_package]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['num_of_package']; ?>" /></p>
+        </li>
+        	<li class="<?php echo shipme_get_post_new_error_thing('height') ?>">
+        <?php echo shipme_get_post_new_error_thing_display('height') ?>
+        <h2><?php echo __('Height', 'shipme'); ?></h2>
+        <p><input type="text" size="50" class="do_input form-control" name="package_detail[<?php echo $c; ?>][height]" id="package_detail[<?php echo $c; ?>][height]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['height']; ?>" /></p>
+        </li>
+        <li class="<?php echo shipme_get_post_new_error_thing('width') ?>">
+        <?php echo shipme_get_post_new_error_thing_display('width') ?>
+        <h2><?php echo __('Width', 'shipme'); ?></h2>
+        <p><input type="text" size="50" class="do_input form-control" name="package_detail[<?php echo $c; ?>][width]" id="package_detail[<?php echo $c; ?>][width]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['width']; ?>" /></p>
+        </li>
+        <li class="<?php echo shipme_get_post_new_error_thing('length') ?>">
+        <?php echo shipme_get_post_new_error_thing_display('length') ?>
+        <h2><?php echo __('Length', 'shipme'); ?></h2>
+        <p><input type="text" size="50" class="do_input form-control" name="package_detail[<?php echo $c; ?>][length]" id="package_detail[<?php echo $c; ?>][length]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['length']; ?>" /></p>
+        </li>
+        <li class="<?php echo shipme_get_post_new_error_thing('weight') ?>">
+        <?php echo shipme_get_post_new_error_thing_display('weight') ?>
+        <h2><?php echo __('Weight', 'shipme'); ?></h2>
+        <p><input type="text" size="50" class="do_input form-control" name="package_detail[<?php echo $c; ?>][weight]" id="package_detail[<?php echo $c; ?>][weight]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['weight']; ?>" /></p>
+        </li>
+        <li><h2></h2><a href="javascript:void(0)" style="" class="remove preview  submit_bottom2">Remove Package</a></li>
+        </div>
+				
+ <!--               printf( '<table class="package_detail"><tr><td>Number of package :</td><td> <input type="text" name="package_detail[%1$s][num_of_package]" value="%2$s" placeholder="Number Of Package" /></td> </tr><tr><td>Height :</td><td> <input type="text" name="package_detail[%1$s][height]" value="%3$s" placeholder="cm" /></td></tr> <tr><td>Width :</td><td> <input type="text" name="package_detail[%1$s][width]" value="%4$s" placeholder="cm" /></td></tr> <tr><td>Length :</td><td> <input type="text" name="package_detail[%1$s][length]" value="%5$s" placeholder="cm" /></td></tr> <tr><td>Weight :</td><td> <input type="text" name="package_detail[%1$s][weight]" value="%6$s" placeholder="kg" /></td></tr> <tr><td></td><td><span class="remove preview  button button-primary button-large">%7$s</span></td></tr></table>', $c, $track['num_of_package'], $track['height'],$track['width'],$track['length'],$track['weight'],__( 'Remove Track' ) );  -->
+     <?php           $c = $c +1;
+            }
+        }
+    }
+
+    ?>
+<span id="here"></span>
+<li><h2></h2><a href="javascript:void(0)" class=" add submit_bottom2"><?php _e('Add Packages'); ?></a></li>
+<style>.package_detail input{width:100%}</style>
+<script>
+    var $ =jQuery.noConflict();
+    $(document).ready(function() {
+        var count = <?php echo $c; ?>;
+        $(".add").click(function() {
+            count = count + 1;
+
+
+            $('#here').append('<div class="package-detail-front"><li> <h2>Number of package</h2><p><input type="text" size="50" class="do_input form-control" name="package_detail['+count+'][num_of_package]" id="package_detail['+count+'][num_of_package]" placeholder="Number of package"/></p></li><li>    <h2>Height</h2><p><input type="text" size="50" class="do_input form-control" name="package_detail['+count+'][height]" id="package_detail['+count+'][height]" placeholder="cm"/></p> </li><li> <h2>Width</h2><p><input type="text" size="50" class="do_input form-control" name="package_detail['+count+'][width]" id="package_detail['+count+'][width]" placeholder="cm"/></p> </li><li>    <h2>Length</h2><p><input type="text" size="50" class="do_input form-control" name="package_detail['+count+'][length]" id="package_detail['+count+'][length]" placeholder="cm"/></p> </li><li><h2>Weight</h2> <p><input type="text" size="50" class="do_input form-control" name="package_detail['+count+'][weight]" id="package_detail['+count+'][weight]" placeholder="cm"/></p> </li><li><h2></h2><a href="javascript:void(0)" style="" class="remove preview  submit_bottom2">Remove Package</a></li></div>');
+		
+		
+            return false;
+        });
+        $(document).on('click', '.remove' ,function() {
+			//alert('aa');
+            $(this).closest('.package-detail-front').remove();
+        });
+    });
+    </script>
+        
+        
+        <!--End for add custome box of package -->
         
         
          <li>
@@ -1562,7 +1658,7 @@ if($new_job_step == "1")
                
  
         
-        
+       <!-- 
         <li class="<?php echo shipme_get_post_new_error_thing('jb_category') ?>">
         <?php echo shipme_get_post_new_error_thing_display('jb_category') ?>
         <h2><?php echo __('Job Category', 'shipme'); ?></h2>
@@ -1623,7 +1719,7 @@ if($new_job_step == "1")
             </p>
         </li>
         
-        
+        -->
         
         <li class="<?php echo shipme_get_post_new_error_thing('price') ?>">
         <?php echo shipme_get_post_new_error_thing_display('price') ?>        
