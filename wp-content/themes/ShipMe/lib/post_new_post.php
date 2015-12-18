@@ -169,18 +169,22 @@ if(isset($_POST['job_submit_step1']))
 	//
 	//}
 	update_post_meta($pid, "package_detail", 		$_POST['package_detail']);
+	if(isset($_POST['package_detail'])){
+		if(!empty($_POST['package_detail'])){
 	foreach($_POST['package_detail'] as $single_package){
 		foreach( $single_package as $single_value){
-			if(!is_numeric($single_value))
+			if(!is_numeric($single_value)){
 			$projectOK = 0;
 		$MYerror['num_of_package'] 	= __('You need to enter ineteger value in Length,Height,Width,Number Of package.','shipme');
-		$class_errors['num_of_package']		= 'You need to enter ineteger value in Length,Height,Width,Number Of package.'; 
+		$class_errors['num_of_package']		= 'You need to enter ineteger value in Length,Height,Width,Number Of package.'; }
 			}
 		}
+		}
+	}
 	if(empty($_POST['package_detail'])){
 		
 		$projectOK = 0;
-		$MYerror['num_of_package'] 	= __('You need to type in a pickup location.','shipme');
+		$MYerror['num_of_package'] 	= __('You need to enter ineteger value in Length,Height,Width,Number Of package.','shipme');
 		$class_errors['num_of_package']		= 'You need to enter ineteger value in Length,Height,Width,Number Of package.'; 
 		//$class_errors['pickup_location']		= 'error_class_post_new'; 
 		}

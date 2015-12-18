@@ -496,6 +496,44 @@ map.set('styles', [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#D1E
                 </div>
 			</li>
             
+            <li class="widget-container widget_text">
+            	<h3 class="widget-title"><?php _e('Extra Requirements','shipme') ?></h3>
+                <?php if(get_field('need_a_helper', $pid, true)=='1'){ ?>
+                <div class="my-only-widget-content " id='content-of-jb'>
+             			<?php
+							echo 'Need Helper For Carry Package';
+							?>
+							
+                </div>
+			<?php	} ?>
+            
+            <?php if(get_field('fragile_materials', $pid, true)=='1'){ ?>
+                <div class="my-only-widget-content " id='content-of-jb'>
+             			<?php
+							echo 'There is Fragile Materials';
+							?>
+							
+                </div>
+			<?php	} ?>
+            
+            <?php if(get_field('commercial_purpose', $pid, true)=='1'){ ?>
+                <div class="my-only-widget-content " id='content-of-jb'>
+             			<?php
+							echo 'For Commercial Purpose';
+							?>
+							
+                </div>
+			<?php	} ?>
+            
+            <?php if(get_field('packing_services', $pid, true)=='1'){ ?>
+                <div class="my-only-widget-content " id='content-of-jb'>
+             			<?php
+							echo 'Packing Services';
+							?>
+							
+                </div>
+			<?php	} ?>
+			</li>
             
             
         </ul>    
@@ -561,30 +599,48 @@ map.set('styles', [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#D1E
             	<h3 class="widget-title"><?php _e('Package Dimensions','shipme') ?></h3>
                 <div class="my-only-widget-content " >
              		  	
-                        <ul class="rms1"> 
+                     	  	<?php  $package_detail_display = get_post_meta($pid,'package_detail',true);
+						if ( count( $package_detail_display ) > 0 && is_array($package_detail_display) ) {
+							foreach( $package_detail_display as $track ) {
+								?>
+                                
+                                <ul class="rms1" > 
                         <li>   
                                 <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                <p class="rf2"><?php echo sprintf (__('Width: %s','shipme'), shipme_get_dimension_thing( get_post_meta(get_the_ID(),'width',true), shipme_get_dimensions_measure())); ?></p>	
+                                <p class="rf2">Number Of Package: <?php echo $track['num_of_package']; ?></p>	
                         </li>
                         
                         
                          <li>   
                                 <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                <p class="rf2"><?php echo sprintf (__('Height: %s','shipme'), shipme_get_dimension_thing( get_post_meta(get_the_ID(),'height',true), shipme_get_dimensions_measure())); ?></p>	
+                                <p class="rf2">Height: <?php echo $track['height'].'cm'; ?></p>	
                         </li>
                         
                         
                          <li>   
                                 <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                <p class="rf2"><?php echo sprintf (__('Length: %s','shipme'), shipme_get_dimension_thing( get_post_meta(get_the_ID(),'length',true), shipme_get_dimensions_measure())); ?></p>	
+                                <p class="rf2">Width: <?php echo $track['width'].'cm'; ?></p>	
                         </li>
                         
                         
                          <li>   
                                 <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                <p class="rf2"><?php echo sprintf (__('Weight: %s','shipme'), shipme_get_dimension_thing( get_post_meta(get_the_ID(),'weight',true), shipme_get_weight_measure())); ?></p>	
+                                <p class="rf2">Length: <?php echo $track['length'].'cm'; ?></p>	
                         </li>
+                        
+                        <li style="border-bottom: 1px solid #e7e7e7">   
+                                <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
+                                <p class="rf2">Weight: <?php echo $track['weight'].'kg'; ?></p>	
+                        </li>
+                        
                     </ul> 
+                                <?php
+							}
+						}
+						 ?>
+                        
+                        
+                      
                         
                         
                 </div>
