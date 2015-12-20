@@ -2368,8 +2368,8 @@ function shipme_theme_job_dts()
         
        <?php endif; ?>
        
-       <!--
        
+       <!--
         <li class="<?php echo shipme_get_post_new_error_thing('length') ?>">
         <?php echo shipme_get_post_new_error_thing_display('length') ?>
         <h2><?php echo __('Length', 'shipme'); ?></h2>
@@ -2397,7 +2397,7 @@ function shipme_theme_job_dts()
         <p><input type="text" size="10" class="do_input form-control" name="weight" id="weight" placeholder="<?php echo shipme_get_weight_measure() ?>" value="<?php echo get_post_meta($pid,'weight',true); ?>" /></p>
         </li>
         
-       
+    -->
   
     
      	<li>
@@ -2442,7 +2442,7 @@ function shipme_theme_job_dts()
           
           
           
-          
+	          
        <?php _e("Ad Valid Until:",'shipme'); ?></h2>
         <p><input type="text" name="ending" id="ending" value="<?php
 		
@@ -2454,7 +2454,7 @@ function shipme_theme_job_dts()
 		}
 		 ?>" class="do_input"  /></p>
         </li>
-        -->
+        
  <script>
 
 jQuery(document).ready(function() {

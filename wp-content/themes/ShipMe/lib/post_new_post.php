@@ -226,7 +226,10 @@ if(isset($_POST['job_submit_step1']))
 	
 	$ending = current_time('timestamp',0) + 30*3600*24;
 	update_post_meta($pid,'ending', $ending);
-	
+        //added closed and paid for active job display
+        update_post_meta($pid,'closed','0');
+        update_post_meta($pid,'paid','1');
+	//End added closed and paid for active job display
 	$my_post = array();
 	
 	$my_post['post_title'] 		= $job_title;
