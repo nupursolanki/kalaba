@@ -28,8 +28,8 @@
 					
 					var myRel = jQuery(this).attr('rel');
 					 
-					
-					jQuery.colorbox({href: "<?php bloginfo('siteurl'); ?>/?get_bidding_panel=" + myRel  });
+					 jQuery.colorbox({href: "<?php bloginfo('siteurl'); ?>/?get_bidding_panel=" + myRel + "&postid=<?php echo get_the_id(); ?>"});
+					//jQuery.colorbox({href: "<?php bloginfo('siteurl'); ?>/?get_bidding_panel=" + myRel  });
 					return false;
 				});
 				
@@ -410,7 +410,17 @@ map.set('styles', [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#D1E
 					endif;
 					
 					//-------------
-					
+                                        ?>
+                     <table id="example" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Bid Amount</th>
+                                            <th>Date & Time</th>
+                                        </tr>
+                                    </thead>       
+                                    <tbody>
+					<?php
 					foreach($res as $row)
 					{
 						
@@ -820,6 +830,31 @@ echo ' <tr>';
 
 <?php endwhile; ?>
 
+
 <?php
-	get_footer();
+if ($_POST) {
+
+
+    $bid = $_POST['bid'];
+    $description2 = $_POST['description2'];
+    $pid = get_the_id();
+    $cid = get_current_user_id();
+    $cdate = date('d-M-Y H:i:s');
+
+    $wpdb->insert(
+            'tf_ship_bids', array(
+        'bid' => $bid,
+        'uid' => $cid,
+        'pid' => $pid,
+        'description' => $description2,
+        'date_made' => $cdate,
+            )
+    );
+    echo "<meta http-equiv='refresh' content='0'>";
+}
+?>
+
+
+<?php
+get_footer();
 ?>
