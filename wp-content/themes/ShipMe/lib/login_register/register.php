@@ -37,18 +37,18 @@ if (!function_exists('shipme_do_register_scr')) {
                 $user_pwd = $_POST['user_pwd'];
                 $user_con_pwd = $_POST['user_con_pwd'];
                 $sanitized_user_login = $user_login;
-                $con_address='';
-                $con_address_lat='';
-                $con_address_lng='';
-                if(isset($_POST['con_address'])){
-                   $con_address= $_POST['con_address'];
+                $con_address = '';
+                $con_address_lat = '';
+                $con_address_lng = '';
+                if (isset($_POST['con_address'])) {
+                    $con_address = $_POST['con_address'];
                 }
-                
-                if(isset($_POST['con_address_lat'])){
-                   $con_address_lat= $_POST['con_address_lat'];
+
+                if (isset($_POST['con_address_lat'])) {
+                    $con_address_lat = $_POST['con_address_lat'];
                 }
-                if(isset($_POST['con_address_lng'])){
-                   $con_address_lng= $_POST['con_address_lng'];
+                if (isset($_POST['con_address_lng'])) {
+                    $con_address_lng = $_POST['con_address_lng'];
                 }
 
 
@@ -199,13 +199,13 @@ if (!function_exists('shipme_do_register_scr')) {
                                         <script type="text/javascript">
                                             jQuery(document).ready(function () {
                                                 if (jQuery('.select_div').attr("value") == "transporter") {
-                                                        jQuery(".contracter-section").hide();
-                                                        jQuery(".transporter-section").show();
-                                                    }
-                                                    if (jQuery('.select_div').attr("value") == "contractor") {
-                                                        jQuery(".transporter-section").hide();
-                                                        jQuery(".contracter-section").show();
-                                                    }
+                                                    jQuery(".contracter-section").hide();
+                                                    jQuery(".transporter-section").show();
+                                                }
+                                                if (jQuery('.select_div').attr("value") == "contractor") {
+                                                    jQuery(".transporter-section").hide();
+                                                    jQuery(".contracter-section").show();
+                                                }
                                                 jQuery('.select_div').change(function () {
 
                                                     if (jQuery(this).attr("value") == "transporter") {
@@ -221,9 +221,36 @@ if (!function_exists('shipme_do_register_scr')) {
                                             });
 
                                             // This example displays an address form, using the autocomplete feature
-                // of the Google Places API to help users fill in the information.
+                                            // of the Google Places API to help users fill in the information.
 
                                             var placeSearch, autocomplete, autocomplete2;
+
+
+                                            function initAutocomplete_transporter(autocomplete2) {
+                                                // Create the autocomplete object, restricting the search to geographical
+                                                // location types.
+                                                //                                                autocomplete = new google.maps.places.Autocomplete(
+                                                //                                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_pickup')),
+                                                //                                                        {types: ['geocode']});
+                                                //
+                                                //                                                // When the user selects an address from the dropdown, populate the address
+                                                //                                                // fields in the form.
+                                                //                                                autocomplete.addListener('place_changed', fillInAddress);
+
+
+                                                //-------------------------------------------------------------------
+                                                //console.log(autocomplete2);
+                                                id=autocomplete2;
+                                                autocomplete2 = new google.maps.places.Autocomplete(
+                                                        /** @type {!HTMLInputElement} */(document.getElementById(autocomplete2)),
+                                                        {types: ['geocode']});
+
+                                                // When the user selects an address from the dropdown, populate the address
+                                                // fields in the form.
+                                                autocomplete2.addListener('place_changed', fillInAddress_transporter(id));
+
+
+                                            }
 
 
                                             function initAutocomplete() {
@@ -240,18 +267,19 @@ if (!function_exists('shipme_do_register_scr')) {
 
                                                 //-------------------------------------------------------------------
 
-                                                autocomplete2 = new google.maps.places.Autocomplete(
-                                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_delivery')),
-                                                        {types: ['geocode']});
-
-                                                // When the user selects an address from the dropdown, populate the address
-                                                // fields in the form.
-                                                autocomplete2.addListener('place_changed', fillInAddress2);
+                                                //                                                autocomplete2 = new google.maps.places.Autocomplete(
+                                                //                                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_delivery')),
+                                                //                                                        {types: ['geocode']});
+                                                //
+                                                //                                                // When the user selects an address from the dropdown, populate the address
+                                                //                                                // fields in the form.
+                                                //                                                autocomplete2.addListener('place_changed', fillInAddress2);
 
 
                                             }
 
-                // [START region_fillform]
+
+                                            // [START region_fillform]
                                             function fillInAddress() {
                                                 // Get the place details from the autocomplete object.
                                                 var place = autocomplete.getPlace();
@@ -261,6 +289,23 @@ if (!function_exists('shipme_do_register_scr')) {
 
                                                 document.getElementById('con_address_lat').value = lat;
                                                 document.getElementById('con_address_lng').value = lng;
+
+                                            }
+                                            
+                                            
+                                            function fillInAddress_transporter(id) {
+                                                // Get the place details from the autocomplete object.
+                                                console.log(autocomplete2);
+                                                var place = autocomplete2.getPlace();
+                                                var lat = place.geometry.location.lat();
+                                                var lng = place.geometry.location.lng();
+
+                                                 var latid= 'lat_' + id;
+                                                 var lngid= 'lng_' + id;
+                                                 console.log(latid,lat);
+                                                 console.log(latid,lng);
+                                                document.getElementById(latid).value = lat;
+                                                document.getElementById(lngid).value = lng;
 
                                             }
 
@@ -275,11 +320,11 @@ if (!function_exists('shipme_do_register_scr')) {
                                                 document.getElementById('delivery_lng').value = lng;
 
                                             }
-                // [END region_fillform]
+                                            // [END region_fillform]
 
-                // [START region_geolocation]
-                // Bias the autocomplete object to the user's geographical location,
-                // as supplied by the browser's 'navigator.geolocation' object.
+                                            // [START region_geolocation]
+                                            // Bias the autocomplete object to the user's geographical location,
+                                            // as supplied by the browser's 'navigator.geolocation' object.
                                             function geolocate_pickup() {
                                                 if (navigator.geolocation) {
                                                     navigator.geolocation.getCurrentPosition(function (position) {
@@ -313,73 +358,142 @@ if (!function_exists('shipme_do_register_scr')) {
                                                     });
                                                 }
                                             }
-                                            
-     
+
+
                                         </script>
-                                        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+                                        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete_transporter" async defer></script>
 
                                         <div class="transporter-section" style="display: none">                        
                                             <div class="transporter-section-inner">
                                                 <?php
-                                                $c=0;
-                                                if(isset($_POST['tra_office_address'])){
-                                                    $c=count($_POST['tra_office_address']);
-                                                   if ( count( $_POST['tra_office_address'] ) > 0 && is_array($_POST['tra_office_address']) ) {
-                                                   foreach( $_POST['tra_office_address'] as $track ) { 
-                                                     ?>
-                                                <p>							 
-                                                <label for="tra_office_address"><?php _e('Office Address Area:', 'shipme') ?></label>
-                                                <input type="text" size="50" onFocus="geolocate_delivery()" id="autocomplete_delivery" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" class="do_input" name="tra_office_address[<?php echo $c; ?>]" id="tra_office_address" size="50" maxlength="100" value="<?php echo $track; ?>" />
-                                                <a href="javascript:void(0)" class="remove_office"> <?php _e('Remove Office Address', 'shipme') ?></a>
-                                            </p>
-                                                <?php
-                                                   }
-                                                   
-                                                   }
+                                                $c = 0;
+                                                $i=1;
+                                                if (isset($_POST['tra_office_address'])) {
+                                                    $c = count($_POST['tra_office_address']);
+                                                    if (count($_POST['tra_office_address']) > 0 && is_array($_POST['tra_office_address'])) {
+                                                        foreach ($_POST['tra_office_address'] as $track) {
+                                                            ?>
+                                                            <p>							 
+                                                                <label for="tra_office_address"><?php _e('Office Address Area:', 'shipme') ?></label>
+                                                                <input type="text" size="50" onFocus="geolocate_delivery()" id="autocomplete_delivery<?php echo $i; ?>" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" class="do_input autocomplete_delivery" name="tra_office_address[<?php echo $i; ?>]" id="tra_office_address" size="50" maxlength="100" value="<?php echo $track; ?>" />
+                                                                <a href="javascript:void(0)" class="remove_office"> <?php _e('Remove Office Address', 'shipme') ?></a>
+                                                                <input type="hidden" value="<?php echo $con_address_lat; ?>"  name="off_address_lat" id="lat_autocomplete_deliver<?php echo $i; ?>"  />
+                                            <input type="hidden" value="<?php echo $con_address_lng; ?>"  name="off_address_lng" id="lng_autocomplete_deliver<?php echo $i; ?>"  />
+                                                            </p>
+                                                            <?php
+                                                            $i++;
+                                                        }
+                                                    }
                                                 }
                                                 ?>
-                                            
+                                                            
+                                                
+
                                             </div>
                                             <p>
-                                            <label for="add_address">&nbsp;</label>
-                                            <a href="javascript:void(0)" class="submit_bottom2 add_address"> <?php _e('Add Office Address', 'shipme') ?></a>
-                                        </p>
+                                                <label for="add_address">&nbsp;</label>
+                                                <a href="javascript:void(0)" class="submit_bottom2 add_address"> <?php _e('Add Office Address', 'shipme') ?></a>
+                                            </p>
+                                            <div class="preffered-section-inner" >
+                                                            <?php
+                                                $c1 = 0;
+                                                $i1=1;
+                                                if (isset($_POST['tra_preffered_address'])) {
+                                                    $c1 = count($_POST['tra_preffered_address']);
+                                                    if (count($_POST['tra_preffered_address']) > 0 && is_array($_POST['tra_preffered_address'])) {
+                                                        foreach ($_POST['tra_preffered_address'] as $track) {
+                                                            ?>
+                                                            <p>							 
+                                                                <label for="tra_preffered_address"><?php _e('Preffered Area:', 'shipme') ?></label>
+                                                                <input type="text" size="50" onFocus="geolocate_delivery()" id="preffered_autocomplete_delivery<?php echo $i1; ?>" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" class="do_input autocomplete_delivery" name="tra_preffered_address[<?php echo $i1; ?>]" id="tra_preffered_address" size="50" maxlength="100" value="<?php echo $track; ?>" />
+                                                                <a href="javascript:void(0)" class="tra_preffered_address"> <?php _e('Remove Office Address', 'shipme') ?></a>
+                                                                <input type="hidden" value="<?php echo $con_address_lat; ?>"  name="lat_tra_preffered_address" id="lat_tra_preffered_address<?php echo $i1; ?>"  />
+                                            <input type="hidden" value="<?php echo $con_address_lng; ?>"  name="lng_tra_preffered_address" id="lng_tra_preffered_address<?php echo $i1; ?>"  />
+                                                            </p>
+                                                            <?php
+                                                            $i1++;
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                            <p>
+                                                <label for="preffered_address">&nbsp;</label>
+                                                <a href="javascript:void(0)" class="submit_bottom2 preffered_address"> <?php _e('Add Preffered Address', 'shipme') ?></a>
+                                            </p>
 
                                         </div>
                                         <script>
-                                                                                   var $ =jQuery.noConflict();
-    $(document).ready(function() {
-        var count = <?php echo $c; ?>;
-        $(".add_address").click(function() {
-            count = count + 1;
+                                            var $ = jQuery.noConflict();
+                                           
+                                            $(document).ready(function () {
+                                                var count = <?php echo $c; ?>;
+//                                                for(i=0;i<=count;i++){
+//                                                    oldid='autocomplete' + i;
+//                                                     initAutocomplete_transporter(oldid);
+//                                                }
+                                                number = 1;
+                                                $(".add_address").click(function () {
+                                                    count = count + 1;
+                                                    newid = 'autocomplete' + count;
 
+                                                    $('.transporter-section-inner').append('<p><label for="tra_office_address"><?php _e('Office Address Area:', 'shipme') ?></label><input size="50" id="' + newid + '" onFocus="geolocate_delivery()" type="text" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" class="do_input" name="tra_office_address[' + count + ']" id="tra_office_address" size="50" maxlength="100" value="" /><a href="javascript:void(0)" class="remove_office"> <?php _e('Remove Office Address', 'shipme') ?></a><input type="hidden" value=""  name="off_address_lat" id="lat_'+newid+'"  /><input type="hidden" value=""  name="off_address_lng" id="lng_'+newid+'"  /></p>');
+                                                    number = number + 1;
+                                                    initAutocomplete_transporter(newid);
+                                                    return false;
+                                                });
+                                                var count1 = <?php echo $c1; ?>;
+//                                                for(i=0;i<=count;i++){
+//                                                    oldid='autocomplete' + i;
+//                                                     initAutocomplete_transporter(oldid);
+//                                                }
+                                                number1 = 1;
+                                                $(".preffered_address").click(function () {
+                                                    count1 = count1 + 1;
+                                                    newid1 = 'preffered_autocomplete_delivery' + count1;
 
-            $('.transporter-section-inner').append('<p><label for="tra_office_address"><?php _e('Office Address Area:', 'shipme') ?></label><input size="50" id="autocomplete_delivery" onFocus="geolocate_delivery()" type="text" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" class="do_input" name="tra_office_address['+count+']" id="tra_office_address" size="50" maxlength="100" value="" /><a href="javascript:void(0)" class="remove_office"> <?php _e('Remove Office Address', 'shipme') ?></a></p>');
-		
-		
-            return false;
-        });
-        $(document).on('click', '.remove_office' ,function() {
-			//alert('aa');
-            $(this).closest('p').remove();
-        });
-    });
-                                            </script>
-                                        
+                                                    $('.preffered-section-inner').append('<p><label for="tra_preffered_address"><?php _e('Preffered Area:', 'shipme') ?></label><input type="text" size="50" onFocus="geolocate_delivery()" id="' + newid1 + '" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" class="do_input" name="tra_preffered_address['+count1+']" id="tra_preffered_address" size="50" maxlength="100" value="" /><a href="javascript:void(0)" class="tra_preffered_address"> <?php _e('Remove Office Address', 'shipme') ?></a><input type="hidden" value=""  name="lat_'+newid1+'" id="lat_tra_preffered_address'+count1+'"  /><input type="hidden" value=""  name="lng_tra_preffered_address" id="lng_tra_preffered_address'+count1+'"  /></p>');
+                                                    number1 = number1 + 1;
+                                                    initAutocomplete_transporter(newid1);
+                                                    return false;
+                                                });
+                                                
+                                                $(document).on('click', '.remove_office', function () {
+                                                    //alert('aa');
+                                                    $(this).closest('p').remove();
+                                                });
+                                                $(document).on('click', '.tra_preffered_address', function () {
+                                                    //alert('aa');
+                                                    $(this).closest('p').remove();
+                                                });
+                                                $(document).on('focus', '#autocomplete_pickup', function () {
+                                                    //alert('aa');
+                                                     initAutocomplete_transporter('autocomplete_pickup');
+                                                });
+                                                $(document).on('focus', '.autocomplete_delivery', function () {
+                                                    //alert('aa');
+                                                    $(this).attr('id');
+//                                                    alert($(this).attr('id'));
+                                                     initAutocomplete_transporter($(this).attr('id'));
+                                                });
+                                            });
+                                        </script>
+
                                         <div class="contracter-section" style="display: none">                                 
-                                           <p>	
+                                            <p>	
                                                 <label for="con_address"><?php _e('Address Area:', 'shipme') ?></label>
                                                 <input type="text" size="50" onFocus="geolocate_pickup()" id="autocomplete_pickup" class="do_input" name="con_address" 
-                                                       placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" value="<?php  echo $con_address;  ?>" /></p>
-                                            
+                                                       placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" value="<?php echo $con_address; ?>" /></p>
+
                                             <input type="hidden" value="<?php echo $con_address_lat; ?>"  name="con_address_lat" id="con_address_lat"  />
                                             <input type="hidden" value="<?php echo $con_address_lng; ?>"  name="con_address_lng" id="con_address_lng"  />
                                         </div>
-
+                                        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+                                        
                                         <?php do_action('register_form'); ?>
 
-                                        <p><label for="submitbtn">&nbsp;</label>
-                                            <?php _e('A password will be emailed to you.', 'shipme') ?></p>
+<!--                                        <p><label for="submitbtn">&nbsp;</label>
+                                            <?php _e('A password will be emailed to you.', 'shipme') ?></p>-->
 
 
 
@@ -531,18 +645,26 @@ if (!function_exists('shipme_register_new_user_sitemile')) {
             $errors->add('registerfail', sprintf(__('<strong>ERROR</strong>: Couldn&#8217;t register you... please contact the <a href="mailto:%s">webmaster</a> !', 'shipme'), get_option('admin_email')));
             return $errors;
         }
-        if($_POST['user_tp']=='contractor'){
-            if(isset($_POST['con_address_lat'])){
-           update_user_meta($user_id, 'con_address_lat', $_POST['con_address_lat']); 
+        if ($_POST['user_tp'] == 'contractor') {
+            if (isset($_POST['con_address_lat'])) {
+                update_user_meta($user_id, 'con_address_lat', $_POST['con_address_lat']);
             }
-            if(isset($_POST['con_address_lng'])){
-           update_user_meta($user_id, 'con_address_lng', $_POST['con_address_lng']); 
+            if (isset($_POST['con_address_lng'])) {
+                update_user_meta($user_id, 'con_address_lng', $_POST['con_address_lng']);
             }
-            if(isset($_POST['con_address'])){
-           update_user_meta($user_id, 'con_address', $_POST['con_address']); 
+            if (isset($_POST['con_address'])) {
+                update_user_meta($user_id, 'con_address', $_POST['con_address']);
             }
         }
         
+        if ($_POST['user_tp'] == 'transporter') {
+           if(isset($_POST['tra_preffered_address'])){
+             update_user_meta($user_id, 'tra_preffered_address', $_POST['tra_preffered_address']);  
+           } 
+           if(isset($_POST['tra_office_address'])){
+             update_user_meta($user_id, 'tra_office_address', $_POST['tra_office_address']);  
+           }
+        }
         update_user_option($user_id, 'default_password_nag', true, true); //Set up the Password change nag.
 
         update_user_meta($user_id, 'shipping_info', $shipping_info);

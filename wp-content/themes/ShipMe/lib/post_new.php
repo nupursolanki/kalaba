@@ -8,6 +8,27 @@
 
 function shipme_theme_post_new_function()
 {
+    
+            if (isset($_GET['jobid'])) {
+        $jobid = $_GET['jobid'];
+        //echo $jobid;
+        if (is_user_logged_in()) {
+            $post_tmp = get_post($_GET['jobid']);
+            $author_id = $post_tmp->post_author;
+            if (get_current_user_id() == $author_id) {
+               // wp_delete_post($jobid,TRUE); 
+                //echo '<div class="total-content-area note-note ">Job Deleted Successfully</div>';
+                //echo 'user can edit';exit;
+            }
+            else
+            {
+              echo '<div class="total-content-area note-note ">You Can not able To Edit Job.</div>';exit;  
+                ?>
+<!--<div class="total-content-area note-note ">You Can't Able To Delete This Job</div>-->
+<?php
+            }
+        }
+    }
 
 	ob_start();
 	

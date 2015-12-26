@@ -266,9 +266,20 @@ map.set('styles', [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#D1E
             <div class="my-only-widget-content ">
             	<?php
 					
-					$mm = '<a class="green_btn" href="">'.__('Edit Job','shipme').'</a> <a class="green_btn" href="">'.__('Delete Job','shipme').'</a>';
+					$mm = '<a class="green_btn" href="'.get_site_url().'/post-new-transport-job/?post_new_step=1&jobid='.get_the_ID().'">'.__('Edit Job','shipme').'</a> <a class="green_btn delete_job" href="'.get_site_url().'/my-account-area/?action=delete&jobid='.get_the_ID().'">'.__('Delete Job','shipme').'</a>';
 				
 				?>
+                <script>
+                    $(document).on('click','.delete_job', function (){
+                        if (confirm("Are Yor Really Want to Delete Job ?") == true) {
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+//                        confirm('Are Yor Really Want to Delete Job ?');
+                    });
+                    </script>
             	<?php printf(__('You are the owner of this job. Your options are: %s','shipme'), $mm); ?>
                 </div>            
             </li>
@@ -419,47 +430,108 @@ map.set('styles', [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#D1E
 						if($show_this_around == 1):
 						
 						$user = get_userdata($row->uid);
-						echo '<div class="myrow">';
-						echo '<div><i class="bid-person"></i> <a href="'.shipme_get_user_profile_link($user->ID).'">'.$user->user_login.'</a></div>';
-						echo '<div><i class="bid-money"></i>  '.shipme_get_show_price($row->bid).'</div>';
-						echo '<div><i class="bid-clock"></i> '.date_i18n("d-M-Y H:i:s", $row->date_made).'</div>';
-						echo '<div><i class="bid-days"></i> '. sprintf(__("%s days" ,"shipme"), $row->days_done) .'</div>';
-						if ($owner == 1 ) {
-							
-							$nr = 7;
-							if(empty($winner)) // == 0)
-								echo '<div><i class="bid-select"></i>  <a href="'.get_bloginfo('siteurl').'/?p_action=choose_winner&pid='.get_the_ID().'&bid='.$row->id.'">'.__('Select as Winner','shipme').'</a></div>';						
-							
-							if($shipme_enable_project_files != "no")
-							{
-								if(shipme_see_if_project_files_bid(get_the_ID(), $row->uid) == true)
-								{
-								echo '<div> <i class="bid-days"></i> ';								
-								echo '<a href="#" class="get_files" rel="'.get_the_ID().'_'.$row->uid.'">'.__('See Bid Files','shipme').'</a> ';							
-								echo '</div>';
-								}
-							
-							}
-							echo '<div><i class="bid-env"></i> <a href="'.shipme_get_priv_mess_page_url('send', '', '&uid='.$row->uid.'&pid='.get_the_ID()).'">'.__('Send Message','shipme').'</a></div>';
-						}
-						else $nr = 4;
-						
-						if($closed == "1") { if($row->winner == 1) echo '<div>'.__('Project Winner','shipme').'</div>';   }
-						
-						 
-						
-						 
-						echo '<div class="my_td_with_border">'.$row->description.'</div>';
-						echo '</div>';
-						endif;
-					}
-					
-					echo ' </div> ';
-				}
-				else { echo '<div class="padd10">'; _e("No proposals placed yet.",'shipme'); echo '</div>'; }
+//						echo '<div class="myrow">';
+//						echo '<div><i class="bid-person"></i> <a href="'.shipme_get_user_profile_link($user->ID).'">'.$user->user_login.'</a></div>';
+//						echo '<div><i class="bid-money"></i>  '.shipme_get_show_price($row->bid).'</div>';
+//						echo '<div><i class="bid-clock"></i> '.date_i18n("d-M-Y H:i:s", $row->date_made).'</div>';
+//						echo '<div><i class="bid-days"></i> '. sprintf(__("%s days" ,"shipme"), $row->days_done) .'</div>';
+//						if ($owner == 1 ) {
+//							
+//							$nr = 7;
+//							if(empty($winner)) // == 0)
+//								echo '<div><i class="bid-select"></i>  <a href="'.get_bloginfo('siteurl').'/?p_action=choose_winner&pid='.get_the_ID().'&bid='.$row->id.'">'.__('Select as Winner','shipme').'</a></div>';						
+//							
+//							if($shipme_enable_project_files != "no")
+//							{
+//								if(shipme_see_if_project_files_bid(get_the_ID(), $row->uid) == true)
+//								{
+//								echo '<div> <i class="bid-days"></i> ';								
+//								echo '<a href="#" class="get_files" rel="'.get_the_ID().'_'.$row->uid.'">'.__('See Bid Files','shipme').'</a> ';							
+//								echo '</div>';
+//								}
+//							
+//							}
+//							echo '<div><i class="bid-env"></i> <a href="'.shipme_get_priv_mess_page_url('send', '', '&uid='.$row->uid.'&pid='.get_the_ID()).'">'.__('Send Message','shipme').'</a></div>';
+//						}
+//						else $nr = 4;
+//						
+//						if($closed == "1") { if($row->winner == 1) echo '<div>'.__('Project Winner','shipme').'</div>';   }
+//						
+//						 
+//						
+//						 
+//						echo '<div class="my_td_with_border">'.$row->description.'</div>';
+//						echo '</div>';
+//						endif;
+//					}
+//					
+//					echo ' </div> ';
+//				}
+//				else { echo '<div class="padd10">'; _e("No proposals placed yet.",'shipme'); echo '</div>'; }
 				?>	 
-                </div>
-			</li>
+<!--                </div>
+			</li>-->
+<?php
+$user = get_userdata($row->uid);
+echo ' <tr>';
+                                                echo '<td><a href="' . get_edit_user_link($user->ID) . '">' . $user->user_login . '</td>';
+                                                echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
+                                                echo '<td>' . $row->date_made . '</td>';
+                                                echo ' </tr>';
+                                                if ($owner == 1) {
+
+                                                    $nr = 7;
+                                                    if (empty($winner)) // == 0)
+                                                        echo '<div><i class="bid-select"></i>  <a href="' . get_bloginfo('siteurl') . '/?p_action=choose_winner&pid=' . get_the_ID() . '&bid=' . $row->id . '">' . __('Select as Winner', 'shipme') . '</a></div>';
+
+                                                    if ($shipme_enable_project_files != "no") {
+                                                        if (shipme_see_if_project_files_bid(get_the_ID(), $row->uid) == true) {
+                                                            echo '<div> <i class="bid-days"></i> ';
+                                                            echo '<a href="#" class="get_files" rel="' . get_the_ID() . '_' . $row->uid . '">' . __('See Bid Files', 'shipme') . '</a> ';
+                                                            echo '</div>';
+                                                        }
+                                                    }
+                                                    echo '<div><i class="bid-env"></i> <a href="' . shipme_get_priv_mess_page_url('send', '', '&uid=' . $row->uid . '&pid=' . get_the_ID()) . '">' . __('Send Message', 'shipme') . '</a></div>';
+                                                } else
+                                                    $nr = 4;
+
+                                                if ($closed == "1") {
+                                                    if ($row->winner == 1)
+                                                        echo '<div>' . __('Project Winner', 'shipme') . '</div>';
+                                                }
+
+
+
+
+                                                //echo '<div class="my_td_with_border">' . $row->description . '</div>';
+                                                echo '</div>';
+                                            endif;
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                                <?php
+                                echo ' </div> ';
+                            }
+                            else {
+                                echo '<div class="padd10">';
+                                _e("No proposals placed yet.", 'shipme');
+                                echo '</div>';
+                            }
+                            ?>	 
+                        </div>
+                    </li>
+
+
+                    <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.dataTables.min.js"></script>
+                    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_url'); ?>/css/jquery.dataTables.min.css" />
+
+                    <script type="text/javascript">
+            jQuery(document).ready(function () {
+                $('#example').DataTable();
+
+            });
+                    </script>
             
             
             

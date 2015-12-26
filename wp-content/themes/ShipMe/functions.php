@@ -1331,9 +1331,10 @@ function shipme_get_regular_job_post_account($class_optional = '')
              
               <div class="button-area col-xs-12 col-sm-2 col-lg-2">
              	<a href="<?php the_permalink() ?>" class="submit_bottom4"  ><i class="fa fa-check-circle"></i> <?php _e('Job Page','shipme') ?></a>
-                <a href="<?php the_permalink() ?>" class="submit_bottom4"  ><i class="fa fa-pencil-square-o"></i> <?php _e('Edit Job','shipme') ?></a>
-                <a href="<?php the_permalink() ?>" class="submit_bottom4"  ><i class="fa fa-times"></i> <?php _e('Delete Job','shipme') ?></a>
+                <a href="<?php echo get_site_url(); ?>/post-new-transport-job/?post_new_step=1&jobid=<?php echo the_ID(); ?>" class="submit_bottom4"  ><i class="fa fa-pencil-square-o"></i> <?php _e('Edit Job','shipme') ?></a>
+                <a href="<?php echo get_site_url(); ?>/my-account-area/?action=delete&jobid=<?php echo the_ID(); ?>" class="submit_bottom4 delete_job"  ><i class="fa fa-times"></i> <?php _e('Delete Job','shipme') ?></a>
              </div>
+            
             
         	<?php
 				// not paid job - listing fee 
@@ -3854,7 +3855,17 @@ add_action( 'after_setup_theme', 'shipme_jquery_shp_as' ); // Theme active, incl
 
 require_once('includes/function-custom.php');
 
+// For Hide DashBoard
 
+add_action('after_setup_theme', 'remove_admin_bar');
+
+function remove_admin_bar() {
+if (!current_user_can('administrator') && !is_admin()) {
+  show_admin_bar(false);
+}
+}
+
+  show_admin_bar(false);
 
 
 

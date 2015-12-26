@@ -8,8 +8,27 @@
 
 function shipme_theme_my_account_home_new()
 {
+        if (isset($_GET['jobid']) && isset($_GET['action'])) {
+        $action = $_GET['action'];
+        $jobid = $_GET['jobid'];
+        //echo $jobid;
+        if ($action == 'delete' && is_user_logged_in()) {
+            $post_tmp = get_post($_GET['jobid']);
+            $author_id = $post_tmp->post_author;
+            if (get_current_user_id() == $author_id) {
+                wp_delete_post($jobid,TRUE); 
+                echo '<div class="total-content-area note-note ">Job Deleted Successfully</div>';
+            }
+            else
+            {
+                ?>
+<div class="total-content-area note-note ">You Can't Able To Delete This Job</div>
+<?php
+            }
+        }
+    }
 
-	ob_start();
+    ob_start();
 	
 	global $current_user;
 	get_currentuserinfo();
@@ -107,6 +126,7 @@ function shipme_theme_my_account_home_new()
           
                 </div>
 			</li>
+                    
             
             
             <li class="widget-container widget_text">
@@ -217,7 +237,17 @@ function shipme_theme_my_account_home_new()
 
 
 </div>
-
+    <script>
+                    $('.delete_job').click(function (){
+                        if (confirm("Are Yor Really Want to Delete Job ?") == true) {
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+                       confirm('Are Yor Really Want to Delete Job ?');
+                    });
+                    </script>
     
 <?php
 
