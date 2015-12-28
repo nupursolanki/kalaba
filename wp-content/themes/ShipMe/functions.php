@@ -1305,7 +1305,14 @@ function shipme_get_regular_job_post_account($class_optional = '')
             </div>
             
             <div class="picture-area col-xs-12 col-sm-2 col-lg-2">
-            	<a href="<?php the_permalink() ?>"><img src="<?php echo shipme_get_first_post_image(get_the_ID(),70,70) ?>" class="img_img" width="70" /></a>
+            	<a href="<?php the_permalink() ?>">
+                     <?php if(@getimagesize(shipme_get_first_post_image(get_the_ID(),70,70))){  ?>
+                    <img src="<?php echo shipme_get_first_post_image(get_the_ID(),70,70) ?>" class="img_img" width="70" />
+                    <?php } else { ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.png" class="img_img" width="70" />
+                   <?php }?>
+                </a>
+                
             </div>
             
             <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
@@ -1370,7 +1377,16 @@ function shipme_get_regular_job_post($class_optional = '')
             </div>
             
             <div class="picture-area col-xs-12 col-sm-2 col-lg-2">
-            	<a href="<?php the_permalink() ?>"><img src="<?php echo shipme_get_first_post_image(get_the_ID(),70,70) ?>" class="img_img" width="70" /></a>
+            	<a href="<?php the_permalink() ?>">
+                    <?php if(@getimagesize(shipme_get_first_post_image(get_the_ID(),70,70))){  ?>
+                    
+                    <img src="<?php echo shipme_get_first_post_image(get_the_ID(),70,70) ?>" class="img_img" width="70" />
+                    <?php } else { ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.png" class="img_img" width="70" />
+                   <?php }?>
+                    
+                
+                </a>
             </div>
             
             <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">

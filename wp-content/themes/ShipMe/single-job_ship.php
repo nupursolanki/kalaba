@@ -484,7 +484,7 @@ map.set('styles', [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#D1E
 <?php
 $user = get_userdata($row->uid);
 echo ' <tr>';
-                                                echo '<td><a href="' . get_edit_user_link($user->ID) . '">' . $user->user_login . '</td>';
+                                                echo '<td><a href="'.get_site_url().'/user-profile/?user_id='.$user->ID.'">' . $user->user_login . '</td>';
                                                 echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
                                                 echo '<td>' . $row->date_made . '</td>';
                                                 echo ' </tr>';

@@ -62,7 +62,7 @@ function shipme_theme_my_account_received_off_fnc() {
                                 foreach ($biddetails as $row) {
                                     echo ' <tr>';
                                     echo '<td><a href="' . get_permalink($row->pid) . '">' . get_the_title($row->pid) . '</td>';
-                                    echo '<td><a href="' . get_edit_user_link($row->uid) . '">' . get_userdata($row->uid)->display_name . '</td>';
+                                    echo '<td><a href="' . get_site_url().'/user-profile/?user_id='.$row->uid.'">' . get_userdata($row->uid)->display_name . '</td>';
                                     echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
                                     echo '<td>' . $row->date_made . '</td>';
                                     echo '<td>' . $row->description . '</td>';

@@ -12,7 +12,7 @@ function shipme_theme_post_new_function()
             if (isset($_GET['jobid'])) {
         $jobid = $_GET['jobid'];
         //echo $jobid;
-        if (is_user_logged_in()) {
+        if (1) {
             $post_tmp = get_post($_GET['jobid']);
             $author_id = $post_tmp->post_author;
             if (get_current_user_id() == $author_id) {
