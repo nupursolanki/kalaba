@@ -42,3 +42,20 @@
 .wpcf7-validation-errors{display: none !important;}
 
 #price-1 , #price-2{margin-top: 20px;padding-left: 5px}
+
+
+.pick_p{margin-top: 10px;}
+.pick_div1{ padding-top: 15px;width:60%; float: left;}
+.pick_div2{ padding-top: 15px;width:40%; float: left;}
+.pick_main_div{padding-right: 30px;width: 100%;}
+
+.pick_title{ color: #555 !important;
+    float: left;
+    font-size: 14px !important;
+    margin: 0;
+    padding: 2px 6px 0 0;
+}
+
+#example_filter , #example_length{
+    display: none;
+}
