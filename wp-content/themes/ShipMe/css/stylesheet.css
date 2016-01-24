@@ -41,7 +41,7 @@
 }
 .wpcf7-validation-errors{display: none !important;}
 
-#price-1 , #price-2{margin-top: 20px;padding-left: 5px}
+#price-1 , #price-2{margin-top: 20px;padding-left: 5px;padding-right: 5px;}
 
 
 .pick_p{margin-top: 10px;}
@@ -56,6 +56,29 @@
     padding: 2px 6px 0 0;
 }
 
-#example_filter , #example_length{
+#example_filter , #example_length ,#receivedbid_filter,#receivedbid_filter{
     display: none;
 }
+
+.add_package_detail{width: 100%;  text-align: center; }
+.edit_package{border: 0px; background: none; color:#337ab7;padding: 18px}
+.package_display{background-color: #ddd;}
+.package-detail-front .package_display{margin-top: 10px;}
+.package-detail-front{width: 50%;margin: 0 auto;}
+.remove {padding: 18px;}
+.package_form{width: 60%;float: left;}
+.package_image{width:40%;float: right;}
+
+
+
+.picker {overflow: hidden;
+    width: 100%;}
+
+.do_input , .form-control{max-width: 100%}
+
+.col-md-12.row.setSize {
+    width: 65%;
+}
+
+
+.post-new3.loginform{width:100%}

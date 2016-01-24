@@ -1,4 +1,24 @@
 <?php
+if ($_POST) {
+
+
+    $bid = $_POST['bid'];
+    $description2 = $_POST['description2'];
+    $pid = get_the_id();
+    $cid = get_current_user_id();
+    $cdate = date('d-M-Y');
+
+    $wpdb->insert(
+            'tf_ship_bids', array(
+        'bid' => $bid,
+        'uid' => $cid,
+        'pid' => $pid,
+        'description' => $description2,
+        'date_made' => $cdate,
+            )
+    );
+    echo "<meta http-equiv='refresh' content='0'>";
+}
 
 function shipme_colorbox_stuff() {
 
@@ -76,7 +96,7 @@ global $post;
         <!--        <div class="container_ship_ttl_wrap_jb" >	
                     <div class="container_ship_ttl_jb">
                         <div class="my-page-title col-xs-12 col-sm-12 col-lg-12">
-                            <h1 class="super-job-title"><?php //the_title()              ?></h1>
+                            <h1 class="super-job-title"><?php //the_title()                                ?></h1>
                         </div>
 
         <?php
@@ -251,63 +271,63 @@ global $post;
                             <!--
                                                         <ul class="main_details_1">
                                                             <li>
-                                                                <h3><?php //printf(__('%s Category:', 'shipme'), '<i class="fa fa-folder"></i>');              ?></h3>
-                                                                <p><?php //echo get_the_term_list(get_the_ID(), 'job_ship_cat', '', ', ', '');              ?></p>
+                                                                <h3><?php //printf(__('%s Category:', 'shipme'), '<i class="fa fa-folder"></i>');                                ?></h3>
+                                                                <p><?php //echo get_the_term_list(get_the_ID(), 'job_ship_cat', '', ', ', '');                                ?></p>
                                                             </li>
                                                             <li>
-                                                                <h3><?php //printf(__('%s Quotes:', 'shipme'), '<i class="fa fa-briefcase"></i>');              ?></h3>
-                                                                <p><?php //echo shipme_number_of_bid(get_the_ID());              ?></p>
+                                                                <h3><?php //printf(__('%s Quotes:', 'shipme'), '<i class="fa fa-briefcase"></i>');                                ?></h3>
+                                                                <p><?php //echo shipme_number_of_bid(get_the_ID());                                ?></p>
                                                             </li>
                             
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Date Listed:', 'shipme'), '<i class="fa fa-calendar"></i>');              ?></h3>
-                                                                <p><?php //the_time("jS F Y g:i A");              ?></p>
+                                                                <h3><?php //printf(__('%s Date Listed:', 'shipme'), '<i class="fa fa-calendar"></i>');                                ?></h3>
+                                                                <p><?php //the_time("jS F Y g:i A");                                ?></p>
                                                             </li>
                             
                             
-                            <?php //if ($closed == "1"): ?>
+                            <?php //if ($closed == "1"):  ?>
                             
                                                                 <li>
-                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');              ?></h3>
-                                                                    <p class=" "><?php //echo __("Expired/Closed", 'shipme');              ?></p>
+                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');                                ?></h3>
+                                                                    <p class=" "><?php //echo __("Expired/Closed", 'shipme');                                ?></p>
                                                                 </li>
                             
                             
-                            <?php //else: ?>
+                            <?php //else:  ?>
                                                                 <li>
-                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');              ?></h3>
+                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');                               ?></h3>
                                                                     <p class="expiration_project_p"><?php //echo ($closed == "0" ? ($ending - current_time('timestamp', 0)) : __("Expired/Closed", 'shipme'));
                             ?></p>
                                                                 </li>
                             
-                            <?php //endif; ?>
+                            <?php //endif;  ?>
                             
                             
                             
                                                             <li><h3>&nbsp;</h3></li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Pickup Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');              ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lng', true);              ?></p>
+                                                                <h3><?php //printf(__('%s Pickup Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lng', true);                                ?></p>
                                                             </li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Pickup Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');              ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lat', true);              ?></p>
+                                                                <h3><?php //printf(__('%s Pickup Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lat', true);                                ?></p>
                                                             </li>
                             
                             
                                                             <li><h3>&nbsp;</h3></li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Delivery Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');              ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lat', true);              ?></p>
+                                                                <h3><?php //printf(__('%s Delivery Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lat', true);                                ?></p>
                                                             </li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Delivery Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');              ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lng', true);              ?></p>
+                                                                <h3><?php //printf(__('%s Delivery Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lng', true);                                ?></p>
                                                             </li>
                                                             
                                                               
@@ -487,11 +507,29 @@ global $post;
                                                 ?>	 
                                                 <!--                </div>
                                                                         </li>-->
+
+                                                <?php
+                                                $currentuser = wp_get_current_user();
+                                                $userRolesArry = $currentuser->roles;
+                                                $contraLInk = '';
+
+                                                if (in_array('transporter', $userRolesArry)) {
+                                                    if (shipme_is_owner_of_post()) {
+                                                        $contraLInk = '<td><a href="' . get_site_url() . '/user-profile/?user_id=' . $user->ID . '">' . $user->first_name . '</td>';
+                                                    } else {
+                                                        $contraLInk = '<td>' . $user->first_name . '</td>';
+                                                    }
+                                                } else {
+                                                    $contraLInk = '<td><a href="' . get_site_url() . '/user-profile/?user_id=' . $user->ID . '">' . $user->first_name . '</td>';
+                                                }
+                                                ?>
                                                 <?php
                                                 $user = get_userdata($row->uid);
+
                                                 echo ' <tr>';
-                                                echo '<td><a href="' . get_site_url() . '/user-profile/?user_id=' . $user->ID . '">' . $user->user_login . '</td>';
-                                                echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
+                                                echo $contraLInk;
+                                                //echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
+                                                echo '<td>' . $row->bid . ' Rs.</td>';
                                                 echo '<td>' . $row->date_made . '</td>';
                                                 echo ' </tr>';
                                                 if ($owner == 1) {
@@ -539,11 +577,19 @@ global $post;
 
 
                     <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/natural.js"></script>
+
                     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_url'); ?>/css/jquery.dataTables.min.css" />
 
                     <script type="text/javascript">
                                     jQuery(document).ready(function () {
-                                        $('#example').DataTable();
+                                        $('#example').DataTable({
+                                            columnDefs: [
+                                                {type: 'natural', targets: 2},
+                                                {type: 'natural', targets: 1},
+                                                // {type: 'natural', targets: 0}
+                                            ]
+                                        });
 
                                     });
                     </script>
@@ -602,24 +648,33 @@ global $post;
                         </div>
                     </li>
 
+                    <?php
+                    $user = wp_get_current_user();
+                    $userRolesArry = $user->roles;
+                    // print_r($userRolesArry);
+                    $contraLInk = '';
+                    if ((!in_array('contractor', $userRolesArry))) {
+                        if (!shipme_is_owner_of_post()) {
+                            ?>
+                            <li class="widget-container widget_text"> 
+                                <div class="apply-for-this">
+                                    <a href="#" class="get_bidding_panel ye_buut"   ><i class="fa fa-check-circle"></i> <?php _e('Apply for this job', 'shipme'); ?></a>
+                                </div>
+                            </li>
 
-
-                    <li class="widget-container widget_text"> 
-                        <div class="apply-for-this">
-                            <a href="#" class="get_bidding_panel ye_buut"   ><i class="fa fa-check-circle"></i> <?php _e('Apply for this job', 'shipme'); ?></a>
-                        </div>
-                    </li>
-
-
+                            <?php
+                        }
+                    }
+                    ?>
 
                     <!--                    <li class="widget-container widget_text">
-                                            <h3 class="widget-title"><?php //_e('Item(s) Pickup', 'shipme')              ?></h3>
+                                            <h3 class="widget-title"><?php //_e('Item(s) Pickup', 'shipme')                                ?></h3>
                                             <div class="my-only-widget-content " >
                     
                                                 <ul class="rms1"> 
                                                     <li>   
-                                                        <p class="rf1"><img src="<?php // bloginfo('template_url')              ?>/images/beachflag.png" /></p> 
-                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'pickup_location', true);              ?></p>	
+                                                        <p class="rf1"><img src="<?php // bloginfo('template_url')                                ?>/images/beachflag.png" /></p> 
+                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'pickup_location', true);                                ?></p>	
                                                     </li>
                                                 </ul> 
                                             </div>
@@ -628,13 +683,13 @@ global $post;
 
 
                     <!--                    <li class="widget-container widget_text">
-                                            <h3 class="widget-title"><?php //_e('Item(s) Delivery', 'shipme')         ?></h3>
+                                            <h3 class="widget-title"><?php //_e('Item(s) Delivery', 'shipme')                           ?></h3>
                                             <div class="my-only-widget-content " >
                     
                                                 <ul class="rms1"> 
                                                     <li>   
-                                                        <p class="rf1"><img src="<?php //bloginfo('template_url')         ?>/images/finish.png" /></p> 
-                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'delivery_location', true);         ?></p>	
+                                                        <p class="rf1"><img src="<?php //bloginfo('template_url')                           ?>/images/finish.png" /></p> 
+                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'delivery_location', true);                           ?></p>	
                                                     </li>
                                                 </ul> 
                     
@@ -766,9 +821,9 @@ global $post;
 //                            foreach ($attachments as $at) {
                     ?>
 
-                                                        <!--                                <li> <a href="<?php echo wp_get_attachment_url($at->ID); ?>"><?php echo $at->post_title; ?></a>
-                                                                                        </li> -->
-                    <?php //}    ?>	
+                                                                                                                                                                                                        <!--                                <li> <a href="<?php echo wp_get_attachment_url($at->ID); ?>"><?php echo $at->post_title; ?></a>
+                                                                                                                                                                                                                                        </li> -->
+                    <?php //}         ?>	
 
                     <!--                        </div>
                                         </li>-->
@@ -797,32 +852,6 @@ global $post;
 
 
     <?php endwhile; ?>
-
-
-<?php
-if ($_POST) {
-
-
-    $bid = $_POST['bid'];
-    $description2 = $_POST['description2'];
-    $pid = get_the_id();
-    $cid = get_current_user_id();
-    $cdate = date('d-M-Y H:i:s');
-
-    $wpdb->insert(
-            'tf_ship_bids', array(
-        'bid' => $bid,
-        'uid' => $cid,
-        'pid' => $pid,
-        'description' => $description2,
-        'date_made' => $cdate,
-            )
-    );
-    echo "<meta http-equiv='refresh' content='0'>";
-}
-?>
-
-
 <?php
 get_footer();
 ?>

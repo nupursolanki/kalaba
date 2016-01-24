@@ -62,8 +62,9 @@ function shipme_theme_my_account_received_off_fnc() {
                                 foreach ($biddetails as $row) {
                                     echo ' <tr>';
                                     echo '<td><a href="' . get_permalink($row->pid) . '">' . get_the_title($row->pid) . '</td>';
-                                    echo '<td><a href="' . get_site_url().'/user-profile/?user_id='.$row->uid.'">' . get_userdata($row->uid)->display_name . '</td>';
-                                    echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
+                                    echo '<td><a href="' . get_site_url() . '/user-profile/?user_id=' . $row->uid . '">' . get_userdata($row->uid)->first_name . '</td>';
+                                   // echo '<td>' . shipme_get_show_price($row->bid) . '</td>';
+                                   echo '<td>' . $row->bid . ' Rs.</td>';
                                     echo '<td>' . $row->date_made . '</td>';
                                     echo '<td>' . $row->description . '</td>';
                                     echo ' </tr>';
@@ -78,9 +79,14 @@ function shipme_theme_my_account_received_off_fnc() {
     </div>
     <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_url'); ?>/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/natural.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            $('#receivedbid').DataTable();
+            $('#receivedbid').DataTable({
+                columnDefs: [
+                    {type: 'natural', targets: 2},
+                ]
+            });
         });
     </script>
     <?php
