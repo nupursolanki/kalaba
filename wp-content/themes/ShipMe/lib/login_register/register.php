@@ -72,19 +72,21 @@ if (!function_exists('shipme_do_register_scr')) {
 
                         <ul class="virtual_sidebar">
 
-                            <li class="widget-container widget_text"><h3 class="widget-title"><?php _e("Registration Complete ", 'shipme'); ?> - <?php echo get_bloginfo('name'); ?></h3>
+                            <li class="widget-container widget_text"><h3 class="widget-title"><?php _e("Thank you For Registration Your Registration Successfully Completed ", 'shipme'); ?> - <?php echo get_bloginfo('name'); ?></h3>
                                 <div class="my-only-widget-content ">
 
 
 
                                     <div class="padd10">
-                                        <p><?php printf(__('Username: %s', 'shipme'), "<strong>" . esc_html($user_login) . "</strong>") ?><br />
-                                            <?php printf(__('Password: %s', 'shipme'), '<strong>' . __('emailed to you', 'shipme') . '</strong>') ?> <br />
-                                            <?php printf(__('E-mail: %s', 'shipme'), "<strong>" . esc_html($user_email) . "</strong>") ?><br /><br />
-                                            <?php _e("Please check your <strong>Junk Mail</strong> if your account information does not appear within 5 minutes.", 'shipme'); ?>
+                                        <p><?php printf(__('Mobile Number: %s', 'shipme'), "<strong>" . esc_html($user_login) . "</strong>") ?><br />
+                                            <?php //printf(__('Password: %s', 'shipme'), '<strong>' . __('emailed to you', 'shipme') . '</strong>') ?> <br />
+                                            <?php //printf(__('E-mail: %s', 'shipme'), "<strong>" . esc_html($user_email) . "</strong>") ?><br /><br />
+                                            <?php //_e("Please check your <strong>Junk Mail</strong> if your account information does not appear within 5 minutes.", 'shipme'); ?>
                                         </p>
 
+                                        <p>Please Login To Access Your Account</p>
                                         <p class="submit"><a href="wp-login.php"><?php _e('Login', 'shipme'); ?> &raquo;</a></p>
+                                        <?php wp_redirect(home_url()); ?>
                                     </div> 
 
                                 </div> 
@@ -509,7 +511,7 @@ if (!function_exists('shipme_do_register_scr')) {
                                     <ul id="logins">
                                         <li><a class="green_btn" href="<?php bloginfo('home'); ?>/" title="<?php _e('Are you lost?', 'shipme') ?>"><?php _e('Home', 'shipme') ?></a></li>
                                         <li><a class="green_btn" href="<?php echo esc_url(site_url()); ?>/wp-login.php"><?php _e('Login', 'shipme') ?></a></li>
-                                        <li><a class="green_btn" href="<?php echo esc_url(site_url()); ?>/wp-login.php?action=lostpassword" title="<?php _e('Password Lost?', 'shipme') ?>"><?php _e('Lost your password?', 'shipme') ?></a></li>
+                                        <!--<li><a class="green_btn" href="<?php //echo esc_url(site_url()); ?>/wp-login.php?action=lostpassword" title="<?php //_e('Password Lost?', 'shipme') ?>"><?php //_e('Lost your password?', 'shipme') ?></a></li>-->
                                     </ul>
 
 

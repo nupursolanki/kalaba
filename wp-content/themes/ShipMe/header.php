@@ -90,7 +90,7 @@ jQuery(document).ready(function(){
   		<?php endif; ?>
 	</head>
 	<body <?php body_class(); ?> >
-    
+    <?php error_reporting(0); ?>
     <div class="header_part" >
     	<?php
 		$shipme_front_slider_enable = get_option('shipme_front_slider_enable');
@@ -140,7 +140,8 @@ jQuery(document).ready(function(){
                                 <li><a href="<?php echo get_permalink(get_option('shipme_account_page_id')) ?>"><?php _e('My Account','shipme') ?></a></li>
                                 <li><a href="<?php echo wp_logout_url() ?>"><?php _e('Sign Out','shipme') ?></a></li>
                         <?php else: ?>
-                                <li><a href="<?php echo wp_login_url() ?>"><?php _e('Sign In','shipme') ?></a></li>
+                                <?php $encodedParam = urlencode($_SERVER['REQUEST_URI']); ?>
+                                <li><a href="<?php echo wp_login_url() ?>?redirect_to=<?php echo $encodedParam ?>"><?php _e('Sign In','shipme') ?></a></li>
                                 <li><a href="<?php echo wp_registration_url() ?>"><?php _e('Register','shipme') ?></a></li>
                         <?php endif; ?>
                         </ul>                    

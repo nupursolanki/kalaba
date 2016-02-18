@@ -1283,7 +1283,7 @@ function shipme_theme_withdrawals()
            <table class="widefat post fixed" cellspacing="0">
             <thead>
             <tr>
-            <th width="12%" ><?php _e('Username','shipme'); ?></th>
+            <th width="12%" ><?php _e('Mobile Number','shipme'); ?></th>
             <th><?php _e('Method','shipme'); ?></th>
             <th width="20%"><?php _e('Details','shipme'); ?></th>
             <th><?php _e('Date Requested','shipme'); ?></th>
@@ -1347,7 +1347,7 @@ function shipme_theme_withdrawals()
            <table class="widefat post fixed" cellspacing="0">
             <thead>
             <tr>
-            <th ><?php 	_e('Username','shipme'); ?></th>
+            <th ><?php 	_e('Mobile Number','shipme'); ?></th>
             <th><?php 	_e('Method','shipme'); ?></th>
             <th><?php 	_e('Details','shipme'); ?></th>
             <th><?php 	_e('Date Requested','shipme'); ?></th>
@@ -1412,7 +1412,7 @@ function shipme_theme_withdrawals()
            <table class="widefat post fixed" cellspacing="0">
             <thead>
             <tr>
-            <th ><?php _e('Username','shipme'); ?></th>
+            <th ><?php _e('Mobile Number','shipme'); ?></th>
             <th><?php _e('Details','shipme'); ?></th>
             <th><?php _e('Date Requested','shipme'); ?></th>
             <th ><?php _e('Amount','shipme'); ?></th>
@@ -1493,7 +1493,7 @@ function shipme_theme_withdrawals()
            <table class="widefat post fixed" cellspacing="0">
             <thead>
             <tr>
-            <th width="12%" ><?php _e('Username','shipme'); ?></th>
+            <th width="12%" ><?php _e('Mobile Number','shipme'); ?></th>
             <th><?php _e('Method','shipme'); ?></th>
             <th width="20%"><?php _e('Details','shipme'); ?></th>
             <th><?php _e('Date Requested','shipme'); ?></th>
@@ -1581,7 +1581,7 @@ function shipme_theme_withdrawals()
            <table class="widefat post fixed" cellspacing="0">
             <thead>
             <tr>
-            <th width="12%" ><?php _e('Username','shipme'); ?></th>
+            <th width="12%" ><?php _e('Mobile Number','shipme'); ?></th>
             <th><?php _e('Method','shipme'); ?></th>
             <th width="20%"><?php _e('Details','shipme'); ?></th>
             <th><?php _e('Date Requested','shipme'); ?></th>
@@ -1669,7 +1669,7 @@ function shipme_theme_withdrawals()
            <table class="widefat post fixed" cellspacing="0">
             <thead>
             <tr>
-            <th width="12%" ><?php _e('Username','shipme'); ?></th>
+            <th width="12%" ><?php _e('Mobile Number','shipme'); ?></th>
             <th><?php _e('Method','shipme'); ?></th>
             <th width="20%"><?php _e('Details','shipme'); ?></th>
             <th><?php _e('Date Requested','shipme'); ?></th>

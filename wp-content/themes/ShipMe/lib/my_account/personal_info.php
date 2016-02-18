@@ -39,13 +39,20 @@ function shipme_theme_my_account_profile_settings_new() {
 
     <div class="container_ship_no_bk">
 
-        <?php echo shipme_get_users_links(); ?>
+        <?php echo shipme_get_users_links(); 
+        
+        ?>
 
         <div class="account-content-area col-xs-12 col-sm-8 col-lg-9">
 
 
             <?php
             if (isset($_POST['save-info'])) {
+
+//                echo '<pre>';
+//                print_r($_POST);
+//              //  exit;
+
                 $personal_info = strip_tags(nl2br($_POST['personal_info']), '<br />');
                 update_user_meta($uid, 'personal_info', substr($personal_info, 0, 500));
 
@@ -86,9 +93,27 @@ function shipme_theme_my_account_profile_settings_new() {
                 if (isset($_POST['tra_office_address'])) {
                     update_user_meta($uid, 'tra_office_address', $_POST['tra_office_address']);
                 }
+                if ($_POST['tra_office_address']=='') {
+                    update_user_meta($uid, 'tra_office_address', $_POST['tra_office_address']);
+                }
 
                 if (isset($_POST['tra_preffered_address'])) {
                     update_user_meta($uid, 'tra_preffered_address', $_POST['tra_preffered_address']);
+                }
+                if ($_POST['tra_preffered_address']=='') {
+                    update_user_meta($uid, 'tra_preffered_address', $_POST['tra_preffered_address']);
+                }
+                if (isset($_POST['off_address_lat'])) {
+                    update_user_meta($uid, 'off_address_lat', $_POST['off_address_lat']);
+                }
+                if (isset($_POST['off_address_lng'])) {
+                    update_user_meta($uid, 'off_address_lat', $_POST['off_address_lng']);
+                }
+                if ($_POST['off_address_lat']=='') {
+                    update_user_meta($uid, 'off_address_lat', $_POST['off_address_lat']);
+                }
+                if ($_POST['off_address_lng']=='') {
+                    update_user_meta($uid, 'off_address_lat', $_POST['off_address_lng']);
                 }
 
 
@@ -463,11 +488,15 @@ function shipme_theme_my_account_profile_settings_new() {
 
                                         $(document).on('click', '.remove_office', function () {
                                             //alert('aa');
-                                            $(this).closest('tr').remove();
+
+                                            $(this).prev('input').remove();
+                                            $(this).remove();
                                         });
                                         $(document).on('click', '.tra_preffered_address', function () {
                                             //alert('aa');
-                                            $(this).closest('tr').remove();
+
+                                            $(this).prev('input').remove();
+                                            $(this).remove();
                                         });
                                         $(document).on('focus', '#autocomplete_pickup', function () {
                                             //alert('aa');
@@ -519,7 +548,8 @@ function shipme_theme_my_account_profile_settings_new() {
 
                                 <li>
                                     <h2>&nbsp;</h2>
-                                    <p><input type="submit" name="save-info" value="<?php _e("Save", 'shipme'); ?>" /></p>
+                                    <!--<p><input type="submit" name="save-info" value="<?php _e("Save", 'shipme'); ?>" /></p>-->
+                                     <p><input type="submit" name="save-info" value="<?php _e("Save" ,'shipme'); ?>" /></p>
                                 </li>
 
                             </ul>

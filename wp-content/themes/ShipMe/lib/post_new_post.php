@@ -165,9 +165,10 @@ if (isset($_POST['job_submit_step1'])) {
     update_post_meta($pid, "package_detail", $_POST['package_detail']);
     if (isset($_POST['package_detail'])) {
         if (!empty($_POST['package_detail'])) {
+//            print_r($_POST['package_detail']);exit;
             foreach ($_POST['package_detail'] as $single_package) {
                 foreach ($single_package as $single_value) {
-                    if (!is_numeric($single_value)) {
+                    if (!is_numeric($single_value)&& $single_value!='cm' && $single_value!='feet' && $single_value!='inch') {
                         $projectOK = 0;
                         $MYerror['num_of_package'] = __('You need to enter ineteger value in Length,Height,Width,Number Of package.', 'shipme');
                         $class_errors['num_of_package'] = 'You need to enter ineteger value in Length,Height,Width,Number Of package.';
@@ -234,7 +235,8 @@ if (isset($_POST['job_submit_step1'])) {
         $class_errors['job_title'] = 'error_class_post_new';
     }
 
-    if (empty($job_description) or strlen($job_description) < 10) {
+//    if (empty($job_description) or strlen($job_description) < 10) {
+    if (0) {
         $projectOK = 0;
         $MYerror['job_description'] = __('Your job description needs to be at least 10 characters!', 'shipme');
         $class_errors['job_description'] = 'error_class_post_new';
@@ -246,6 +248,11 @@ if (isset($_POST['job_submit_step1'])) {
         $MYerror['price'] = __('The job price must not be empty and must be numeric.', 'shipme');
         $class_errors['price'] = 'error_class_post_new';
     }
+    elseif ($price < 100) {
+    $projectOK = 0;
+        $MYerror['price'] = __('The job price must Grater than 100Rs.', 'shipme');
+        $class_errors['price'] = 'error_class_post_new';
+}
 
     //---------------------------------
     /*
@@ -347,7 +354,7 @@ if (isset($_POST['job_submit_step1'])) {
                 $MYerror['login'] = __('<strong>Error</strong>: The password field is empty.', 'shipme');
             } else {
                 $projectOK = 0;
-                $MYerror['login'] = __('<strong>Error</strong>: The Username/password field is empty.', 'shipme');
+                $MYerror['login'] = __('<strong>Error</strong>: The Mobile Number/password field is empty.', 'shipme');
             }
         }
         if ($_POST['user_tp'] == 'register_user') {
@@ -369,7 +376,7 @@ if (isset($_POST['job_submit_step1'])) {
                     $projectOK = 0;
                     $MYerror['login'] = __(' <strong>Error</strong>: Name is Invalid. Please Enter Name', 'shipme');
                 } else {
-                    if ($user_email == '' || filter_var($user_email, FILTER_VALIDATE_EMAIL) === false) {
+                    if ($user_email != '' && filter_var($user_email, FILTER_VALIDATE_EMAIL) === false) {
                         $projectOK = 0;
                         $MYerror['login'] = __(' <strong>Error</strong>: Email is Invalid. Please Email Name', 'shipme');
                     } else {

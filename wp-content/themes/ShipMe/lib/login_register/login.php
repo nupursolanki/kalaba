@@ -134,7 +134,7 @@ function shipme_do_login_scr()
 					  
 					  
 					<p>
-					<label><?php _e('Username or Email:','shipme') ?></label>
+					<label><?php _e('Mobile Number or Email:','shipme') ?></label>
                     <input type="text" class="do_input" name="user_login" id="user_login" value="" size="30" tabindex="1" />
                     </p>
                  
@@ -206,7 +206,7 @@ function shipme_do_login_scr()
                     
                     <br/><br/>
                     <?php
-					echo sprintf(__('Sorry, that user does not seem to exist in our database. Perhaps you have the wrong username or e-mail address? <a href="%s">Try again</a>.','shipme'), 'wp-login.php?action=lostpassword');
+					echo sprintf(__('Sorry, that user does not seem to exist in our database. Perhaps you have the wrong Mobile Number or e-mail address? <a href="%s">Try again</a>.','shipme'), 'wp-login.php?action=lostpassword');
 					
 					?>
 					
@@ -229,7 +229,7 @@ function shipme_do_login_scr()
 				$wpdb->query("UPDATE $wpdb->users SET user_activation_key = '$key' WHERE user_login = '$user_login'");
 				$message = __('Someone has asked to reset the password for the following site and username.','shipme') . "\r\n\r\n";
 				$message .= get_option('siteurl') . "\r\n\r\n";
-				$message .= sprintf(__('Username: %s','shipme'), $user_login) . "\r\n\r\n";
+				$message .= sprintf(__('Mobile Number: %s','shipme'), $user_login) . "\r\n\r\n";
 				$message .= __('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.'
 				,'shipme') . "\r\n\r\n";
 				$message .= get_settings('siteurl') . "/wp-login.php?action=resetpass&key=$key\r\n";
@@ -309,7 +309,7 @@ function shipme_do_login_scr()
 				$wpdb->query("UPDATE $wpdb->users SET user_pass = MD5('$new_pass'), user_activation_key = '' WHERE user_login = '$user->user_login'");
 				wp_cache_delete($user->ID, 'users');
 				wp_cache_delete($user->user_login, 'userlogins');	
-				$message  = sprintf(__('Username: %s','shipme'), $user->user_login) . "\r\n";
+				$message  = sprintf(__('Mobile Number: %s','shipme'), $user->user_login) . "\r\n";
 				$message .= sprintf(__('Password: %s','shipme'), $new_pass) . "\r\n";
 				$message .= get_settings('siteurl') . "/wp-login.php\r\n";
 			
@@ -357,7 +357,7 @@ function shipme_do_login_scr()
 				 * else
 				 * 	$redirect_to = $_REQUEST['redirect_to'];
 				 */
-				 if ( !empty( $_REQUEST['redirect_to'] ) ) {
+				 if ( empty( $_REQUEST['redirect_to'] ) ) {
 					$redirect_to = get_permalink(get_option('shipme_account_page_id'));
 				 } else {
 					$redirect_to = $_REQUEST['redirect_to'];
@@ -365,8 +365,8 @@ function shipme_do_login_scr()
 				 
 				 if(empty($redirect_to)) $redirect_to = get_permalink(get_option('shipme_account_page_id'));
 				 
-				// print_r($_REQUEST); // $redirect_to;
-				// exit;
+				 //print_r($_REQUEST); // $redirect_to;
+				 //exit;
 				 
 				 if(isset($_SESSION['redirect_me_back'])) $redirect_to = $_SESSION['redirect_me_back'];
 		
@@ -467,7 +467,7 @@ function shipme_do_login_scr()
                 <div class="login-submit-form"> 
                           
 				<form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
-				<p><label><?php _e('Username:','shipme') ?></label>
+				<p><label><?php _e('Mobile Number:','shipme') ?></label>
 				<input class="do_input" type="text" name="log" id="log" value="<?php echo esc_html(stripslashes($user_login), 1); ?>" size="30"  />
                 </p>
 							
@@ -498,8 +498,8 @@ function shipme_do_login_scr()
 						  <?php if (get_settings('users_can_register')) : ?>
 							<li><a class="green_btn" href="<?php echo esc_url( site_url() ); ?>/wp-login.php?action=register"><?php _e('Register','shipme') ?></a></li>
 						  <?php endif; ?>
-							<li><a class="green_btn" href="<?php echo esc_url( site_url() ); ?>/wp-login.php?action=lostpassword" 
-                            title="<?php _e('Password Lost and Found','shipme') ?>"><?php _e('Lost your password?','shipme') ?></a></li>
+<!--							<li><a class="green_btn" href="<?php //echo esc_url( site_url() ); ?>/wp-login.php?action=lostpassword" 
+                            title="<?php //_e('Password Lost and Found','shipme') ?>"><?php _e('Lost your password?','shipme') ?></a></li>-->
               	</ul>
 						
 		

@@ -68,11 +68,11 @@
 .remove {padding: 18px;}
 .package_form{width: 60%;float: left;}
 .package_image{width:40%;float: right;}
+.package-detail-front{width: 80%}
 
 
 
-.picker {overflow: hidden;
-    width: 100%;}
+#pickup_date_root , #delivery_date_root {width:40%;}
 
 .do_input , .form-control{max-width: 100%}
 
@@ -82,3 +82,67 @@
 
 
 .post-new3.loginform{width:100%}
+
+/*CSS JOB ADD PAGE*/
+.dimention_dropdown{float:right;width: 20%;}
+.package-detail-front .modal-body p{float: unset;width: 100%;margin-top: 5px;margin-bottom: 5px}
+.package-detail-front .modal-body p .form-control{width: 80%;float: left;}
+.package-detail-front .modal-body p .dimention_display_weight{width:20%; background-color: #fff;position: relative;top: 7px;
+    background-image: linear-gradient(to bottom, #fff 0px, #e0e0e0 100%);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    margin-left: 5px;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;}
+.package-detail-front .modal-body p .dimention_display{width:20%; background-color: #fff;position: relative;top: 7px;
+    background-image: linear-gradient(to bottom, #fff 0px, #e0e0e0 100%);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    margin-left: 5px;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 8px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;}
+.model_error{color: #B94A48;}
+.package-detail-front .package_display{margin: auto; font-weight: 900; margin-bottom: 10px;background-color: #fff; border: 1px dashed;}
+.package-detail-front .package_display .inner_package_display{width: 360px;margin: auto;}
+.package-detail-front .package_display .inner_package_display .inner_package_display_quantity{float: left}
+.package-detail-front .package_display .inner_package_display .inner_package_display_weight{float: right}
+.package-detail-front .package_display .inner_package_display .inner_package_display_dimention{float: left}
+.div_for_p{ float: left;
+    margin: 3px 0 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    width: 700px;}
+.myaccount_box{width: 95px;}
+/*.myaccount_box span{color: #009900;}*/
+
+.my-only-widget-content .rms1 li{border: 1px dashed #1d9c56;
+    font-weight: 900;
+    margin-bottom: 5px;
+    padding-left: 5px;}
+.my-only-widget-content .rms1 li p.rf2{padding-top: 0;margin: 0 0 4px;}
+.post-new li.two_col{float: left;width: 39%}
+.post-new li.two_col p{width:100%}
+
+.post-new li.show_two_col{display: none}
+/*For Login Validation Error display*/
+.login_user .setSize .form-control{width: 95%;}
+.register_user .setSize .form-control{width: 95%;}
+.login_user .setSize .post-new-login-error{width: 5%; float: right;position: relative;top: 13px;left: 5px}
+
+.register_user .setSize .post-new-login-error{width: 5%; float: right;position: relative;top: 13px;left: 5px}
+
+.dropzone .dz-default.dz-message{background-image: url("../images/Untitled-1.png") !important; }
+
+/*.bidPanel li div{padding: 0; float: left; display: inline-block}*/
+.bidPanel li div input {float: left}

@@ -1,61 +1,63 @@
 <?php
 if (!is_user_logged_in()) {
-    echo '<div class="padd10 col-md-8 col-xs-12"><div class="padd10">';
+    echo '<div class="padd10 col-md-12 col-xs-12"><div class="padd10" style="display:block;">';
 //    echo sprintf(__('You are not logged in. In order to bid please <a href="%s">login</a> or <a href="%s">register</a> an account', 'shipme'), get_bloginfo('siteurl') . '/wp-login.php', get_bloginfo('siteurl') . '/wp-login.php?action=register');
     ?> 
     <div class="error_display col-md-12"></div>
-    <ul class="post-new3 loginform col-md-8">
+    <ul class="post-new3 loginform col-md-12 bidPanel">
 
-        <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Username', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="text" name="uname" id="uname" class="do_input"  size="20" /> </div>
+        <li class="col-md-12" style="border: 0px">
+            <div class="col-md-4"> <?php _e('Mobile Number', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="text" name="uname" id="uname" class="do_input"  size="20" /> </div>
 
 
 
         </li>
-        <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Password', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="password" name="upwd" id="upwd" class="do_input"  size="20" /> </div>
+        <li  class="col-md-12"  style="border: 0px">
+            <div class="col-md-4"> <?php _e('Password', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="password" name="upwd" id="upwd" class="do_input"  size="20" /> </div>
+            
         </li>
-        <li style="border: 0px">
-            <div class="col-md-4">  <a class="user_login ye_buut" href="javascript:void(0)">
+        <li class="col-md-12"  style="border: 0px; margin-top: 10px;">
+            <div class="col-md-11">
+                <a class="user_login ye_buut" href="javascript:void(0)">
                     <i class="fa fa-check-circle "></i>
                     Login
                 </a></div>
         </li>
-        <li style="border: 0px">
-            <div class="col-md-6">
+        <li  class="col-md-12"  style="border: 0px">
+            <div class="col-md-9">
                 For New User <a class="register_new" href="javascript:void(0)">Register</a> here
             </div>
         </li>
     </ul>
 
-    <ul class="post-new3 registerform col-md-8" style="width:100%;display: none;">
+    <ul class="post-new3 registerform col-md-12 bidPanel" style="width:100%;display: none;">
         <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Name', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="text" name="reg_name" id="reg_name" class="do_input"  size="20" /> </div>
+            <div class="col-md-4"> <?php _e('Name', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="text" name="reg_name" id="reg_name" class="do_input"  size="20" /> </div>
 
 
 
         </li>
         <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Mobile Number', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="text" name="reg_number" id="reg_number" class="do_input"  size="20" /> </div>
+            <div class="col-md-4"> <?php _e('Mobile Number', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="text" name="reg_number" id="reg_number" class="do_input"  size="20" /> </div>
         </li>
         <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Email', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="text" name="reg_email" id="reg_email" class="do_input"  size="20" /> </div>
+            <div class="col-md-4"> <?php _e('Email', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="text" name="reg_email" id="reg_email" class="do_input"  size="20" /> </div>
         </li>
         <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Password', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="password" name="reg_pwd" id="reg_pwd" class="do_input"  size="20" /> </div>
+            <div class="col-md-4"> <?php _e('Password', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="password" name="reg_pwd" id="reg_pwd" class="do_input"  size="20" /> </div>
         </li>
         <li style="border: 0px">
-            <div class="col-md-2"> <?php _e('Re-enter Password', 'shipme'); ?></div>
-            <div class="col-md-6"><input type="password" name="reg_repwd" id="reg_repwd" class="do_input"  size="20" /> </div>
+            <div class="col-md-4"> <?php _e('Re-enter Password', 'shipme'); ?></div>
+            <div class="col-md-8"><input type="password" name="reg_repwd" id="reg_repwd" class="do_input"  size="20" /> </div>
         </li>
         <li style="border: 0px">
-            <div class="col-md-4">  <a class="register ye_buut" href="javascript:void(0)">
+            <div class="col-md-11">  <a class="register ye_buut" href="javascript:void(0)">
                     <i class="fa fa-check-circle"></i>
                     Register
                 </a></div>
@@ -71,8 +73,8 @@ if (!is_user_logged_in()) {
             var cboxOptions = {
                 width: '95%',
                 height: '95%',
-                maxWidth: '960px',
-                maxHeight: '960px',
+                maxWidth: '560px',
+                maxHeight: '400px',
             }
             jQuery.colorbox.resize({
                     width: window.innerWidth > parseInt(cboxOptions.maxWidth) ? cboxOptions.maxWidth : cboxOptions.width,
@@ -105,6 +107,7 @@ if (!is_user_logged_in()) {
                             jQuery('.registerform').fadeOut(1000);
                             setTimeout('', 1000);
                             jQuery.colorbox.close();
+                            location.reload();
                             return false;
 
 
@@ -124,6 +127,7 @@ if (!is_user_logged_in()) {
                             jQuery('.registerform').fadeOut(1000);
                             setTimeout('', 1000);
                             jQuery.colorbox.close();
+                            location.reload();
                             return false;
 
                         } else {

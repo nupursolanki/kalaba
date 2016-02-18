@@ -247,7 +247,7 @@ function shipme_theme_post_new_function() {
 
                 if ($total == 0) {
                     echo '<div class="txtalign" >';
-                    echo __('Thank you for posting your job with us.', 'shipme');
+                  //  echo __('Thank you for posting your job with us.', 'shipme');
                     update_post_meta($pid, "paid", "1");
 
 
@@ -349,10 +349,10 @@ function shipme_theme_post_new_function() {
                 if ($total == 0 && $finalize == true) {
                     if (get_option('shipme_admin_approves_each_job') != 'yes'):
 
-                        echo '<tr>';
-                        echo '<td></td>';
-                        echo '<td><div class="clear100"></div><a href="' . get_permalink($pid) . '" class="go_back_btn">' . __('See your job', 'shipme') . '</a></td>';
-                        echo '</tr>';
+//                        echo '<tr>';
+//                        echo '<td></td>';
+//                        echo '<td><div class="clear100"></div><a href="' . get_permalink($pid) . '" class="go_back_btn">' . __('See your job', 'shipme') . '</a></td>';
+//                        echo '</tr>';
 
                     else:
 
@@ -364,6 +364,12 @@ function shipme_theme_post_new_function() {
                     endif;
 
                     echo '</table>';
+                    ?>
+                    <?php
+		  //  header('Location:' . get_permalink($pid));
+		    
+                  echo '<script type="text/javascript">window.location = "'.get_permalink($pid).'"</script>';
+                    //header('Location:' . get_permalink($pid));
                 }
                 elseif ($total > 0) {
                     echo '</table>';
@@ -420,19 +426,19 @@ function shipme_theme_post_new_function() {
                     </ul>   
 
 
-                    <?php
-                }
+            <?php
+        }
 
-                echo '</div>';
-            }
+        echo '</div>';
+    }
 
 
 
-            if ($new_job_step == "3") {
+    if ($new_job_step == "3") {
 
-                $ending = get_post_meta($pid, 'ending', true);
-                $closed = get_post_meta($pid, 'closed', true);
-                ?>
+        $ending = get_post_meta($pid, 'ending', true);
+        $closed = get_post_meta($pid, 'closed', true);
+        ?>
 
                 <ul class="post-new">
                     <li class="czchk1">      	
@@ -447,11 +453,11 @@ function shipme_theme_post_new_function() {
             <div class="container_ship_no_bk mrg_topo">
 
                 <div id="map" style="width: 100%; height: 550px; margin-bottom:15px !important; border-radius:5px; margin:auto; border:1px solid #ccc"></div>
-                <?php
-                echo '<link media="screen" rel="stylesheet" href="' . get_bloginfo('template_url') . '/css/colorbox.css" />';
-                /* echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>'; */
-                echo '<script src="' . get_bloginfo('template_url') . '/js/jquery.colorbox.js"></script>';
-                ?>
+        <?php
+        echo '<link media="screen" rel="stylesheet" href="' . get_bloginfo('template_url') . '/css/colorbox.css" />';
+        /* echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>'; */
+        echo '<script src="' . get_bloginfo('template_url') . '/js/jquery.colorbox.js"></script>';
+        ?>
 
                 <script>
 
@@ -686,7 +692,7 @@ function shipme_theme_post_new_function() {
                                     <li>
                                         <h3><?php printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>'); ?></h3>
                                         <p class="expiration_job_p"><?php echo ($closed == "0" ? ($ending - current_time('timestamp', 0)) : __("Expired/Closed", 'shipme'));
-                ?></p>
+        ?></p>
                                     </li>
 
 
@@ -727,10 +733,10 @@ function shipme_theme_post_new_function() {
                         <li class="widget-container widget_text">
                             <h3 class="widget-title"><?php _e('Job Description', 'shipme') ?></h3>
                             <div class="my-only-widget-content " id='content-of-jb'>
-                                <?php
-                                $postat = get_post($pid);
-                                echo $postat->post_content;
-                                ?>
+        <?php
+        $postat = get_post($pid);
+        echo $postat->post_content;
+        ?>
                             </div>
                         </li>
 
@@ -739,104 +745,104 @@ function shipme_theme_post_new_function() {
                         <li class="widget-container widget_text">
                             <h3 class="widget-title"><?php _e('Job Aplicants', 'shipme') ?></h3>
                             <div class="my-only-widget-content " >
-                                <?php
-                                $shipme_enable_job_files = get_option('shipme_enable_job_files');
-                                $winner = get_post_meta($pid, 'winner', true);
-                                $post = get_post($pid);
-                                global $wpdb;
-                                $pid = $pid;
+        <?php
+        $shipme_enable_job_files = get_option('shipme_enable_job_files');
+        $winner = get_post_meta($pid, 'winner', true);
+        $post = get_post($pid);
+        global $wpdb;
+        $pid = $pid;
 
-                                $bids = "select * from " . $wpdb->prefix . "ship_bids where pid='$pid' order by id DESC";
-                                $res = $wpdb->get_results($bids);
+        $bids = "select * from " . $wpdb->prefix . "ship_bids where pid='$pid' order by id DESC";
+        $res = $wpdb->get_results($bids);
 
-                                if ($post->post_author == $uid)
-                                    $owner = 1;
-                                else
-                                    $owner = 0;
+        if ($post->post_author == $uid)
+            $owner = 1;
+        else
+            $owner = 0;
 
-                                if (count($res) > 0) {
+        if (count($res) > 0) {
 
-                                    if ($private_bids == 'yes' or $private_bids == '1' or $private_bids == 1) {
-                                        if ($owner == 1)
-                                            $show_stuff = 1;
-                                        else if (shipme_current_user_has_bid($uid, $res))
-                                            $show_stuff = 1;
-                                        else
-                                            $show_stuff = 0;
-                                    } else
-                                        $show_stuff = 1;
+            if ($private_bids == 'yes' or $private_bids == '1' or $private_bids == 1) {
+                if ($owner == 1)
+                    $show_stuff = 1;
+                else if (shipme_current_user_has_bid($uid, $res))
+                    $show_stuff = 1;
+                else
+                    $show_stuff = 0;
+            } else
+                $show_stuff = 1;
 
-                                    //------------
+            //------------
 
-                                    if ($show_stuff == 1):
+            if ($show_stuff == 1):
 
-                                        echo '<div id="my_bids" width="100%">';
-
-
-                                    endif;
-
-                                    //-------------
-
-                                    foreach ($res as $row) {
-
-                                        if ($owner == 1)
-                                            $show_this_around = 1;
-                                        else {
-                                            if ($private_bids == 'yes' or $private_bids == '1' or $private_bids == 1) {
-                                                if ($uid == $row->uid)
-                                                    $show_this_around = 1;
-                                                else
-                                                    $show_this_around = 0;
-                                            } else
-                                                $show_this_around = 1;
-                                        }
-
-                                        if ($show_this_around == 1):
-
-                                            $user = get_userdata($row->uid);
-                                            echo '<div class="myrow">';
-                                            echo '<div><i class="bid-person"></i> <a href="' . shipme_get_user_profile_link($user->ID) . '">' . $user->user_login . '</a></div>';
-                                            echo '<div><i class="bid-money"></i>  ' . shipme_get_show_price($row->bid) . '</div>';
-                                            echo '<div><i class="bid-clock"></i> ' . date_i18n("d-M-Y H:i:s", $row->date_made) . '</div>';
-                                            echo '<div><i class="bid-days"></i> ' . sprintf(__("%s days", "shipme"), $row->days_done) . '</div>';
-                                            if ($owner == 1) {
-
-                                                $nr = 7;
-                                                if (empty($winner)) // == 0)
-                                                    echo '<div><i class="bid-select"></i>  <a href="' . get_bloginfo('siteurl') . '/?p_action=choose_winner&pid=' . $pid . '&bid=' . $row->id . '">' . __('Select as Winner', 'shipme') . '</a></div>';
-
-                                                if ($shipme_enable_job_files != "no") {
-                                                    if (shipme_see_if_job_files_bid($pid, $row->uid) == true) {
-                                                        echo '<div> <i class="bid-days"></i> ';
-                                                        echo '<a href="#" class="get_files" rel="' . $pid . '_' . $row->uid . '">' . __('See Bid Files', 'shipme') . '</a> ';
-                                                        echo '</div>';
-                                                    }
-                                                }
-                                                echo '<div><i class="bid-env"></i> <a href="' . shipme_get_priv_mess_page_url('send', '', '&uid=' . $row->uid . '&pid=' . $pid) . '">' . __('Send Message', 'shipme') . '</a></div>';
-                                            } else
-                                                $nr = 4;
-
-                                            if ($closed == "1") {
-                                                if ($row->winner == 1)
-                                                    echo '<div>' . __('Job Winner', 'shipme') . '</div>';
-                                            }
+                echo '<div id="my_bids" width="100%">';
 
 
+            endif;
+
+            //-------------
+
+            foreach ($res as $row) {
+
+                if ($owner == 1)
+                    $show_this_around = 1;
+                else {
+                    if ($private_bids == 'yes' or $private_bids == '1' or $private_bids == 1) {
+                        if ($uid == $row->uid)
+                            $show_this_around = 1;
+                        else
+                            $show_this_around = 0;
+                    } else
+                        $show_this_around = 1;
+                }
+
+                if ($show_this_around == 1):
+
+                    $user = get_userdata($row->uid);
+                    echo '<div class="myrow">';
+                    echo '<div><i class="bid-person"></i> <a href="' . shipme_get_user_profile_link($user->ID) . '">' . $user->user_login . '</a></div>';
+                    echo '<div><i class="bid-money"></i>  ' . shipme_get_show_price($row->bid) . '</div>';
+                    echo '<div><i class="bid-clock"></i> ' . date_i18n("d-M-Y H:i:s", $row->date_made) . '</div>';
+                    echo '<div><i class="bid-days"></i> ' . sprintf(__("%s days", "shipme"), $row->days_done) . '</div>';
+                    if ($owner == 1) {
+
+                        $nr = 7;
+                        if (empty($winner)) // == 0)
+                            echo '<div><i class="bid-select"></i>  <a href="' . get_bloginfo('siteurl') . '/?p_action=choose_winner&pid=' . $pid . '&bid=' . $row->id . '">' . __('Select as Winner', 'shipme') . '</a></div>';
+
+                        if ($shipme_enable_job_files != "no") {
+                            if (shipme_see_if_job_files_bid($pid, $row->uid) == true) {
+                                echo '<div> <i class="bid-days"></i> ';
+                                echo '<a href="#" class="get_files" rel="' . $pid . '_' . $row->uid . '">' . __('See Bid Files', 'shipme') . '</a> ';
+                                echo '</div>';
+                            }
+                        }
+                        echo '<div><i class="bid-env"></i> <a href="' . shipme_get_priv_mess_page_url('send', '', '&uid=' . $row->uid . '&pid=' . $pid) . '">' . __('Send Message', 'shipme') . '</a></div>';
+                    } else
+                        $nr = 4;
+
+                    if ($closed == "1") {
+                        if ($row->winner == 1)
+                            echo '<div>' . __('Job Winner', 'shipme') . '</div>';
+                    }
 
 
-                                            echo '<div class="my_td_with_border">' . $row->description . '</div>';
-                                            echo '</div>';
-                                        endif;
-                                    }
 
-                                    echo ' </div> ';
-                                }
-                                else {
-                                    echo '<div class="padd10">';
-                                    _e("No proposals placed yet.", 'shipme');
-                                    echo '</div>';
-                                }
-                                ?>	 
+
+                    echo '<div class="my_td_with_border">' . $row->description . '</div>';
+                    echo '</div>';
+                endif;
+            }
+
+            echo ' </div> ';
+        }
+        else {
+            echo '<div class="padd10">';
+            _e("No proposals placed yet.", 'shipme');
+            echo '</div>';
+        }
+        ?>	 
                             </div>
                         </li>
 
@@ -848,67 +854,67 @@ function shipme_theme_post_new_function() {
                             <div class="my-only-widget-content " >
 
 
-                                <?php
-                                $arr = shipme_get_post_images($pid);
-                                $xx_w = 600;
-                                $shipme_width_of_job_images = get_option('shipme_width_of_job_images');
+        <?php
+        $arr = shipme_get_post_images($pid);
+        $xx_w = 600;
+        $shipme_width_of_job_images = get_option('shipme_width_of_job_images');
 
-                                if (!empty($shipme_width_of_job_images))
-                                    $xx_w = $shipme_width_of_job_images;
-                                if (!is_numeric($xx_w))
-                                    $xx_w = 600;
+        if (!empty($shipme_width_of_job_images))
+            $xx_w = $shipme_width_of_job_images;
+        if (!is_numeric($xx_w))
+            $xx_w = 600;
 
-                                if ($arr) {
+        if ($arr) {
 
 
-                                    echo '<ul class="image-gallery">';
-                                    foreach ($arr as $image) {
-                                        echo '<li><a href="' . shipme_generate_thumb($image, 900, $xx_w) . '" rel="image_gal2"><img src="' . shipme_generate_thumb($image, 100, 80) . '" width="100" class="img_class" /></a></li>';
-                                    }
-                                    echo '</ul>';
-                                } else {
-                                    echo __('There are no pictures attache.', 'shipme');
-                                }
-                                ?> 
+            echo '<ul class="image-gallery">';
+            foreach ($arr as $image) {
+                echo '<li><a href="' . shipme_generate_thumb($image, 900, $xx_w) . '" rel="image_gal2"><img src="' . shipme_generate_thumb($image, 100, 80) . '" width="100" class="img_class" /></a></li>';
+            }
+            echo '</ul>';
+        } else {
+            echo __('There are no pictures attache.', 'shipme');
+        }
+        ?> 
                             </div>
                         </li>
                         <li class="widget-container widget_text">
                             <h3 class="widget-title"><?php _e('Extra Requirements', 'shipme') ?></h3>
-                            <?php if (get_field('need_a_helper', $pid, true) == '1') { ?>
+        <?php if (get_field('need_a_helper', $pid, true) == '1') { ?>
                                 <div class="my-only-widget-content " id='content-of-jb'>
-                                    <?php
-                                    echo 'Need Helper For Carry Package';
-                                    ?>
+                                <?php
+                                echo 'Need Helper For Carry Package';
+                                ?>
 
                                 </div>
-                            <?php } ?>
+                                <?php } ?>
 
                             <?php if (get_field('fragile_materials', $pid, true) == '1') { ?>
                                 <div class="my-only-widget-content " id='content-of-jb'>
-                                    <?php
-                                    echo 'There is Fragile Materials';
-                                    ?>
+                                <?php
+                                echo 'There is Fragile Materials';
+                                ?>
 
                                 </div>
-                            <?php } ?>
+                                <?php } ?>
 
                             <?php if (get_field('commercial_purpose', $pid, true) == '1') { ?>
                                 <div class="my-only-widget-content " id='content-of-jb'>
-                                    <?php
-                                    echo 'For Commercial Purpose';
-                                    ?>
+                                <?php
+                                echo 'For Commercial Purpose';
+                                ?>
 
                                 </div>
-                            <?php } ?>
+                                <?php } ?>
 
                             <?php if (get_field('packing_services', $pid, true) == '1') { ?>
                                 <div class="my-only-widget-content " id='content-of-jb'>
-                                    <?php
-                                    echo 'Packing Services';
-                                    ?>
+                                <?php
+                                echo 'Packing Services';
+                                ?>
 
                                 </div>
-                            <?php } ?>
+                                <?php } ?>
                         </li>
 
 
@@ -924,7 +930,7 @@ function shipme_theme_post_new_function() {
 
                         <li class="widget-container widget_text"> 
                             <div class="apply-for-this price-jb1">
-                                <?php echo shipme_get_show_price(get_post_meta($pid, 'price', true)); ?>
+        <?php echo shipme_get_show_price(get_post_meta($pid, 'price', true)); ?>
                             </div>
                         </li>
 
@@ -967,11 +973,11 @@ function shipme_theme_post_new_function() {
                         <li class="widget-container widget_text">
                             <h3 class="widget-title"><?php _e('Package Dimensions', 'shipme') ?></h3>
                             <div class="my-only-widget-content " >
-                                <?php
-                                $package_detail_display = get_post_meta($pid, 'package_detail', true);
-                                if (count($package_detail_display) > 0 && is_array($package_detail_display)) {
-                                    foreach ($package_detail_display as $track) {
-                                        ?>
+        <?php
+        $package_detail_display = get_post_meta($pid, 'package_detail', true);
+        if (count($package_detail_display) > 0 && is_array($package_detail_display)) {
+            foreach ($package_detail_display as $track) {
+                ?>
 
                                         <ul class="rms1" > 
                                             <li>   
@@ -1003,10 +1009,10 @@ function shipme_theme_post_new_function() {
                                             </li>
 
                                         </ul> 
-                                        <?php
-                                    }
-                                }
-                                ?>
+                <?php
+            }
+        }
+        ?>
 
 
 
@@ -1019,72 +1025,72 @@ function shipme_theme_post_new_function() {
                         <li class="widget-container widget_text">
                             <h3 class="widget-title"><?php _e('Attached Documents', 'shipme') ?></h3>
                             <div class="my-only-widget-content " >
-                                <?php
-                                //---------------------
-                                // build the exclude list
-                                //---------------------
-                                // build the exclude list
-                                $exclude = array();
+        <?php
+        //---------------------
+        // build the exclude list
+        //---------------------
+        // build the exclude list
+        $exclude = array();
 
-                                $args = array(
-                                    'order' => 'ASC',
-                                    'post_type' => 'attachment',
-                                    'post_mime_type' => 'image',
-                                    'post_parent' => $pid,
-                                    'numberposts' => -1,
-                                    'post_status' => null,
-                                );
+        $args = array(
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image',
+            'post_parent' => $pid,
+            'numberposts' => -1,
+            'post_status' => null,
+        );
 
-                                $attachments = get_posts($args);
+        $attachments = get_posts($args);
 
-                                foreach ($attachments as $att)
-                                    $exclude[] = $att->ID;
+        foreach ($attachments as $att)
+            $exclude[] = $att->ID;
 
-                                //-0------------------
-
-
-
-                                $args = array(
-                                    'order' => 'ASC',
-                                    'post_type' => 'attachment',
-                                    'meta_key' => 'is_bidding_file',
-                                    'meta_value' => '1',
-                                    'post_parent' => $pid,
-                                    'numberposts' => -1,
-                                    'post_status' => null,
-                                );
-
-                                $attachments = get_posts($args);
-
-                                foreach ($attachments as $att)
-                                    $exclude[] = $att->ID;
-
-                                //------------------
-
-                                $args = array(
-                                    'order' => 'ASC',
-                                    'post_type' => 'attachment',
-                                    'post_parent' => $pid,
-                                    'exclude' => $exclude,
-                                    'numberposts' => -1,
-                                    'post_status' => null,
-                                );
-                                $attachments = get_posts($args);
+        //-0------------------
 
 
+
+        $args = array(
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'meta_key' => 'is_bidding_file',
+            'meta_value' => '1',
+            'post_parent' => $pid,
+            'numberposts' => -1,
+            'post_status' => null,
+        );
+
+        $attachments = get_posts($args);
+
+        foreach ($attachments as $att)
+            $exclude[] = $att->ID;
+
+        //------------------
+
+        $args = array(
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $pid,
+            'exclude' => $exclude,
+            'numberposts' => -1,
+            'post_status' => null,
+        );
+        $attachments = get_posts($args);
 
 
 
 
-                                if (count($attachments) == 0)
-                                    echo __('No document files.', 'shipme');
 
-                                foreach ($attachments as $at) {
-                                    ?>
+
+        if (count($attachments) == 0)
+            echo __('No document files.', 'shipme');
+
+        foreach ($attachments as $at) {
+            ?>
 
                                     <li> <a href="<?php echo wp_get_attachment_url($at->ID); ?>"><?php echo $at->post_title; ?></a>
                                     </li> 
-                                <?php } ?>	
+        <?php } ?>	
 
                             </div>
                         </li>
@@ -1114,53 +1120,53 @@ function shipme_theme_post_new_function() {
             <div>
                 <!-- ################################################################# -->
 
-                <?php
+        <?php
+    }
+
+
+
+
+    if ($new_job_step == "1") {
+        global $MYerror, $jobOK;
+
+        if (is_array($MYerror))
+            if ($jobOK == 0) {
+                echo '<div class="errrs">';
+
+                echo __('Your form has errors. Please check below, correct the errors, then submit again.', 'shipme');
+
+                echo '</div>';
             }
+        if ($MYerror['num_of_package'] != '') {
+            echo '<div class="errrs">';
 
+            echo $MYerror['num_of_package'];
 
+            echo '</div>';
+        }
+        if ($MYerror['login'] != '') {
+            echo '<div class="errrs">';
 
+            echo $MYerror['login'];
 
-            if ($new_job_step == "1") {
-                global $MYerror, $jobOK;
+            echo '</div>';
+        }
 
-                if (is_array($MYerror))
-                    if ($jobOK == 0) {
-                        echo '<div class="errrs">';
-
-                        echo __('Your form has errors. Please check below, correct the errors, then submit again.', 'shipme');
-
-                        echo '</div>';
-                    }
-                if ($MYerror['num_of_package'] != '') {
-                    echo '<div class="errrs">';
-
-                    echo $MYerror['num_of_package'];
-
-                    echo '</div>';
-                }
-                if ($MYerror['login'] != '') {
-                    echo '<div class="errrs">';
-
-                    echo $MYerror['login'];
-
-                    echo '</div>';
-                }
-
-                $cat = wp_get_object_terms($pid, 'job_ship_cat', array('order' => 'ASC', 'orderby' => 'term_id'));
-                ?>     
+        $cat = wp_get_object_terms($pid, 'job_ship_cat', array('order' => 'ASC', 'orderby' => 'term_id'));
+        ?>     
 
                 <form method="post"  id="post-new-form" action="<?php echo shipme_post_new_with_pid_stuff_thg($pid, '1'); ?>">  
                     <input type="hidden" value="11" name="job_submit_step1" />
                     <ul class="post-new">
-                        <?php do_action('shipme_step1_before_title'); ?>
+        <?php do_action('shipme_step1_before_title'); ?>
 
 
                         <li>
-                            <h3><?php _e('Job Main Information', 'shipme'); ?></h3>
+                            <h3><?php _e('Job Information', 'shipme'); ?></h3>
                         </li>
 
-                        <li class="<?php echo shipme_get_post_new_error_thing('job_title') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('job_title') ?>        
+                        <li class="<?php echo shipme_get_post_new_error_thing('job_title') ?> single-col">
+        <?php echo shipme_get_post_new_error_thing_display('job_title') ?>        
                             <h2><?php echo __('Your job title', 'shipme'); ?></h2>
                             <p><input type="text" size="50" class="do_input form-control" name="job_title" id="job_title" placeholder="<?php _e('eg: I need a package moved.', 'shipme') ?>" value="<?php echo $post->post_title == "Auto Draft" ? "" : $post->post_title ?>" /></p>
                         </li>
@@ -1169,91 +1175,91 @@ function shipme_theme_post_new_function() {
 
 
 
-                        <?php
-                        $pst = $post->post_content;
-                        $pst = str_replace("<br />", "", $pst);
-                        ?>
-                        <li class="<?php echo shipme_get_post_new_error_thing('job_description') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('job_description') ?>
-                            <h2><?php echo __('Description', 'shipme'); ?></h2>
-                            <p><textarea rows="6" cols="60" class="form-control do_input description_edit" placeholder="<?php _e('Describe here your shipping job scope.', 'shipme') ?>"  name="job_description"><?php echo trim($pst); ?></textarea></p>
-                        </li>
-
-
-                        <li>
-                            <h3><?php _e('Items to Transport', 'shipme'); ?></h3>
-                        </li>
+                        <!--                        <li>
+                                                    <h3><?php _e('Items to Transport', 'shipme'); ?></h3>
+                                                </li>-->
                         <!--
-                        <li class="<?php echo shipme_get_post_new_error_thing('length') ?>">
-                        <?php echo shipme_get_post_new_error_thing_display('length') ?>
+                        <li class="<?php echo shipme_get_post_new_error_thing('length') ?> single-col">
+        <?php echo shipme_get_post_new_error_thing_display('length') ?>
                         <h2><?php echo __('Length', 'shipme'); ?></h2>
                         <p><input type="text" size="50" class="do_input form-control" name="length" id="length" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo get_post_meta($pid, 'length', true); ?>" /></p>
                         </li>
                         
                         
-                        <li class="<?php echo shipme_get_post_new_error_thing('width') ?>">
-                        <?php echo shipme_get_post_new_error_thing_display('width') ?>
+                        <li class="<?php echo shipme_get_post_new_error_thing('width') ?> single-col">
+        <?php echo shipme_get_post_new_error_thing_display('width') ?>
                         <h2><?php echo __('Width', 'shipme'); ?></h2>
                         <p><input type="text" size="50" class="do_input form-control" name="width" id="width" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo get_post_meta($pid, 'width', true); ?>" /></p>
                         </li>
                         
                         
-                        <li class="<?php echo shipme_get_post_new_error_thing('height') ?>">
-                        <?php echo shipme_get_post_new_error_thing_display('height') ?>
+                        <li class="<?php echo shipme_get_post_new_error_thing('height') ?> single-col">
+        <?php echo shipme_get_post_new_error_thing_display('height') ?>
                         <h2><?php echo __('Height', 'shipme'); ?></h2>
                         <p><input type="text" size="50" class="do_input form-control" name="height" id="height" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo get_post_meta($pid, 'height', true); ?>" /></p>
                         </li>
                         
                         
-                        <li class="<?php echo shipme_get_post_new_error_thing('weight') ?>">
-                        <?php echo shipme_get_post_new_error_thing_display('weight') ?>
+                        <li class="<?php echo shipme_get_post_new_error_thing('weight') ?> single-col">
+        <?php echo shipme_get_post_new_error_thing_display('weight') ?>
                         <h2><?php echo __('Weight', 'shipme'); ?></h2>
                         <p><input type="text" size="50" class="do_input form-control" name="weight" id="weight" placeholder="<?php echo shipme_get_weight_measure() ?>" value="<?php echo get_post_meta($pid, 'weight', true); ?>" /></p>
                         </li>
                         -->
                         <!--code for add custome box of package -->
-                        <?php
-                        $package_detail = array();
-                        $package_detail = get_post_meta($pid, 'package_detail', true);
+
+                        <li><h2>Items to Transport</h2><div class="div_for_p">
+        <?php
+        $package_detail = array();
+        $package_detail = get_post_meta($pid, 'package_detail', true);
 
 
-                        $c = 0;
-                        if (count($package_detail) > 0 && is_array($package_detail)) {
-                            foreach ($package_detail as $track) {
-                                if (isset($track['num_of_package']) || isset($track['height']) || isset($track['width']) || isset($track['length']) || isset($track['weight'])) {
-                                    ?>		<div class="package-detail-front">
-                                        <div class="modal fade" id="myModal<?php echo $c; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-body" >
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-sm-6 col-xs-6" >
-                                                                <?php echo __('Number of package', 'shipme'); ?><p><input type="text" size="50" class="do_input form-control num_of_package" name="package_detail[<?php echo $c; ?>][num_of_package]" id="package_detail[<?php echo $c; ?>][num_of_package]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['num_of_package']; ?>" /></p>
-                                                                <?php echo __('Height', 'shipme'); ?>        <p><input type="text" size="50" class="do_input form-control height" name="package_detail[<?php echo $c; ?>][height]" id="package_detail[<?php echo $c; ?>][height]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['height']; ?>" /></p>
-                                                                <?php echo __('Width', 'shipme'); ?>     <p><input type="text" size="50" class="do_input form-control width" name="package_detail[<?php echo $c; ?>][width]" id="package_detail[<?php echo $c; ?>][width]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['width']; ?>" /></p>
-                                                                <?php echo __('Length', 'shipme'); ?>    <p><input type="text" size="50" class="do_input form-control length" name="package_detail[<?php echo $c; ?>][length]" id="package_detail[<?php echo $c; ?>][length]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['length']; ?>" /></p>
-                                                                <?php echo __('Weight', 'shipme'); ?>    <p><input type="text" size="50" class="do_input form-control weight" name="package_detail[<?php echo $c; ?>][weight]" id="package_detail[<?php echo $c; ?>][weight]" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo $track['weight']; ?>" /></p>
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-6 col-xs-6"><img class="img-responsive" src="<?php echo get_template_directory_uri(); ?>/images/shipping-box.jpg"/></div>
-                                                        </div></div>
-                                                </div>
+        $c = 0;
+        if (count($package_detail) > 0 && is_array($package_detail)) {
+            foreach ($package_detail as $track) {
+                if (isset($track['num_of_package']) || isset($track['height']) || isset($track['width']) || isset($track['length']) || isset($track['weight'])) {
+                    ?>		<div class="package-detail-front">
+                                                <div class="modal fade" id="myModal<?php echo $c; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body" >
+                                                                <div class="row">
+                                                                    <div class="col-md-6 col-sm-6 col-xs-12" >
+                                                                        <p class="clearfix">
+                                                                        <h3>Package Detail</h3>
+                                                                        <select name="package_detail[<?php echo $c; ?>][dimention]" class="dimention_dropdown">
+                                                                            <option value="cm" <?php if ($package_detail[$c]['dimention'] == 'cm') echo 'selected="selected"'; ?> >cm</option>
+                                                                            <option value="inch" <?php if ($package_detail[$c]['dimention'] == 'inch') echo 'selected="selected"'; ?>>inch</option>
+                                                                            <option value="feet" <?php if ($package_detail[$c]['dimention'] == 'feet') echo 'selected="selected"'; ?>>feet</option>
+                                                                        </select>
+                                                                        </p>
+                                                                        <p class="model_error clearfix"></p>
+                                                                        <p class="clearfix"><input type="text" size="50" class="do_input form-control num_of_package" name="package_detail[<?php echo $c; ?>][num_of_package]" id="package_detail[<?php echo $c; ?>][num_of_package]" placeholder="<?php echo __('Quantity', 'shipme'); ?>" value="<?php echo $track['num_of_package']; ?>" /></p>
+                                                                        <p class="clearfix"><input type="text" size="50" class="do_input form-control height" name="package_detail[<?php echo $c; ?>][height]" id="package_detail[<?php echo $c; ?>][height]" placeholder="<?php echo __('Height', 'shipme'); ?>" value="<?php echo $track['height']; ?>" /><span class="dimention_display">cm</span></p>
+                                                                        <p class="clearfix"><input type="text" size="50" class="do_input form-control width" name="package_detail[<?php echo $c; ?>][width]" id="package_detail[<?php echo $c; ?>][width]" placeholder="<?php echo __('Width', 'shipme'); ?> " value="<?php echo $track['width']; ?>" /><span class="dimention_display">cm</span></p>
+                                                                        <p class="clearfix"><input type="text" size="50" class="do_input form-control length" name="package_detail[<?php echo $c; ?>][length]" id="package_detail[<?php echo $c; ?>][length]" placeholder="<?php echo __('Length', 'shipme'); ?>" value="<?php echo $track['length']; ?>" /><span class="dimention_display">cm</span></p>
+                                                                        <p class="clearfix"><input type="text" size="50" class="do_input form-control weight" name="package_detail[<?php echo $c; ?>][weight]" id="package_detail[<?php echo $c; ?>][weight]" placeholder="<?php echo __('Weight', 'shipme'); ?>" value="<?php echo $track['weight']; ?>" /><span class="dimention_display_weight">Kg</span></p>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-6 col-xs-6"><img class="img-responsive" src="<?php echo get_template_directory_uri(); ?>/images/shipping-box.jpg"/></div>
+                                                                </div></div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                <div class="dimention<?php echo $c; ?> col-md-10 col-sm-10 col-xs-10 package_display"><div class="inner_package_display"><span class="inner_package_display_quantity">Quantity : <?php echo $track['num_of_package']; ?></span><span class="inner_package_display_weight">Weight : <?php echo $track['weight']; ?> Kg</span><br>Dimension : <?php echo $track['height']; ?><?php echo $package_detail[$c]['dimention']; ?> (H) x <?php echo $track['width']; ?><?php echo $package_detail[$c]['dimention']; ?> (W) x <?php echo $track['length']; ?><?php echo $package_detail[$c]['dimention']; ?> (L) </div></div>
+                                                <button type="button" class="submit_bottom2 edit_package col-sm-1" data-toggle="modal" data-target="#myModal<?php echo $c; ?>"><i class="fa fa-pencil fa-fw"></i></button>
+                                                <a href="javascript:void(0)" style="" class="remove col-sm-1"><i class="fa fa-trash-o fa-fw"></i></a>
                                             </div>
-                                        </div> 
-                                        <div class="dimention<?php echo $c; ?> col-md-10 col-sm-10 package_display">Number Of Package : <?php echo $track['num_of_package']; ?><br>Dimension : <?php echo $track['height']; ?>cm x <?php echo $track['width']; ?>cm x <?php echo $track['length']; ?>cm x <?php echo $track['weight']; ?>cm</div>
-                                        <button type="button" class="submit_bottom2 edit_package col-sm-1" data-toggle="modal" data-target="#myModal<?php echo $c; ?>"><i class="fa fa-pencil fa-fw"></i></button>
-                                        <a href="javascript:void(0)" style="" class="remove col-sm-1"><i class="fa fa-trash-o fa-fw"></i></a>
-                                    </div>
-                    <!--               printf( '<table class="package_detail"><tr><td>Number of package :</td><td> <input type="text" name="package_detail[%1$s][num_of_package]" value="%2$s" placeholder="Number Of Package" /></td> </tr><tr><td>Height :</td><td> <input type="text" name="package_detail[%1$s][height]" value="%3$s" placeholder="cm" /></td></tr> <tr><td>Width :</td><td> <input type="text" name="package_detail[%1$s][width]" value="%4$s" placeholder="cm" /></td></tr> <tr><td>Length :</td><td> <input type="text" name="package_detail[%1$s][length]" value="%5$s" placeholder="cm" /></td></tr> <tr><td>Weight :</td><td> <input type="text" name="package_detail[%1$s][weight]" value="%6$s" placeholder="kg" /></td></tr> <tr><td></td><td><span class="remove preview  button button-primary button-large">%7$s</span></td></tr></table>', $c, $track['num_of_package'], $track['height'],$track['width'],$track['length'],$track['weight'],__( 'Remove Track' ) );  -->
-                                    <?php
-                                    $c = $c + 1;
-                                }
-                            }
-                        }
-                        ?>  
-
-                        <span id="here"></span>
-                        <li><h2></h2><p><a href="javascript:void(0)" class=" add_package_detail add submit_bottom2"><?php _e('Add Packages'); ?></a></p></li>
+                            <!--               printf( '<table class="package_detail"><tr><td>Number of package :</td><td> <input type="text" name="package_detail[%1$s][num_of_package]" value="%2$s" placeholder="Number Of Package" /></td> </tr><tr><td>Height :</td><td> <input type="text" name="package_detail[%1$s][height]" value="%3$s" placeholder="cm" /></td></tr> <tr><td>Width :</td><td> <input type="text" name="package_detail[%1$s][width]" value="%4$s" placeholder="cm" /></td></tr> <tr><td>Length :</td><td> <input type="text" name="package_detail[%1$s][length]" value="%5$s" placeholder="cm" /></td></tr> <tr><td>Weight :</td><td> <input type="text" name="package_detail[%1$s][weight]" value="%6$s" placeholder="kg" /></td></tr> <tr><td></td><td><span class="remove preview  button button-primary button-large">%7$s</span></td></tr></table>', $c, $track['num_of_package'], $track['height'],$track['width'],$track['length'],$track['weight'],__( 'Remove Track' ) );  -->
+                    <?php
+                    $c = $c + 1;
+                }
+            }
+        }
+        ?>  
+                            </div></li>
+                        <li><h2></h2><p id="here"></p></li>
+                        <li class="single-col"><h2></h2><p ><p class="package-detail-front"><a href="javascript:void(0)" class="col-md-12 col-sm-12 add_package_detail add submit_bottom2"><?php _e('Add Packages'); ?></a></p></p></li>
                         <!--                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                                                         Launch demo modal
                                                     </button>-->
@@ -1282,8 +1288,8 @@ function shipme_theme_post_new_function() {
                             count = count + 1;
 
 
-                            $('#here').append('<div class="package-detail-front"><div class="modal fade" id="myModal' + count + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-body" ><div class="row"><div class="col-md-6 col-sm-6 col-xs-6" >Number of package<p><input type="text" size="50" class="do_input form-control num_of_package" name="package_detail[' + count + '][num_of_package]" id="package_detail[' + count + '][num_of_package]" placeholder="Number of package"/></p>Height<p><input type="text" size="50" class="do_input form-control height" name="package_detail[' + count + '][height]" id="package_detail[' + count + '][height]" placeholder="cm"/></p> Width<p><input type="text" size="50" class="do_input form-control width" name="package_detail[' + count + '][width]" id="package_detail[' + count + '][width]" placeholder="cm"/></p> Length<p><input type="text" size="50" class="do_input form-control length" name="package_detail[' + count + '][length]" id="package_detail[' + count + '][length]" placeholder="cm"/></p> Weight <p><input type="text" size="50" class="do_input form-control weight" name="package_detail[' + count + '][weight]" id="package_detail[' + count + '][weight]" placeholder="cm"/></p> <button type="button" class="btn btn-default" data-dismiss="modal">Save</button></div><div class="col-md-6 col-sm-6 col-xs-6"><img class="img-responsive" src="<?php echo get_template_directory_uri(); ?>/images/shipping-box.jpg"/></div></div></div></div></div></div> <div class="dimention' + count + ' col-md-10 col-sm-10 package_display"></div><button type="button" class="add submit_bottom2 edit_package col-sm-1" data-toggle="modal" data-target="#myModal' + count + '"><i class="fa fa-pencil fa-fw"></i></button> <a href="javascript:void(0)" style="" class="remove col-sm-1"><i class="fa fa-trash-o fa-fw"></i></a></div>');
-                            $('#myModal' + count + '').modal('show')
+                            $('#here').append('<div class="package-detail-front"><div class="modal fade" id="myModal' + count + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-body" ><div class="row"><div class="col-md-6 col-sm-6 col-xs-12" ><p><h3>Package Detail</h3><select name="package_detail[' + count + '][dimention]" class="dimention_dropdown"><option value="cm">cm</option><option value="inch">inch</option><option value="feet">feet</option></select></p><p class="model_error"></p><p><input type="text" size="50" class="do_input form-control num_of_package" name="package_detail[' + count + '][num_of_package]" id="package_detail[' + count + '][num_of_package]" placeholder="Quantity"/></p><p><input type="text" size="50" class="do_input form-control height" name="package_detail[' + count + '][height]" id="package_detail[' + count + '][height]" placeholder="Height"/><span class="dimention_display">cm</span></p> <p><input type="text" size="50" class="do_input form-control width" name="package_detail[' + count + '][width]" id="package_detail[' + count + '][width]" placeholder="Width"/><span class="dimention_display">cm</span></p> <p><input type="text" size="50" class="do_input form-control length" name="package_detail[' + count + '][length]" id="package_detail[' + count + '][length]" placeholder="Length"/><span class="dimention_display">cm</span></p>  <p><input type="text" size="50" class="do_input form-control weight" name="package_detail[' + count + '][weight]" id="package_detail[' + count + '][weight]" placeholder="Weight"/><span class="dimention_display_weight">Kg</span></p> <button type="button" class="btn btn-default" data-dismiss="modal">Save</button></div><div class="col-md-6 col-sm-6 col-xs-12"><img class="img-responsive" src="<?php echo get_template_directory_uri(); ?>/images/shipping-box.jpg"/></div></div></div></div></div></div> <div class="dimention' + count + ' col-md-10 col-sm-10 col-xs-10 package_display"></div><button type="button" class="add submit_bottom2 edit_package col-sm-1" data-toggle="modal" data-target="#myModal' + count + '"><i class="fa fa-pencil fa-fw"></i></button> <a href="javascript:void(0)" style="" class="remove col-sm-1"><i class="fa fa-trash-o fa-fw"></i></a></div>');
+                            $('#myModal' + count + '').modal('show');
 
                             return false;
                         });
@@ -1292,11 +1298,43 @@ function shipme_theme_post_new_function() {
                             $(this).closest('.package-detail-front').remove();
                         });
 
+                        $(document).on('hide.bs.modal', 'div[id^=myModal]', function (e) {
+                            var e1 = e.target;
+                            if (!$.isNumeric($('#' + e1.id + ' .num_of_package').val())) {
+                                $('.model_error').text("Please Enter Proper Quantity");
+                                return false;
+                            }
+                            if (!$.isNumeric($('#' + e1.id + ' .height').val())) {
+                                $('.model_error').text("Please Enter Proper Height");
+                                return false;
+                            }
+                            if (!$.isNumeric($('#' + e1.id + ' .width').val())) {
+                                $('.model_error').text("Please Enter Proper Width");
+                                return false;
+                            }
+                            if (!$.isNumeric($('#' + e1.id + ' .length').val())) {
+                                $('.model_error').text("Please Enter Proper Length");
+                                return false;
+                            }
+                            if (!$.isNumeric($('#' + e1.id + ' .weight').val())) {
+                                $('.model_error').text("Please Enter Proper Weight");
+                                return false;
+                            }
+                             $('.model_error').text("");
+                        });
+
                         $(document).on('hidden.bs.modal', 'div[id^=myModal]', function (e) {
                             var e1 = e.target;
                             // alert(e1.id + ' .package_display');
-                            $('#' + e1.id).next('.package_display').html('Number Of Package : ' + $('#' + e1.id + ' .num_of_package').val() + '<br> Dimension : ' + $('#' + e1.id + ' .height').val() + 'cm x ' + $('#' + e1.id + ' .width').val() + 'cm x ' + $('#' + e1.id + ' .length').val() + 'cm x ' + $('#' + e1.id + ' .weight').val() + 'cm');
-                        })
+                            $('#' + e1.id).next('.package_display').html('<div class="inner_package_display"><span class="inner_package_display_quantity">Quantity : ' + $('#' + e1.id + ' .num_of_package').val() + '</span><span class="inner_package_display_weight">Weight : ' + $('#' + e1.id + ' .weight').val() + ' Kg</span><br> <span class="inner_package_display_dimention">Dimension : ' + $('#' + e1.id + ' .height').val() + $('#' + e1.id + ' .dimention_dropdown').val() + ' (H) x ' + $('#' + e1.id + ' .width').val() + $('#' + e1.id + ' .dimention_dropdown').val() + ' (W) x ' + $('#' + e1.id + ' .length').val() + $('#' + e1.id + ' .dimention_dropdown').val() + ' (L)</span></div>');
+                        });
+                        $(document).on('shown.bs.modal', 'div[id^=myModal]', function (e) {
+                            $(this).find('.dimention_display').text($(this).find('.dimention_dropdown').val());
+                        });
+                        $(document).on('change', '.dimention_dropdown', function (e) {
+
+                            $(this).parents('.modal-body').find('.dimention_display').text($(this).val());
+                        });
                     });
                         </script>
 
@@ -1304,9 +1342,9 @@ function shipme_theme_post_new_function() {
                         <!--End for add custome box of package -->
 
 
-                        <li>
-                            <h3><?php _e('Job Specifics', 'shipme'); ?></h3>
-                        </li>
+                        <!--                        <li>
+                                                    <h3><?php _e('Job Specifics', 'shipme'); ?></h3>
+                                                </li>-->
 
 
 
@@ -1361,25 +1399,25 @@ function shipme_theme_post_new_function() {
 
                         <!-- 
                          <li class="<?php echo shipme_get_post_new_error_thing('jb_category') ?>">
-                        <?php echo shipme_get_post_new_error_thing_display('jb_category') ?>
+        <?php echo shipme_get_post_new_error_thing_display('jb_category') ?>
                          <h2><?php echo __('Job Category', 'shipme'); ?></h2>
                                   
                                  <p class="strom_100">
                                          
                              
                              
-                        <?php if (get_option('shipme_enable_multi_cats') == "yes"): ?>
-                                                             <div class="multi_cat_placeholder_thing">
-                                                 
+        <?php if (get_option('shipme_enable_multi_cats') == "yes"): ?>
+                                                                         <div class="multi_cat_placeholder_thing">
+                                                             
                             <?php
                             $selected_arr = shipme_build_my_cat_arr($pid);
                             echo shipme_get_categories_multiple('job_ship_cat', $selected_arr);
                             ?>
-                                                 
-                                                 </div>
-                                                 
-                        <?php else: ?>
-                                                 
+                                                             
+                                                             </div>
+                                                             
+        <?php else: ?>
+                                                             
                             <?php
                             echo shipme_get_categories_clck("job_ship_cat", (is_array($cat) ? $cat[0]->term_id : ""), __('Select Category', 'shipme'), "form-control do_input", 'onchange="display_subcat(this.value)"');
 
@@ -1413,29 +1451,26 @@ function shipme_theme_post_new_function() {
                          
                         -->
 
-                        <li class="<?php echo shipme_get_post_new_error_thing('price') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('price') ?>        
+                        <li class="<?php echo shipme_get_post_new_error_thing('price') ?> single-col">
+        <?php echo shipme_get_post_new_error_thing_display('price') ?>        
                             <h2><?php echo __('Job Price', 'shipme'); ?></h2>
                             <p><input type="text" size="50" class="do_input form-control" name="price" placeholder="<?php echo shipme_get_currency() ?>" value="<?php echo get_post_meta($pid, 'price', true); ?>" /></p>
                         </li>
+                        <!--                        <li>
+                                                    <h3><?php _e('Package Pickup', 'shipme'); ?></h3>
+                                                </li>-->
 
-
-
-
-                        <li>
-                            <h3><?php _e('Package Pickup', 'shipme'); ?></h3>
-                        </li>
+                        <!--                        <li>
+                            <h3><?php _e('Package Delivery', 'shipme'); ?></h3>
+                        </li>-->
 
                         <!-- # JS here -->
 
                         <script src="<?php bloginfo('template_url') ?>/js/picker.js"  ></script>
                         <script src="<?php bloginfo('template_url') ?>/js/picker.date.js"  ></script>
                         <script src="<?php bloginfo('template_url') ?>/js/legacy.js"  ></script>
-
-
                         <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url') ?>/css/datepicker/classic.css">
                         <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url') ?>/css/datepicker/classic.date.css">
-
 
                         <script>
 
@@ -1524,9 +1559,6 @@ function shipme_theme_post_new_function() {
                                     });
                                 }
                             }
-
-
-
                             function geolocate_delivery() {
                                 if (navigator.geolocation) {
                                     navigator.geolocation.getCurrentPosition(function (position) {
@@ -1542,84 +1574,72 @@ function shipme_theme_post_new_function() {
                                     });
                                 }
                             }
-
                             // [END region_geolocation]
-
                         </script>
                         <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 
-                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_location') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('pickup_location') ?>        
-                            <h2><?php echo __('Location (address/zip)', 'shipme'); ?></h2>
-                            <p><input type="text" size="50" onFocus="geolocate_pickup()" id="autocomplete_pickup" class="do_input form-control" name="pickup_location" 
-                                      placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'pickup_location', true); ?>" /></p>
+                        <br/>
+                        <li class="two_col">        
+                            <h2><?php echo __('Pickup Location (address/zip)', 'shipme'); ?></h2>
+                        </li>
+                        <li class="two_col hidden_two_col">
+                            <h2 class="hidden_two_col"><?php echo __('Delivery Location (address/zip)', 'shipme'); ?></h2>
                         </li>
 
+
+                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_location') ?> two_col">
+        <?php echo shipme_get_post_new_error_thing_display('pickup_location') ?>        
+                            <!--<h2><?php //echo __('Location (address/zip)', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" onFocus="geolocate_pickup()" id="autocomplete_pickup" class="do_input form-control" name="pickup_location" placeholder="<?php _e('eg: Ahmedabad Gujarat India', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'pickup_location', true); ?>" /></p>
+                        </li>
                         <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_lat', true) ?>"  name="pickup_lat" id="pickup_lat"  />
                         <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_lng', true) ?>"  name="pickup_lng" id="pickup_lng"  />
 
-
-                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_date') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('pickup_date') ?>        
-                            <h2><?php echo __('Pickup Date', 'shipme'); ?></h2>
-                            <p><input type="text" size="50" class="do_input form-control" id="pickup_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>" 
-                                      value="<?php
-                                      $zz = get_post_meta($pid, 'pickup_date', true);
-                                      echo (!empty($zz) ? date("j F, Y", $zz) : '');
-                                      ?>"  /></p>
+                        <li class="two_col show_two_col">
+                            <h2><?php echo __('Delivery Location (address/zip)', 'shipme'); ?></h2>
                         </li>
 
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_date', true) ?>"  name="pickup_date" id="pickup_date_hidden"  />
-
-
-
-                        <li>
-                            <h3><?php _e('Package Delivery', 'shipme'); ?></h3>
-                        </li>
-
-
-
-
-                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_location') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('delivery_location') ?>        
-                            <h2><?php echo __('Location (address/zip)', 'shipme'); ?></h2>
-                            <p><input type="text" size="50" class="do_input form-control" onFocus="geolocate_delivery()"  id="autocomplete_delivery" name="delivery_location" 
-                                      placeholder="<?php _e('eg: California, San Francisco, Lombard St', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'delivery_location', true); ?>" /></p>
+                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_location') ?> two_col">
+        <?php echo shipme_get_post_new_error_thing_display('delivery_location') ?>        
+                            <!--<h2><?php //echo __('Location (address/zip)', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" class="do_input form-control" onFocus="geolocate_delivery()"  id="autocomplete_delivery" name="delivery_location" placeholder="<?php _e('eg: Surat Gujarat India', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'delivery_location', true); ?>" /></p>
                         </li>
 
                         <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_lat', true) ?>"  name="delivery_lat" id="delivery_lat"  />
                         <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_lng', true) ?>"  name="delivery_lng" id="delivery_lng"  />
 
 
-                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_date') ?>">
-                            <?php echo shipme_get_post_new_error_thing_display('delivery_date') ?>        
-                            <h2><?php echo __('Delivery Date', 'shipme'); ?></h2>
-                            <p><input type="text" size="50" class="do_input form-control" id="delivery_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>"  
-                                      value="<?php
-                                      $zz = get_post_meta($pid, 'delivery_date', true);
-                                      echo!empty($zz) ? date("j F, Y", $zz) : '';
-                                      ?>" /></p>
+                        <li class="two_col">        
+                            <h2><?php echo __('Pickup Date', 'shipme'); ?></h2>
+                        </li>
+                        <li class="two_col hidden_two_col">
+                            <h2 class="hidden_two_col"><?php echo __('Delivery Date', 'shipme'); ?></h2>
                         </li>
 
+                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_date') ?> two_col">
+        <?php echo shipme_get_post_new_error_thing_display('pickup_date') ?>        
+                            <!--<h2><?php //echo __('Pickup Date', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" class="do_input form-control" id="pickup_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>" value="<?php $zz = get_post_meta($pid, 'pickup_date', true);
+        echo (!empty($zz) ? date("j F, Y", $zz) : ''); ?>"  /></p>
+                        </li>
 
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_date', true) ?>"  name="pickup_date" id="pickup_date_hidden"  />
+
+
+                        <li class="two_col show_two_col">
+                            <h2><?php echo __('Delivery Date', 'shipme'); ?></h2>
+                        </li>
+                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_date') ?> two_col">
+        <?php echo shipme_get_post_new_error_thing_display('delivery_date') ?>        
+                            <!--<h2><?php //echo __('Delivery Date', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" class="do_input form-control" id="delivery_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>"  value="<?php $zz = get_post_meta($pid, 'delivery_date', true);
+                    echo!empty($zz) ? date("j F, Y", $zz) : ''; ?>" /></p>
+                        </li>
                         <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_date', true) ?>"  name="delivery_date" id="delivery_date_hidden"  />
-
-                        <!--                            <li><h2>&nbsp;</h2>
-                        
-                                                        <p><a href="#" class="submit_bottom2" onClick="document.getElementById('post-new-form').submit();
-                                                    return false;"  ><i class="fa fa-check-circle"></i> <?php _e('Next Step', 'shipme'); ?></a></p>
-                                                    </li>-->
-
-
-
                     </ul>
-                    <!--                </form>   
-                    
-                    
+                    <!--                </form>              
                     <?php
                 } //end step1
-
-
 
                 if ($new_job_step == "1") {
                     ?>
@@ -1628,23 +1648,13 @@ function shipme_theme_post_new_function() {
 
                     <ul class="post-new">
                         <li>
-                            <h3><?php _e('Attach Images', 'shipme'); ?></h3>
+                            <p><?php _e('Attach Images', 'shipme'); ?></p>
                         </li>
-
-
                         <li>
                             <div class="cross_cross">
-
-
-
                                 <script type="text/javascript" src="<?php echo get_bloginfo('template_url'); ?>/js/dropzone.js"></script>     
                                 <link rel="stylesheet" href="<?php echo get_bloginfo('template_url'); ?>/css/dropzone.css" type="text/css" />
-
-
-
                                 <script>
-
-
                                 jQuery(function () {
 
                                     Dropzone.autoDiscover = false;
@@ -1713,135 +1723,17 @@ function shipme_theme_post_new_function() {
 
 
 
-                                <?php _e('Click the grey area below to add job images. Other files are not accepted. Use the form below.', 'shipme') ?>
+                                <?php //_e('Click the grey area below to add job images. Other files are not accepted. Use the form below.', 'shipme') ?>
                                 <div class="dropzone dropzone-previews" id="myDropzoneElement2" ></div>
 
 
                             </div>
                         </li>
 
-                        <li>
-                            <h3><?php _e('Attach Files', 'shipme'); ?></h3>
-                        </li>
+<!--                        <li>
+                            <h3><?php //_e('Attach Files', 'shipme'); ?></h3>
+                        </li>-->
 
-
-                        <li>
-                            <div class="cross_cross">
-
-
-
-                                <script type="text/javascript" src="<?php echo get_bloginfo('template_url'); ?>/js/dropzone.js"></script>     
-                                <link rel="stylesheet" href="<?php echo get_bloginfo('template_url'); ?>/css/dropzone.css" type="text/css" />
-
-
-
-
-                                <script>
-
-
-                                jQuery(function () {
-
-                                    Dropzone.autoDiscover = false;
-                                    var myDropzoneOptions = {
-                                        maxFilesize: 15,
-                                        addRemoveLinks: true,
-                                        acceptedFiles: '.zip,.pdf,.rar,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.psd,.ai',
-                                        clickable: true,
-                                        url: "<?php bloginfo('siteurl') ?>/?my_upload_of_jb_files_proj=1",
-                                    };
-
-                                    var myDropzone = new Dropzone('div#myDropzoneElement', myDropzoneOptions);
-
-                                    myDropzone.on("sending", function (file, xhr, formData) {
-                                        formData.append("author", "<?php echo $cid; ?>"); // Will send the filesize along with the file as POST data.
-                                        formData.append("ID", "<?php echo $pid; ?>"); // Will send the filesize along with the file as POST data.
-                                    });
-
-
-        <?php
-        $args = array(
-            'order' => 'ASC',
-            'orderby' => 'menu_order',
-            'post_type' => 'attachment',
-            'meta_key' => 'is_prj_file',
-            'meta_value' => '1',
-            'post_parent' => $pid,
-            'post_status' => null,
-            'numberposts' => -1,
-        );
-        $attachments = get_posts($args);
-
-        if ($pid > 0)
-            if ($attachments) {
-                foreach ($attachments as $attachment) {
-                    $url = $attachment->guid;
-                    $imggg = $attachment->post_mime_type;
-
-                    if ('image/png' != $imggg && 'image/jpeg' != $imggg) {
-                        $url = wp_get_attachment_url($attachment->ID);
-                        ?>
-
-                                                    var mockFile = {name: "<?php echo $attachment->post_title ?>", size: <?php echo filesize(get_attached_file($attachment->ID)) ?>, serverId: '<?php echo $attachment->ID ?>'};
-                                                    myDropzone.options.addedfile.call(myDropzone, mockFile);
-                                                    myDropzone.options.thumbnail.call(myDropzone, mockFile, "<?php echo bloginfo('template_url') ?>/images/file_icon.png");
-
-
-                        <?php
-                    }
-                }
-            }
-        ?>
-
-
-
-                                    myDropzone.on("success", function (file, response) {
-                                        /* Maybe display some more file information on your page */
-                                        file.serverId = response;
-                                        file.thumbnail = "<?php echo bloginfo('template_url') ?>/images/file_icon.png";
-
-
-                                    });
-
-
-                                    myDropzone.on("removedfile", function (file, response) {
-                                        /* Maybe display some more file information on your page */
-                                        delete_this2(file.serverId);
-
-                                    });
-
-                                });
-
-                                </script>
-
-                                <script type="text/javascript">
-
-                                    function delete_this2(id)
-                                    {
-                                        jQuery.ajax({
-                                            method: 'get',
-                                            url: '<?php echo get_bloginfo('siteurl'); ?>/index.php?_ad_delete_pid=' + id,
-                                            dataType: 'text',
-                                            success: function (text) {
-                                                jQuery('#image_ss' + id).remove();
-                                            }
-                                        });
-                                        //alert("a");
-
-                                    }
-
-
-
-
-
-                                </script>
-
-                                <?php _e('Click the grey area below to add job files. Images are not accepted.', 'shipme') ?>
-                                <div class="dropzone dropzone-previews" id="myDropzoneElement" ></div>
-
-
-                            </div>
-
-                        </li>
 
 
                         <?php
@@ -1856,9 +1748,6 @@ function shipme_theme_post_new_function() {
 
 
                             for ($i = 0; $i < count($arr); $i++) {
-
-
-
 
                                 echo '<li class="' . shipme_get_post_new_error_thing('custom_field_' . $arr[$i]['id']) . '"  >';
                                 echo shipme_get_post_new_error_thing_display('custom_field_' . $arr[$i]['id']);
@@ -1876,11 +1765,9 @@ function shipme_theme_post_new_function() {
 
                         <li>
                             <h2><?php _e("Need a Helper?", 'shipme'); ?></h2>
-                            <p><input type="checkbox" class="do_input_new" name="need_a_helper" value="1" 
-                                <?php
-                                $feature = get_field('need_a_helper', $pid, true);
-                                echo ($feature == "1" ? "checked='checked'" : "");
-                                ?>  /> You want Helper For carry Loaded Package?</p>
+                            <p><input type="checkbox" class="do_input_new" name="need_a_helper" value="1" <?php $feature = get_field('need_a_helper', $pid, true);
+                echo ($feature == "1" ? "checked='checked'" : "");
+                ?>  /> You want Helper For carry Loaded Package?</p>
                         </li>
 
                         <li>
@@ -1910,7 +1797,15 @@ function shipme_theme_post_new_function() {
                                 ?>  /> Do you need packing services?</p>
                         </li>
 
-
+                        <?php
+                        $pst = $post->post_content;
+                        $pst = str_replace("<br />", "", $pst);
+                        ?>
+                        <li class="<?php echo shipme_get_post_new_error_thing('job_description') ?>">
+                            <?php echo shipme_get_post_new_error_thing_display('job_description') ?>
+                            <h2><?php echo __('Special Instructions', 'shipme'); ?></h2>
+                            <p><textarea rows="3" cols="60" class="form-control do_input description_edit" placeholder="Special Instructions"  name="job_description"><?php echo trim($pst); ?></textarea></p>
+                        </li>
                         <!--   
                              <li>
                              <h2><?php _e("Feature job?", 'shipme'); ?></h2>
@@ -1930,7 +1825,7 @@ function shipme_theme_post_new_function() {
                         ?></p>
                              </li>
                              
-                        <?php // endif; ?>
+                        <?php // endif;  ?>
                              
                              
                              
@@ -1939,13 +1834,13 @@ function shipme_theme_post_new_function() {
                         $shipme_enable_sealed_option = get_option('shipme_enable_sealed_option');
                         if ($shipme_enable_sealed_option != "no"):
                             ?>
-                                                         
-                                                  
-                                               
-                                               
-                                                 <li>
-                                                 <h2><?php _e("Sealed Bidding?", 'shipme'); ?></h2>
-                                                 <p><input type="checkbox" class="do_input_new" name="sealed_bidding" value="1" 
+                                                                                             
+                                                                                      
+                                                                                   
+                                                                                   
+                                                                                     <li>
+                                                                                     <h2><?php _e("Sealed Bidding?", 'shipme'); ?></h2>
+                                                                                     <p><input type="checkbox" class="do_input_new" name="sealed_bidding" value="1" 
                             <?php
                             $sealed_bidding = get_post_meta($pid, 'sealed_bidding', true);
                             echo ($sealed_bidding == "1" ? "checked='checked'" : "");
@@ -1959,47 +1854,59 @@ function shipme_theme_post_new_function() {
 
                             printf(__("By clicking this checkbox the proposals on your job will be sealed. %s", 'shipme'), $sl);
                             ?></p>
-                                                 </li>
-                                                 
+                                                                                     </li>
+                                                                                     
                         <?php endif; ?>
                         -->
                         <?php if (!is_user_logged_in()) { ?>
                             <li>
                                 <h2>&nbsp;</h2> 
-                                <p><input type="radio" class="do_input select_div" name="user_tp" id="login_user" value="login_user" checked="checked" /> <?php _e('Log In', $current_theme_locale_name); ?>&nbsp;&nbsp;&nbsp;
+                                <p>
+                                    <input type="radio" class="do_input select_div" name="user_tp" id="login_user" value="login_user" checked="checked" /> <?php _e('Log In', $current_theme_locale_name); ?>&nbsp;&nbsp;&nbsp;
                                     <input type="radio" class="do_input select_div" name="user_tp" id="register_user" value="register_user" /> <?php _e('Register For New user', $current_theme_locale_name); ?>
-
                                 </p>
+                                <h2 class="displyaNone">&nbsp;</h2>
                                 <div class="login_user col-xs-6" style="display: none;margin-top: 10px">
+                                    <h2 class="displyaNone">&nbsp;</h2>
                                     <div class="col-md-12 row setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Username</label>-->
-                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px" id="log"  type="text" size="30" value="" name="log" placeholder="Enter Your Mobile Number">
+                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;  display: inline-block;float:left;" id="log"  type="text" size="30" value="" name="log" placeholder="Enter Your Mobile Number">
+                                        <span class="post-new-login-error"></span>
                                     </div>
+                                    <h2 class="displyaNone">&nbsp;</h2>
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px">Password</label>-->
-                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px" id="log"  type="password" size="30" value="" name="user_pwd" placeholder="Enter Your Password">
+                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;  display: inline-block; float:left;" id="log"  type="password" size="30" value="" name="user_pwd" placeholder="Enter Your Password">
+                                        <span class="post-new-login-error"></span>
                                     </div>
                                 </div>
+                                <h2 class="displyaNone">&nbsp;</h2>
+                                <!--                                <h2 class="register_user" style="display: none; margin-top: 10px">&nbsp;</h2>-->
                                 <div class="register_user col-xs-6" style="display: none; margin-top: 10px" >
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Name</label>-->
-                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px" id="reg_name"  type="text" size="30" value="" name="reg_name" placeholder="Enter Your Name">
+                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;display: inline-block; float:left;" id="reg_name"  type="text" size="30" value="" name="reg_name" placeholder="Enter Your Name">
+                                        <span class="post-new-login-error"></span>
                                     </div>
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Mobile Number</label>-->
-                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px" id="reg_number"  type="text" size="30" value="" name="reg_number" placeholder="Enter Your Mobile Number">
+                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;display: inline-block; float:left;" id="reg_number"  type="text" size="30" value="" name="reg_number" placeholder="Enter Your Mobile Number">
+                                        <span class="post-new-login-error"></span>
                                     </div>
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Email</label>-->
-                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px" id="reg_email"  type="text" size="30" value="" name="reg_email" placeholder="Enter Your Email">
+                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;display: inline-block; float:left;" id="reg_email"  type="text" size="30" value="" name="reg_email" placeholder="Enter Your Email">
+                                        <span class="post-new-login-error"></span>
                                     </div>
                                     <div class="col-md-12 row setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Password</label>-->
-                                        <input class="col-md-5  do_input form-control" style="text-align: left; margin: 5px 0px" id="reg_pwd"  type="password" size="30" value="" name="reg_pwd" placeholder="Enter Your Password">
+                                        <input class="col-md-5  do_input form-control" style="text-align: left; margin: 5px 0px;display: inline-block; float:left;" id="reg_pwd"  type="password" size="30" value="" name="reg_pwd" placeholder="Enter Your Password">
+                                        <span class="post-new-login-error"></span>
                                     </div>
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Re-enter Password</label>-->
-                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px" id="reg_repwd" type="password" size="30" value="" name="reg_repwd" placeholder="ReEnter Your Password">
+                                        <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;display: inline-block; float:left;" id="reg_repwd" type="password" size="30" value="" name="reg_repwd" placeholder="ReEnter Your Password">
+                                        <span class="post-new-login-error"></span>
                                     </div>
 
 
@@ -2007,11 +1914,11 @@ function shipme_theme_post_new_function() {
                                 <script>
 
                                     jQuery(document).ready(function () {
-                                        if (jQuery('.select_div').attr("value") == "login_user") {
+                                        if (jQuery('input[name=user_tp]:checked').val() == "login_user") {
                                             jQuery(".register_user").hide();
                                             jQuery(".login_user").show();
                                         }
-                                        if (jQuery('.select_div').attr("value") == "register_user") {
+                                        if (jQuery('input[name=user_tp]:checked').val() == "register_user") {
                                             jQuery(".login_user").hide();
                                             jQuery(".register_user").show();
                                         }
@@ -2027,9 +1934,129 @@ function shipme_theme_post_new_function() {
                                             }
 
                                         });
+                                        var mob = /^[1-9]{1}[0-9]{9}$/;
+                                        var email = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                                        $("input[name=log]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (mob.test(jQuery("input[name=log]").val()) == false) {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
+                                        $("input[name=user_pwd]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (jQuery("input[name=user_pwd]").val() == '') {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
+                                        $("input[name=reg_name]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (jQuery("input[name=reg_name]").val() == '') {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
+                                        $("input[name=reg_number]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (mob.test(jQuery("input[name=reg_number]").val()) == false) {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
+                                        $("input[name=reg_email]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (email.test(jQuery("input[name=reg_email]").val()) == false) {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
+                                        $("input[name=reg_pwd]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (jQuery("input[name=reg_pwd]").val().length < 6) {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
+                                        $("input[name=reg_repwd]").change(function (e) {
+                                           // alert(jQuery("input[name=log]").val())
+                                            if (jQuery("input[name=reg_repwd]").val().length < 6 || (jQuery("input[name=reg_repwd]").val()!=jQuery("input[name=reg_pwd]").val())) {
+                                             $(this).next(".post-new-login-error").html('<i class="fa fa-times" style="color:#f00"></i>');   
+                                            }
+                                            else{
+                                               $(this).next(".post-new-login-error").html('<i class="fa fa-check" style="color:#1d9c56"></i>'); 
+                                            }
+                                        });
                                     });</script>
+                                <script>
+                                function validate_form_submit(){
+                                    //alert(jQuery('input[name=user_tp]:checked').val());
+                                    var mob_submit = /^[1-9]{1}[0-9]{9}$/;
+                                        var email_submit = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                                   if (jQuery('input[name=user_tp]:checked').val() == "login_user") {
+                                          if (mob_submit.test(jQuery("input[name=log]").val()) == false) {
+                                             alert("Please Enter Proper Mobile Number");
+                                             return false;
+                                            }
+                                            else if(jQuery("input[name=user_pwd]").val() == ''){
+                                             alert("Please Enter Proper Password"); 
+                                             return false;
+                                            }
+                                            else{
+                                              document.getElementById('post-new-form').submit();  
+                                              return false;
+                                            }
+                                        }
+                                        if (jQuery('input[name=user_tp]:checked').val() == "register_user") {
+                                            if (jQuery("input[name=reg_name]").val() == '') {
+                                             alert("Please Enter Proper Name");
+                                             return false;   
+                                            }
+                                            else if(mob_submit.test(jQuery("input[name=reg_number]").val()) == false){
+                                              alert("Please Enter Proper Mobile Number");
+                                             return false;  
+                                            }
+                                            else if(email_submit.test(jQuery("input[name=reg_email]").val()) == false &&jQuery("input[name=reg_email]").val() != ''){
+                                             alert("Please Enter Proper Email ID");
+                                             return false;   
+                                            }
+                                            else if(jQuery("input[name=reg_pwd]").val().length < 6){
+                                              alert("Please Enter Proper Password");
+                                             return false;  
+                                            }
+                                            else if(jQuery("input[name=reg_repwd]").val().length < 6 || (jQuery("input[name=reg_repwd]").val()!=jQuery("input[name=reg_pwd]").val())){
+                                              alert("Please Enter Proper Password/ReEnter Password");
+                                             return false;  
+                                            }
+                                            else{
+                                             document.getElementById('post-new-form').submit();  
+                                              return false;   
+                                            }
+                                        }
+                                    
+                                }
+                                </script>
                             </li>
                         <?php } ?>
+                            <?php if (is_user_logged_in()) { ?>
+                            <script>
+                                function validate_form_submit(){
+                                  document.getElementById('post-new-form').submit();   
+                                }
+                                </script>
+                            <?php } ?>
                         <li>
                             &nbsp;
                         </li>
@@ -2037,8 +2064,8 @@ function shipme_theme_post_new_function() {
 
                         <li><h2>&nbsp;</h2> <p>       	
         <!--                            <p><a href="<?php echo shipme_post_new_with_pid_stuff_thg($pid, '1'); ?>" class="submit_bottom2" ><i class="fa fa-backward"></i> <?php _e('Go Back', 'shipme'); ?></a>-->
-                                <a href="#" class="submit_bottom2" onClick="document.getElementById('post-new-form').submit();
-                                        return false;"  ><i class="fa fa-check-circle"></i> <?php _e('Save And Publish Job', 'shipme'); ?></a>
+                                <a href="#" class="submit_bottom2" onClick="validate_form_submit();
+                                                return false;"  ><i class="fa fa-check-circle"></i> <?php _e('Save And Publish Job', 'shipme'); ?></a>
                             </p>
                         </li>
 

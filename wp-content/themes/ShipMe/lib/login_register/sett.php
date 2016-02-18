@@ -63,7 +63,7 @@ function my_retrieve_password()
 	$errors = new WP_Error();
 
 	if ( empty( $_POST['user_login'] ) ) {
-		$errors->add('empty_username', __('<strong>ERROR</strong>: Enter a username or e-mail address.', 'shipme'));
+		$errors->add('empty_username', __('<strong>ERROR</strong>: Enter a Mobile Number or e-mail address.', 'shipme'));
 	} else if ( strpos( $_POST['user_login'], '@' ) ) {
 		$user_data = get_user_by( 'email', trim( $_POST['user_login'] ) );
 		if ( empty( $user_data ) )
@@ -80,7 +80,7 @@ function my_retrieve_password()
 		return $errors;
 
 	if ( !$user_data ) {
-		$errors->add('invalidcombo', __('<strong>ERROR</strong>: Invalid username or e-mail.', 'shipme'));
+		$errors->add('invalidcombo', __('<strong>ERROR</strong>: Invalid Mobile Number or e-mail.', 'shipme'));
 		return $errors;
 	}
 
@@ -108,7 +108,7 @@ function my_retrieve_password()
 	}
 	$message = __('Someone requested that the password be reset for the following account:', 'shipme') . "\r\n\r\n";
 	$message .= network_site_url() . "\r\n\r\n";
-	$message .= sprintf(__('Username: %s', 'shipme'), $user_login) . "\r\n\r\n";
+	$message .= sprintf(__('Mobile Number: %s', 'shipme'), $user_login) . "\r\n\r\n";
 	$message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'shipme') . "\r\n\r\n";
 	$message .= __('To reset your password, visit the following address:' ,'shipme') . "\r\n\r\n";
 	$message .=  network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n";

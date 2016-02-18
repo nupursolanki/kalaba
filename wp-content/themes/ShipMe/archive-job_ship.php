@@ -161,7 +161,10 @@ endif;
                 <option value="delivery-a-z">Delivery: A-Z</option>
                 <option value="delivery-z-a">Delivery: Z-A</option>
                 <option value="title-a-z">Title: A-Z</option>
-                <option value="title-z-a">Title: Z-A</option>
+                <option value="pickup-date-a-z">Pickup Date: DESC</option>
+                <option value="pickup-date-z-a">Pickup Date: ASC</option>
+                <option value="delivery-date-a-z">Delivery Date: DESC</option>
+                <option value="delivery-date-z-a">Delivery Date: ASC</option>
 
             </select>
         </div> 

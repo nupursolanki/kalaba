@@ -1118,25 +1118,25 @@ function SHIPME_my_admin_notice() {
         ?>
         <div class="updated">
             <p><?php
-                $action = 'install-plugin';
-                $slug = 'siteorigin-panels';
-                $ss = wp_nonce_url(
-                        add_query_arg(
-                                array(
-                    'action' => $action,
-                    'plugin' => $slug
-                                ), admin_url('update.php')
-                        ), $action . '_' . $slug
-                );
+        $action = 'install-plugin';
+        $slug = 'siteorigin-panels';
+        $ss = wp_nonce_url(
+                add_query_arg(
+                        array(
+            'action' => $action,
+            'plugin' => $slug
+                        ), admin_url('update.php')
+                ), $action . '_' . $slug
+        );
 
-                echo sprintf(__('In order to benefit of the full experience of our theme, we recommend installing <strong><a href="%s">this plugin</a></strong>. It will give you the "Page Builder" feature for your pages, and configure homepage as well.', 'shipme'), $ss);
-                ?></p>
+        echo sprintf(__('In order to benefit of the full experience of our theme, we recommend installing <strong><a href="%s">this plugin</a></strong>. It will give you the "Page Builder" feature for your pages, and configure homepage as well.', 'shipme'), $ss);
+        ?></p>
         </div>
-        <?php
-    }
+                <?php
+            }
 
-    if (!function_exists('wp_pagenavi')) {
-        ?>
+            if (!function_exists('wp_pagenavi')) {
+                ?>
         <div class="updated">
             <p><?php
                 $action = 'install-plugin';
@@ -1153,12 +1153,12 @@ function SHIPME_my_admin_notice() {
                 echo sprintf(__('In order to benefit of the full experience of our theme, we recommend installing <strong><a href="%s">WP PageNavi Plugin</a></strong>. You will need it for pagination.', 'shipme'), $ss);
                 ?></p>
         </div>
-        <?php
-    }
+                <?php
+            }
 
 
-    if (!function_exists('bcn_display')) {
-        ?>
+            if (!function_exists('bcn_display')) {
+                ?>
         <div class="updated">
             <p><?php
                 $action = 'install-plugin';
@@ -1259,7 +1259,7 @@ function shipme_table_head_thing() {
         <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Pickup', 'shipme') ?> </div>
         <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Delivery', 'shipme') ?></div>
         <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Budget', 'shipme') ?></div>
-        <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Time Due', 'shipme') ?> </div>
+        <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php// _e('Time Due', 'shipme') ?> </div>
     </div>
 
     <?php
@@ -1281,41 +1281,46 @@ function shipme_get_regular_job_post_account($class_optional = '') {
 
         <div class="picture-area col-xs-12 col-sm-2 col-lg-2">
             <a href="<?php the_permalink() ?>">
-                <?php if (@getimagesize(shipme_get_first_post_image(get_the_ID(), 70, 70))) { ?>
+    <?php if (@getimagesize(shipme_get_first_post_image(get_the_ID(), 70, 70))) { ?>
                     <img src="<?php echo shipme_get_first_post_image(get_the_ID(), 70, 70) ?>" class="img_img" width="70" />
-                <?php } else { ?>
+    <?php } else { ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.png" class="img_img" width="70" />
-                <?php } ?>
+    <?php } ?>
             </a>
 
         </div>
 
         <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo (get_post_meta(get_the_ID(), 'pickup_location', true)); ?>
+    <?php echo (get_post_meta(get_the_ID(), 'pickup_location', true)); ?>
         </div>
 
 
         <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo (get_post_meta(get_the_ID(), 'delivery_location', true)); ?>
+    <?php echo (get_post_meta(get_the_ID(), 'delivery_location', true)); ?>
         </div>
 
 
 
         <div class="price-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
+    <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
         </div>
 
 
         <div class="ending-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo '29d 3h 31s'; ?>
+                <?php// echo '29d 3h 31s'; ?>
         </div>
-
+<?php 
+        global $wpdb;
+        $biddetails = $wpdb->get_results("SELECT bid,uid,winner,pid,date_made,description FROM tf_ship_bids where pid='".get_the_ID()."'ORDER BY date_made DESC");
+//        echo '<pre>';print_r($biddetails);
+        ?>
 
         <div class="button-area col-xs-12 col-sm-2 col-lg-2">
           <!--<a href="<?php the_permalink() ?>" class="submit_bottom4"  ><i class="fa fa-check-circle"></i> <?php _e('Job Page', 'shipme') ?></a>-->
-            <a href="<?php echo get_site_url(); ?>/post-new-transport-job/?post_new_step=1&jobid=<?php echo the_ID(); ?>" class="submit_bottom4"  ><i class="fa fa-pencil-square-o"></i> <?php _e('Edit Job', 'shipme') ?></a>
-            <a href="<?php echo get_site_url(); ?>/my-account-area/?action=delete&jobid=<?php echo the_ID(); ?>" class="submit_bottom4 delete_job"  ><i class="fa fa-times"></i> <?php _e('Delete Job', 'shipme') ?></a>
-            <a href="javascript:void(0)" class="submit_bottom4 view-beading-detail"  ><i class="fa fa-check-circle"></i> <?php _e('View Bid', 'shipme') ?></a>
+            <a href="javascript:void(0)" class="submit_bottom4 view-beading-detail myaccount_box"  ><i class="fa fa-check-circle"></i> <?php _e('View Bid', 'shipme')?><?php echo  " (<span>".  count($biddetails)."</span>)" ; ?></a>
+            <a href="<?php echo get_site_url(); ?>/post-new-transport-job/?post_new_step=1&jobid=<?php echo the_ID(); ?>" class="submit_bottom4 myaccount_box"  ><i class="fa fa-pencil-square-o"></i> <?php _e('Edit Job', 'shipme') ?></a>
+            <a href="<?php echo get_site_url(); ?>/my-account-area/?action=delete&jobid=<?php echo the_ID(); ?>" class="submit_bottom4 delete_job myaccount_box"  ><i class="fa fa-times"></i> <?php _e('Delete Job', 'shipme') ?></a>
+            
         </div>
 
 
@@ -1330,11 +1335,7 @@ function shipme_get_regular_job_post_account($class_optional = '') {
                 <?php
             }
             ?>
-        <?php 
-        global $wpdb;
-        $biddetails = $wpdb->get_results("SELECT bid,uid,winner,pid,date_made,description FROM tf_ship_bids where pid='".get_the_ID()."'ORDER BY date_made DESC");
-//        echo '<pre>';print_r($biddetails);
-        ?>
+        
         <div class="col-md-12 bidding-detail-area" style="display:none;">
             <a href="javascript:void(0)" class="close_bedding_panel" style="float: right;"><i class="fa fa-times"></i></a>
             <?php if(!empty($biddetails)){ ?>
@@ -1393,35 +1394,35 @@ function shipme_get_regular_job_post($class_optional = '') {
 
         <div class="picture-area col-xs-12 col-sm-2 col-lg-2">
             <a href="<?php the_permalink() ?>">
-                <?php if (@getimagesize(shipme_get_first_post_image(get_the_ID(), 70, 70))) { ?>
+    <?php if (@getimagesize(shipme_get_first_post_image(get_the_ID(), 70, 70))) { ?>
 
                     <img src="<?php echo shipme_get_first_post_image(get_the_ID(), 70, 70) ?>" class="img_img" width="70" />
-                <?php } else { ?>
+    <?php } else { ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.png" class="img_img" width="70" />
-                <?php } ?>
+    <?php } ?>
 
 
             </a>
         </div>
 
         <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo (get_post_meta(get_the_ID(), 'pickup_location', true)); ?>
+    <?php echo (get_post_meta(get_the_ID(), 'pickup_location', true)); ?>
         </div>
 
 
         <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo (get_post_meta(get_the_ID(), 'delivery_location', true)); ?>
+    <?php echo (get_post_meta(get_the_ID(), 'delivery_location', true)); ?>
         </div>
 
 
 
         <div class="price-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
+    <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
         </div>
 
 
         <div class="ending-area col-xs-12 col-sm-2 col-lg-2">
-            <?php echo '29d 3h 31s'; ?>
+    <?php// echo '29d 3h 31s'; ?>
         </div>
 
 
@@ -1955,7 +1956,7 @@ function shipme_admin_style_sheet() {
 
 
         jQuery(function () {
-            //jQuery( document ).tooltip();
+    //jQuery( document ).tooltip();
         });
 
 
@@ -2062,6 +2063,8 @@ function shipme_get_job_ship_category_fields($catid, $pid = '', $step = '') {
         }
 
         if ($tp == 3) { //radio
+
+
             $s2 = "select * from " . $wpdb->prefix . "shipme_custom_options where custid='$ids' order by ordr ASC ";
             $r2 = $wpdb->get_results($s2);
 
@@ -2093,6 +2096,8 @@ function shipme_get_job_ship_category_fields($catid, $pid = '', $step = '') {
 
 
         if ($tp == 4) { //checkbox
+
+
             $s2 = "select * from " . $wpdb->prefix . "shipme_custom_options where custid='$ids' order by ordr ASC ";
             $r2 = $wpdb->get_results($s2);
 
@@ -2131,6 +2136,9 @@ function shipme_get_job_ship_category_fields($catid, $pid = '', $step = '') {
 
             if (count($r2) > 0)
                 foreach ($r2 as $row2) { // = mysql_fetch_object($r2))
+
+
+
                     if ($teka == $row2->valval) {
                         $tekak = "selected='selected'";
                     } else
@@ -2300,7 +2308,7 @@ function shipme_theme_job_dts() {
         <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 
         <li class="<?php echo shipme_get_post_new_error_thing('pickup_location') ?>">
-            <?php echo shipme_get_post_new_error_thing_display('pickup_location') ?>        
+    <?php echo shipme_get_post_new_error_thing_display('pickup_location') ?>        
             <h2><?php echo __('Location (address/zip)', 'shipme'); ?></h2>
             <p><input type="text" size="30" onFocus="geolocate_pickup()" id="autocomplete_pickup" class="do_input form-control" name="pickup_location" 
                       placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'pickup_location', true); ?>" /></p>
@@ -2311,13 +2319,11 @@ function shipme_theme_job_dts() {
 
 
         <li class="<?php echo shipme_get_post_new_error_thing('pickup_date') ?>">
-            <?php echo shipme_get_post_new_error_thing_display('pickup_date') ?>        
+    <?php echo shipme_get_post_new_error_thing_display('pickup_date') ?>        
             <h2><?php echo __('Pickup Date', 'shipme'); ?></h2>
             <p><input type="text" size="30" class="do_input form-control" id="pickup_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>" 
-                      value="<?php
-                      $zz = get_post_meta($pid, 'pickup_date', true);
-                      echo (!empty($zz) ? date("j F, Y", $zz) : '');
-                      ?>"  /></p>
+                      value="<?php $zz = get_post_meta($pid, 'pickup_date', true);
+    echo (!empty($zz) ? date("j F, Y", $zz) : ''); ?>"  /></p>
         </li>
 
         <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_date', true) ?>"  name="pickup_date" id="pickup_date_hidden"  />
@@ -2332,7 +2338,7 @@ function shipme_theme_job_dts() {
 
 
         <li class="<?php echo shipme_get_post_new_error_thing('delivery_location') ?>">
-            <?php echo shipme_get_post_new_error_thing_display('delivery_location') ?>        
+    <?php echo shipme_get_post_new_error_thing_display('delivery_location') ?>        
             <h2><?php echo __('Location (address/zip)', 'shipme'); ?></h2>
             <p><input type="text" size="30" class="do_input form-control" onFocus="geolocate_delivery()"  id="autocomplete_delivery" name="delivery_location" 
                       placeholder="<?php _e('eg: California, San Francisco, Lombard St', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'delivery_location', true); ?>" /></p>
@@ -2343,27 +2349,25 @@ function shipme_theme_job_dts() {
 
 
         <li class="<?php echo shipme_get_post_new_error_thing('delivery_date') ?>">
-            <?php echo shipme_get_post_new_error_thing_display('delivery_date') ?>        
+    <?php echo shipme_get_post_new_error_thing_display('delivery_date') ?>        
             <h2><?php echo __('Delivery Date', 'shipme'); ?></h2>
             <p><input type="text" size="30" class="do_input form-control" id="delivery_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>"  
-                      value="<?php
-                      $zz = get_post_meta($pid, 'delivery_date', true);
-                      echo!empty($zz) ? date("j F, Y", $zz) : '';
-                      ?>" /></p>
+                      value="<?php $zz = get_post_meta($pid, 'delivery_date', true);
+    echo!empty($zz) ? date("j F, Y", $zz) : ''; ?>" /></p>
         </li>
 
 
         <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_date', true) ?>"  name="delivery_date" id="delivery_date_hidden"  />
 
 
-        <?php
-        do_action('shipme_job_dts_form', $pid);
+    <?php
+    do_action('shipme_job_dts_form', $pid);
 
-        $filter_price = true;
-        $filter_price = apply_filters("shipme_filter_price_field_admin", $filter_price);
+    $filter_price = true;
+    $filter_price = apply_filters("shipme_filter_price_field_admin", $filter_price);
 
-        if ($filter_price == true):
-            ?>
+    if ($filter_price == true):
+        ?>
             <li>
                 <h2><?php echo __('Price', 'shipme'); ?>:</h2>
                 <p>
@@ -2373,33 +2377,33 @@ function shipme_theme_job_dts() {
                 </p>
             </li>
 
-        <?php endif; ?>
+    <?php endif; ?>
 
 
         <!--
          <li class="<?php echo shipme_get_post_new_error_thing('length') ?>">
-        <?php echo shipme_get_post_new_error_thing_display('length') ?>
+    <?php echo shipme_get_post_new_error_thing_display('length') ?>
          <h2><?php echo __('Length', 'shipme'); ?></h2>
          <p><input type="text" size="10" class="do_input form-control" name="length" id="length" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo get_post_meta($pid, 'length', true); ?>" /></p>
          </li>
          
          
          <li class="<?php echo shipme_get_post_new_error_thing('width') ?>">
-        <?php echo shipme_get_post_new_error_thing_display('width') ?>
+    <?php echo shipme_get_post_new_error_thing_display('width') ?>
          <h2><?php echo __('Width', 'shipme'); ?></h2>
          <p><input type="text" size="10" class="do_input form-control" name="width" id="width" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo get_post_meta($pid, 'width', true); ?>" /></p>
          </li>
          
          
          <li class="<?php echo shipme_get_post_new_error_thing('height') ?>">
-        <?php echo shipme_get_post_new_error_thing_display('height') ?>
+            <?php echo shipme_get_post_new_error_thing_display('height') ?>
          <h2><?php echo __('Height', 'shipme'); ?></h2>
          <p><input type="text" size="10" class="do_input form-control" name="height" id="height" placeholder="<?php echo shipme_get_dimensions_measure() ?>" value="<?php echo get_post_meta($pid, 'height', true); ?>" /></p>
          </li>
          
          
          <li class="<?php echo shipme_get_post_new_error_thing('weight') ?>">
-        <?php echo shipme_get_post_new_error_thing_display('weight') ?>
+    <?php echo shipme_get_post_new_error_thing_display('weight') ?>
          <h2><?php echo __('Weight', 'shipme'); ?></h2>
          <p><input type="text" size="10" class="do_input form-control" name="weight" id="weight" placeholder="<?php echo shipme_get_weight_measure() ?>" value="<?php echo get_post_meta($pid, 'weight', true); ?>" /></p>
          </li>
@@ -2450,15 +2454,15 @@ function shipme_theme_job_dts() {
 
 
 
-                <?php _e("Ad Valid Until:", 'shipme'); ?></h2>
+    <?php _e("Ad Valid Until:", 'shipme'); ?></h2>
             <p><input type="text" name="ending" id="ending" value="<?php
-                $d = get_post_meta($pid, 'ending', true);
+    $d = get_post_meta($pid, 'ending', true);
 
-                if (!empty($d)) {
-                    $r = date_i18n('m/d/Y H:i:s', $d);
-                    echo $r;
-                }
-                ?>" class="do_input"  /></p>
+    if (!empty($d)) {
+        $r = date_i18n('m/d/Y H:i:s', $d);
+        echo $r;
+    }
+    ?>" class="do_input"  /></p>
         </li>
 
         <script>
@@ -2618,7 +2622,7 @@ function shipme_theme_job_files() {
 
         </script>
 
-        <?php _e('Click the grey area below to add job files. Images are not accepted.', 'shipme') ?>
+    <?php _e('Click the grey area below to add job files. Images are not accepted.', 'shipme') ?>
         <div class="dropzone dropzone-previews" id="myDropzoneElement" ></div>
 
 
@@ -2724,7 +2728,7 @@ function shipme_theme_job_images() {
 
 
 
-        <?php _e('Click the grey area below to add job images. Other files are not accepted. Use the form below.', 'shipme') ?>
+    <?php _e('Click the grey area below to add job images. Other files are not accepted. Use the form below.', 'shipme') ?>
         <div class="dropzone dropzone-previews" id="myDropzoneElement2" ></div>
 
 
@@ -3382,21 +3386,21 @@ function shipme_get_users_links() {
                         <li><a href="<?php echo get_permalink(get_option('shipme_account_page_id')) ?>"><?php _e('MyAccount Home', 'shipme') ?></a></li>                                       
                         <!--<li><a href="<?php //echo get_permalink(get_option('shipme_finances_page_id')) ?>"><?php //_e('Finances', 'shipme') ?></a></li>-->                                        
                         <!--<li><a href="<?php //echo get_permalink(get_option('shipme_private_messages_page_id')) ?>"><?php //_e('Private Messages', 'shipme') ?></a></li>-->                    
-                        <!--<li><a href="<?php //echo get_permalink(get_option('shipme_profile_settings_page_id')) ?>"><?php //_e('Profile Settings', 'shipme') ?></a></li>-->
+                        <li><a href="<?php echo get_permalink(get_option('shipme_profile_settings_page_id')) ?>"><?php _e('Profile Settings', 'shipme') ?></a></li>
                         <!--<li><a href="<?php //echo get_permalink(get_option('shipme_profile_feedback_page_id')) ?>"><?php //_e('Reviews/Feedback', 'shipme') ?></a></li>-->
                         <li><a href="<?php echo get_permalink(get_option('shipme_post_new_page_id')); ?>"><?php _e('Post New Job', 'shipme') ?></a></li> 
                         <li><a href="<?php echo get_permalink(get_option('shipme_active_jobs_page_id')); ?>"><?php _e('Active Jobs', 'shipme') ?></a></li>
                         <li><a href="<?php echo get_permalink(get_option('shipme_received_offers_page_id')); ?>"><?php _e('Received Offers', 'shipme') ?></a></li> 
                         <?php
-//                        $currentuser = wp_get_current_user();
-//                        $userRolesArry = $currentuser->roles;
-//                        $contraLInk = '';
-//
-//                        if (in_array('transporter', $userRolesArry)) {
-//                            ?>
-                            <!--<li><a href="<?php echo get_permalink(get_option('shipme_applied_job_page_id')); ?>"><?php _e(' Applied Job', 'shipme') ?></a></li>--> 
+                        $currentuser = wp_get_current_user();
+                        $userRolesArry = $currentuser->roles;
+                        $contraLInk = '';
+                        
+                        if (in_array('transporter', $userRolesArry)) {
+                            ?>
+                            <li><a href="<?php echo get_permalink(get_option('shipme_posted_bids_page_id')); ?>"><?php _e(' Applied Job', 'shipme') ?></a></li>
                             <?php
-                       // }
+                        }
                         ?>
                     </ul>
                 </div>
@@ -3824,4 +3828,5 @@ function remove_admin_bar() {
 }
 
 show_admin_bar(false);
+error_reporting(0);
 ?>

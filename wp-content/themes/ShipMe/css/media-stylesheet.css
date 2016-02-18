@@ -1,3 +1,45 @@
+@media(max-width:1180px){
+    .post-new li.two_col{width: 40%}
+
+}
+@media(max-width:1142px){
+
+    .displyaNone{
+        display: none;
+    }
+
+    .post-new li.two_col{float: left;width:42%}
+
+}
+
+@media(max-width:1024px){
+
+
+    .post-new li.two_col{width:46%}
+
+
+}
+@media(max-width:990px){
+
+    .package-detail-front{width: 80%;}   
+    .post-new li.two_col{width:48%}
+
+    .login_user .setSize .form-control{width: 90%;}
+    .login_user .setSize .form-control#log , .register_user > .col-md-12.row.setSize >  .do_input.form-control{width: 95%;}
+    .register_user .setSize .form-control{width: 90%;} 
+    .bidPanel li div input {float: none}
+
+
+}
+@media(max-width:942px){
+
+    .package-detail-front{width: 100%;}   
+    .post-new li.two_col{width:79%}
+.post-new li.single-col{width:79%}
+    .post-new li.hidden_two_col{display: none}
+    .post-new li.show_two_col{display: block}
+	.post-new li.single-col > p {width: 100%;}
+}
 @media(max-width:900px){
 
     .col-md-12.row.setSize {
@@ -6,8 +48,22 @@
     .col-md-12.row.setSize >  .do_input.form-control {
         width: 90%;
     }
-   
+    .col-md-12.row.setSize >  .do_input.form-control#log , .register_user > .col-md-12.row.setSize >  .do_input.form-control {
+        width: 95%;
+    }
+}
+@media(max-width:800px){
 
+    .post-new li.two_col{width:92%}
+    .post-new li.single-col{width:92%}
+}
+@media(max-width:768px){
+
+    .post-new li.two_col{width:97%}
+	.post-new li.single-col{width:97%}
+}
+@media(max-width:766px)AND (min-width:760px){ 
+	/* .post-new li p.package-detail-front {width: 837px;} */
 }
 @media(max-width:766px){
 
@@ -20,10 +76,18 @@
     .col-md-12.row.setSize >  .do_input.form-control {
         width: 90%;
     }
-     .add_package_detail{
-        width: 70%;
+    .single-col .add_package_detail{
+        width: 85%;
     }
     #cboxWrapper{width: 450px }
+    /*.package-detail-front{width: 40%}*/
+    .package_display{width: 58% !important;}
+    .post-new li.two_col{width:95%}
+    .post-new li.single-col{width:95%}
+    .post-new li.two_col p .do_input.form-control{width: 85%}
+    .single-col .do_input.form-control{width: 85%}
+            .single-col .add_package_detail{width: 85%;}
+
 
 }
 @media(max-width:550px){
@@ -34,14 +98,32 @@
     .col-md-12.row.setSize {
         width: 100%;
     }
-    .login_user.col-xs-6{
+    .login_user.col-xs-6, .register_user.col-xs-6{
         width: 65%;
     }
     .col-md-12.row.setSize >  .do_input.form-control {
         width: 100%;
     }
-     .add_package_detail{
+    .col-md-12.row.setSize >  .do_input.form-control#log, .register_user > .col-md-12.row.setSize >  .do_input.form-control {
+        width: 95%;
+    }
+    .register_user > .col-md-12.row.setSize >  .do_input.form-control#reg_name{ width: 95%;}
+    .add_package_detail{
         width: 50%;
+    }
+    .package_display{width: 38% !important;}
+    .package-detail-front .package_display .inner_package_display{width: 100%}
+    .package-detail-front{float: left}
+    .post-new li.two_col p .do_input.form-control{width: 100%}
+
+    .post-new li.two_col{width:71%}
+    
+    .single-col .do_input.form-control{width: 100%}
+            .single-col .add_package_detail{width: 100%;}
+
+    .post-new li.single-col{width:71%}
+        .single-col .add_package_detail{
+        width: 100%;
     }
 }
 
@@ -53,11 +135,62 @@
     .do_input.form-control{
         width: 40%;
     }
-    
-    .login_user.col-xs-6{
+
+    .login_user.col-xs-6, .register_user.col-xs-6{
         width: 90%;
     }
-     .add_package_detail{
+    .add_package_detail{
         width: 40%;
     }
+    .package_display{width: 28% !important;}
+    .inner_package_display_weight{float: left;width: 100%;}
+
+    .post-new li.two_col p .do_input.form-control{width: 100%}
+    .single-col .do_input.form-control{width: 100%}
+            .single-col .add_package_detail{width: 100%;}
+        .single-col .add_package_detail{width: 100%;}
+    .dropzone .dz-default.dz-message {
+       background-position: -38px 15px !important;
+    background-size: 105% 312% !important;
+      left: auto !important;
+    margin-left: auto !important;
+    margin-top: auto !important;
+    opacity: 1 !important;
+    position: unset !important;
+    top: auto !important;
+    }
+        #myDropzoneElement2{padding-left:10px;}
+}
+@media(max-width:360px){
+
+    .post-new li.two_col{width:94%}
+    .post-new li.single-col{ width: 94%;}
+        .dropzone .dz-default.dz-message {
+       background-position: -43px 15px !important;
+    background-size: 90% 312% !important;
+      left: auto !important;
+    margin-left: auto !important;
+    margin-top: auto !important;
+    opacity: 1 !important;
+    position: unset !important;
+    top: auto !important;
+    }
+        #myDropzoneElement2{padding-left:10px;}
+     
+}
+@media(max-width:320px){
+
+    .post-new li.two_col{width:100%}
+    .post-new li.single-col{ width: 100%;}
+    .dropzone .dz-default.dz-message {
+       background-position: -38px 15px !important;
+    background-size: 85% 312% !important;
+      left: auto !important;
+    margin-left: auto !important;
+    margin-top: auto !important;
+    opacity: 1 !important;
+    position: unset !important;
+    top: auto !important;
+    }
+        #myDropzoneElement2{padding-left:10px;}
 }

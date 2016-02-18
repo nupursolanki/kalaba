@@ -29,7 +29,8 @@ function inner_custom_box_package() {
         if (count($package_detail) > 0 && is_array($package_detail)) {
             foreach ($package_detail as $track) {
                 if (isset($track['num_of_package']) || isset($track['height']) || isset($track['width']) || isset($track['length']) || isset($track['weight'])) {
-                    printf('<table class="package_detail"><tr><td>Number of package :</td><td> <input type="text" name="package_detail[%1$s][num_of_package]" value="%2$s" placeholder="Number Of Package" /></td> </tr><tr><td>Height :</td><td> <input type="text" name="package_detail[%1$s][height]" value="%3$s" placeholder="cm" /></td></tr> <tr><td>Width :</td><td> <input type="text" name="package_detail[%1$s][width]" value="%4$s" placeholder="cm" /></td></tr> <tr><td>Length :</td><td> <input type="text" name="package_detail[%1$s][length]" value="%5$s" placeholder="cm" /></td></tr> <tr><td>Weight :</td><td> <input type="text" name="package_detail[%1$s][weight]" value="%6$s" placeholder="kg" /></td></tr> <tr><td></td><td><span class="remove preview  button button-primary button-large">%7$s</span></td></tr></table>', $c, $track['num_of_package'], $track['height'], $track['width'], $track['length'], $track['weight'], __('Remove Track'));
+                    
+                    printf('<table class="package_detail"><tr><td>Dimention :</td><td> <input type="text" name="package_detail[%1$s][dimention]" value="%8$s" placeholder="Dimention" /></td> </tr><tr><td>Quantity :</td><td> <input type="text" name="package_detail[%1$s][num_of_package]" value="%2$s" placeholder="Number Of Package" /></td> </tr><tr><td>Height :</td><td> <input type="text" name="package_detail[%1$s][height]" value="%3$s" placeholder="Height" /></td></tr> <tr><td>Width :</td><td> <input type="text" name="package_detail[%1$s][width]" value="%4$s" placeholder="Width" /></td></tr> <tr><td>Length :</td><td> <input type="text" name="package_detail[%1$s][length]" value="%5$s" placeholder="Length" /></td></tr> <tr><td>Weight :</td><td> <input type="text" name="package_detail[%1$s][weight]" value="%6$s" placeholder="Weight(kg)" /></td></tr> <tr><td></td><td><span class="remove preview  button button-primary button-large">%7$s</span></td></tr></table>', $c, $track['num_of_package'], $track['height'], $track['width'], $track['length'], $track['weight'], __('Remove Track'),$track['dimention']);
                     $c = $c + 1;
                 }
             }
@@ -45,7 +46,7 @@ function inner_custom_box_package() {
                 $(".add").click(function () {
                     count = count + 1;
 
-                    $('#here').append('<table class="package_detail"><tr><td>Number of package :</td><td> <input type="text" name="package_detail[' + count + '][num_of_package]" value="" placeholder="Number of package" /></td></tr><tr><td>Height :</td><td> <input type="text" name="package_detail[' + count + '][height]" value="" placeholder="cm" /> </td></tr><tr><td>Width :</td><td> <input type="text" name="package_detail[' + count + '][width]" value="" placeholder="cm" /></td> </tr><tr><td>Length :</td> <td><input type="text" name="package_detail[' + count + '][length]" value="" placeholder="cm" /></td> </tr><tr><td>Weight :</td><td> <input type="text" name="package_detail[' + count + '][weight]" value=""  placeholder="kg"/> </td></tr> <tr><td> </td><td><span style="" class="remove preview  button button-primary button-large">Remove Track</span></td></tr></table>');
+                    $('#here').append('<table class="package_detail"><tr><td>Dimention :</td><td> <input type="text" name="package_detail[' + count + '][dimention]" value="" placeholder="Dimention" /></td></tr><tr><td>Quantity :</td><td> <input type="text" name="package_detail[' + count + '][num_of_package]" value="" placeholder="Number of package" /></td></tr><tr><td>Height :</td><td> <input type="text" name="package_detail[' + count + '][height]" value="" placeholder="Height" /> </td></tr><tr><td>Width :</td><td> <input type="text" name="package_detail[' + count + '][width]" value="" placeholder="Width" /></td> </tr><tr><td>Length :</td> <td><input type="text" name="package_detail[' + count + '][length]" value="" placeholder="Length" /></td> </tr><tr><td>Weight :</td><td> <input type="text" name="package_detail[' + count + '][weight]" value=""  placeholder="Weight(kg)"/> </td></tr> <tr><td> </td><td><span style="" class="remove preview  button button-primary button-large">Remove Track</span></td></tr></table>');
                     return false;
                 });
                 $(".remove").live('click', function () {
@@ -75,7 +76,7 @@ function save_postdata_package($post_id) {
     // OK, we're authenticated: we need to find and save the data
 
     $package_detail = $_POST['package_detail'];
-
+   // print_r($package_detail);exit;
     update_post_meta($post_id, 'package_detail', $package_detail);
 }
 

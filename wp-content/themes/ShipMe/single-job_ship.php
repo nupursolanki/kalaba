@@ -96,7 +96,7 @@ global $post;
         <!--        <div class="container_ship_ttl_wrap_jb" >	
                     <div class="container_ship_ttl_jb">
                         <div class="my-page-title col-xs-12 col-sm-12 col-lg-12">
-                            <h1 class="super-job-title"><?php //the_title()                                ?></h1>
+                            <h1 class="super-job-title"><?php //the_title()                                 ?></h1>
                         </div>
 
         <?php
@@ -271,32 +271,32 @@ global $post;
                             <!--
                                                         <ul class="main_details_1">
                                                             <li>
-                                                                <h3><?php //printf(__('%s Category:', 'shipme'), '<i class="fa fa-folder"></i>');                                ?></h3>
-                                                                <p><?php //echo get_the_term_list(get_the_ID(), 'job_ship_cat', '', ', ', '');                                ?></p>
+                                                                <h3><?php //printf(__('%s Category:', 'shipme'), '<i class="fa fa-folder"></i>');                                 ?></h3>
+                                                                <p><?php //echo get_the_term_list(get_the_ID(), 'job_ship_cat', '', ', ', '');                                 ?></p>
                                                             </li>
                                                             <li>
-                                                                <h3><?php //printf(__('%s Quotes:', 'shipme'), '<i class="fa fa-briefcase"></i>');                                ?></h3>
-                                                                <p><?php //echo shipme_number_of_bid(get_the_ID());                                ?></p>
+                                                                <h3><?php //printf(__('%s Quotes:', 'shipme'), '<i class="fa fa-briefcase"></i>');                                 ?></h3>
+                                                                <p><?php //echo shipme_number_of_bid(get_the_ID());                                 ?></p>
                                                             </li>
                             
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Date Listed:', 'shipme'), '<i class="fa fa-calendar"></i>');                                ?></h3>
-                                                                <p><?php //the_time("jS F Y g:i A");                                ?></p>
+                                                                <h3><?php //printf(__('%s Date Listed:', 'shipme'), '<i class="fa fa-calendar"></i>');                                 ?></h3>
+                                                                <p><?php //the_time("jS F Y g:i A");                                 ?></p>
                                                             </li>
                             
                             
                             <?php //if ($closed == "1"):  ?>
                             
                                                                 <li>
-                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');                                ?></h3>
-                                                                    <p class=" "><?php //echo __("Expired/Closed", 'shipme');                                ?></p>
+                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');                                 ?></h3>
+                                                                    <p class=" "><?php //echo __("Expired/Closed", 'shipme');                                 ?></p>
                                                                 </li>
                             
                             
                             <?php //else:  ?>
                                                                 <li>
-                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');                               ?></h3>
+                                                                    <h3><?php //printf(__('%s Ending In:', 'shipme'), '<i class="fa fa-clock-o"></i>');                                ?></h3>
                                                                     <p class="expiration_project_p"><?php //echo ($closed == "0" ? ($ending - current_time('timestamp', 0)) : __("Expired/Closed", 'shipme'));
                             ?></p>
                                                                 </li>
@@ -308,26 +308,26 @@ global $post;
                                                             <li><h3>&nbsp;</h3></li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Pickup Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lng', true);                                ?></p>
+                                                                <h3><?php //printf(__('%s Pickup Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                 ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lng', true);                                 ?></p>
                                                             </li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Pickup Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lat', true);                                ?></p>
+                                                                <h3><?php //printf(__('%s Pickup Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                 ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'pickup_lat', true);                                 ?></p>
                                                             </li>
                             
                             
                                                             <li><h3>&nbsp;</h3></li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Delivery Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lat', true);                                ?></p>
+                                                                <h3><?php //printf(__('%s Delivery Longitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                 ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lat', true);                                 ?></p>
                                                             </li>
                             
                                                             <li>
-                                                                <h3><?php //printf(__('%s Delivery Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                ?></h3>
-                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lng', true);                                ?></p>
+                                                                <h3><?php //printf(__('%s Delivery Latitude:', 'shipme'), '<i class="fa fa-location-arrow"></i>');                                 ?></h3>
+                                                                <p><?php //echo get_post_meta(get_the_ID(), 'delivery_lng', true);                                 ?></p>
                                                             </li>
                                                             
                                                               
@@ -395,9 +395,20 @@ global $post;
                                 </div>
                             <?php } ?>
                         </li>
-                    <?php } ?>
-
                     <?php
+                    }
+                    $special = get_the_content();
+                    if ($special != '' || $special != null) {
+                        ?>
+                        <li class="widget-container widget_text">
+                            <h3 class="widget-title">Special Instructions</h3>
+                            <div class="my-only-widget-content " id='content-of-jb'>
+                            <?php echo $special; ?>
+                            </div>
+                        </li>
+                        <?php
+                    }
+
                     $shipme_enable_project_files = get_option('shipme_enable_project_files');
                     $winner = get_post_meta(get_the_ID(), 'winner', true);
                     $post = get_post(get_the_ID());
@@ -644,7 +655,7 @@ global $post;
 
                     <li class="widget-container widget_text"> 
                         <div class="apply-for-this price-jb1">
-                            <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
+        <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
                         </div>
                     </li>
 
@@ -668,13 +679,13 @@ global $post;
                     ?>
 
                     <!--                    <li class="widget-container widget_text">
-                                            <h3 class="widget-title"><?php //_e('Item(s) Pickup', 'shipme')                                ?></h3>
+                                            <h3 class="widget-title"><?php //_e('Item(s) Pickup', 'shipme')                                 ?></h3>
                                             <div class="my-only-widget-content " >
                     
                                                 <ul class="rms1"> 
                                                     <li>   
-                                                        <p class="rf1"><img src="<?php // bloginfo('template_url')                                ?>/images/beachflag.png" /></p> 
-                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'pickup_location', true);                                ?></p>	
+                                                        <p class="rf1"><img src="<?php // bloginfo('template_url')                                 ?>/images/beachflag.png" /></p> 
+                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'pickup_location', true);                                 ?></p>	
                                                     </li>
                                                 </ul> 
                                             </div>
@@ -683,13 +694,13 @@ global $post;
 
 
                     <!--                    <li class="widget-container widget_text">
-                                            <h3 class="widget-title"><?php //_e('Item(s) Delivery', 'shipme')                           ?></h3>
+                                            <h3 class="widget-title"><?php //_e('Item(s) Delivery', 'shipme')                            ?></h3>
                                             <div class="my-only-widget-content " >
                     
                                                 <ul class="rms1"> 
                                                     <li>   
-                                                        <p class="rf1"><img src="<?php //bloginfo('template_url')                           ?>/images/finish.png" /></p> 
-                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'delivery_location', true);                           ?></p>	
+                                                        <p class="rf1"><img src="<?php //bloginfo('template_url')                            ?>/images/finish.png" /></p> 
+                                                        <p class="rf2"><?php //echo get_post_meta(get_the_ID(), 'delivery_location', true);                            ?></p>	
                                                     </li>
                                                 </ul> 
                     
@@ -712,32 +723,34 @@ global $post;
 
                                     <ul class="rms1" > 
                                         <li>   
-                                            <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                            <p class="rf2">Number Of Package: <?php echo $track['num_of_package']; ?></p>	
+                                            <!--<p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p>--> 
+                                            <p class="rf2">Quantity: <?php echo $track['num_of_package']; ?></p>
+                                            <p class="rf2">Weight: <?php echo $track['weight'] . 'Kg'; ?></p>	
+                                            <p class="rf2">Dimension: <?php echo $track['height'] . $track['dimention'] . ' (H) x ' . $track['width'] . $track['dimention'] . ' (W) x ' . $track['length'] . $track['dimention'] . ' (L)'; ?></p>	
                                         </li>
 
 
-                                        <li>   
-                                            <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                            <p class="rf2">Height: <?php echo $track['height'] . 'cm'; ?></p>	
-                                        </li>
-
-
-                                        <li>   
-                                            <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                            <p class="rf2">Width: <?php echo $track['width'] . 'cm'; ?></p>	
-                                        </li>
-
-
-                                        <li>   
-                                            <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                            <p class="rf2">Length: <?php echo $track['length'] . 'cm'; ?></p>	
-                                        </li>
-
-                                        <li style="border-bottom: 1px solid #e7e7e7">   
-                                            <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
-                                            <p class="rf2">Weight: <?php echo $track['weight'] . 'kg'; ?></p>	
-                                        </li>
+                                        <!--                                        <li>   
+                                                                                    <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
+                                                                                    <p class="rf2">Height: <?php echo $track['height'] . $track['dimention']; ?></p>	
+                                                                                </li>
+                                        
+                                        
+                                                                                <li>   
+                                                                                    <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
+                                                                                    <p class="rf2">Width: <?php echo $track['width'] . $track['dimention']; ?></p>	
+                                                                                </li>
+                                        
+                                        
+                                                                                <li>   
+                                                                                    <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
+                                                                                    <p class="rf2">Length: <?php echo $track['length'] . $track['dimention']; ?></p>	
+                                                                                </li>
+                                        
+                                                                                <li style="border-bottom: 1px solid #e7e7e7">   
+                                                                                    <p class="rf1"><img src="<?php bloginfo('template_url') ?>/images/bullet_accept.png" width="22" /></p> 
+                                                                                    <p class="rf2">Weight: <?php echo $track['weight'] . 'Kg'; ?></p>	
+                                                                                </li>-->
 
                                     </ul> 
                                     <?php
@@ -821,27 +834,27 @@ global $post;
 //                            foreach ($attachments as $at) {
                     ?>
 
-                                                                                                                                                                                                        <!--                                <li> <a href="<?php echo wp_get_attachment_url($at->ID); ?>"><?php echo $at->post_title; ?></a>
-                                                                                                                                                                                                                                        </li> -->
-                    <?php //}         ?>	
+                                                                                                                                                                                                                <!--                                <li> <a href="<?php echo wp_get_attachment_url($at->ID); ?>"><?php echo $at->post_title; ?></a>
+                                                                                                                                                                                                                                                </li> -->
+        <?php //}          ?>	
 
                     <!--                        </div>
                                         </li>-->
 
-                    <li class="widget-container widget_text"><div class="apply-for-this">
-                            <!-- AddThis Button BEGIN -->
-                            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                                <a class="addthis_button_preferred_1"></a>
-                                <a class="addthis_button_preferred_2"></a>
-                                <a class="addthis_button_preferred_3"></a>
-                                <a class="addthis_button_preferred_4"></a>
-                                <a class="addthis_button_compact"></a>
-                                <a class="addthis_counter addthis_bubble_style"></a>
-                            </div>
-                            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4df68b4a2795dcd9"></script>
-                            <!-- AddThis Button END -->
-
-                        </div></li>
+                    <!--                    <li class="widget-container widget_text"><div class="apply-for-this">
+                                                 AddThis Button BEGIN 
+                                                <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                                    <a class="addthis_button_preferred_1"></a>
+                                                    <a class="addthis_button_preferred_2"></a>
+                                                    <a class="addthis_button_preferred_3"></a>
+                                                    <a class="addthis_button_preferred_4"></a>
+                                                    <a class="addthis_button_compact"></a>
+                                                    <a class="addthis_counter addthis_bubble_style"></a>
+                                                </div>
+                                                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4df68b4a2795dcd9"></script>
+                                                 AddThis Button END 
+                    
+                                            </div></li>-->
 
                 </ul>
 

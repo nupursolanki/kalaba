@@ -82,7 +82,7 @@ function shipme_theme_my_account_home_new() {
                         );
 
                         $args = array('post_type' => 'job_ship', 'author' => $uid, 'order' => 'DESC', 'orderby' => 'date', 'posts_per_page' => $post_per_page,
-                            'paged' => 1, 'meta_query' => array($paid, $closed), 'post_status' => array('draft', 'publish'));
+                            'paged' => 1, 'meta_query' => array($paid, $closed), 'post_status' => array('publish'));
 
                         query_posts($args);
 

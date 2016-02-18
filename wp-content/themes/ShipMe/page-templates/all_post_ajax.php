@@ -1,7 +1,7 @@
 <?php
 require_once('../../../../wp-load.php');
 if(isset($_POST['sort_by_post'])){
-    //echo $_POST['sort_by_post'];exit;
+  //  echo $_POST['sort_by_post'];exit;
 }
 $closed = array(
     'key' => 'closed',
@@ -57,9 +57,10 @@ if(isset($_POST['price-2'])){
 
 $prs_string_qu = wp_parse_args($query_string);
 $prs_string_qu['post_type'] = 'job_ship';
+$prs_string_qu['posts_per_page'] = -1;
 $prs_string_qu['meta_query'] = array($closed, $paid,$pickup_location,$delivery_location,$price_1,$price_2);
 $prs_string_qu['meta_key'] = 'featured';
-
+//$prs_string_qu['posts_per_page'] = -1;
 if($_POST['sort_by_post']=='recently-added'){
  $prs_string_qu['orderby'] = 'date';
 $prs_string_qu['order'] = 'DESC';   
@@ -102,9 +103,29 @@ elseif ($_POST['sort_by_post']=='title-z-a'){
   $prs_string_qu['orderby'] = 'title';
 $prs_string_qu['order'] = 'DESC';  
 }
-else{
-$prs_string_qu['orderby'] = 'title';
+elseif ($_POST['sort_by_post']=='pickup-date-a-z'){
+  $prs_string_qu['meta_key'] = 'pickup_date';
+ $prs_string_qu['orderby'] = 'meta_value';
+$prs_string_qu['order'] = 'DESC';  
+}
+elseif ($_POST['sort_by_post']=='pickup-date-z-a'){
+  $prs_string_qu['meta_key'] = 'pickup_date';
+ $prs_string_qu['orderby'] = 'meta_value';
+$prs_string_qu['order'] = 'ASC';  
+}
+elseif ($_POST['sort_by_post']=='delivery-date-a-z'){
+  $prs_string_qu['meta_key'] = 'delivery_date';
+ $prs_string_qu['orderby'] = 'meta_value';
+$prs_string_qu['order'] = 'DESC';  
+}
+elseif ($_POST['sort_by_post']=='delivery-date-z-a'){
+  $prs_string_qu['meta_key'] = 'delivery_date';
+ $prs_string_qu['orderby'] = 'meta_value';
 $prs_string_qu['order'] = 'ASC';
+}
+else{
+$prs_string_qu['orderby'] = 'date';
+$prs_string_qu['order'] = 'DESC';
 }
 
 query_posts($prs_string_qu);
@@ -133,7 +154,7 @@ if (have_posts()):
                     <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Budget', 'shipme') ?></div>
 
 
-                    <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Time Due', 'shipme') ?> </div>
+                    <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php // _e('Time Due', 'shipme') ?> </div>
 
 
 
