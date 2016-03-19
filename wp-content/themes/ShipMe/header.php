@@ -21,8 +21,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
     
     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
-    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/stylesheet.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/media-stylesheet.css" />
+   
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	<?php wp_head() ?>
     <script src="<?php bloginfo('template_url') ?>/js/vegas.min.js"></script>
@@ -33,6 +32,10 @@
 	<script type="text/javascript" src="<?php bloginfo('template_url') ?>/js/general.js"></script>
     <link href="<?php bloginfo('template_url') ?>/css/jetmenu.css" rel="stylesheet" >
 
+         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/media-stylesheet.css" />
+    
+    
 	<script type="text/javascript">
 jQuery(document).ready(function(){  
 	jQuery('.expiration_project_p').each(function(index) 
@@ -56,13 +59,14 @@ jQuery(document).ready(function(){
 
     
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="<?php bloginfo('template_url'); ?>/js/bootstrap.min.js"></script>
+
     
     <?php if(!is_front_page()): ?>
     <style>

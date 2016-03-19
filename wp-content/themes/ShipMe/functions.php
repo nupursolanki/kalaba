@@ -1256,8 +1256,8 @@ function shipme_table_head_thing() {
     ?>
     <div class="head_columns acc-s  zubs0">
         <div class="heds-area col-xs-12 col-sm-2 col-lg-2">   </div>           
-        <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Pickup', 'shipme') ?> </div>
-        <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Delivery', 'shipme') ?></div>
+        <div class="heds-area  col-xs-12 col-sm-3 col-lg-3"><?php _e('Pickup', 'shipme') ?> </div>
+        <div class="heds-area  col-xs-12 col-sm-3 col-lg-3"><?php _e('Delivery', 'shipme') ?></div>
         <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Budget', 'shipme') ?></div>
         <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php// _e('Time Due', 'shipme') ?> </div>
     </div>
@@ -1289,26 +1289,26 @@ function shipme_get_regular_job_post_account($class_optional = '') {
             </a>
 
         </div>
-
-        <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
+        <div class="header-content col-xs-12 col-sm-3 col-lg-3"><?php _e('Pickup Address', 'shipme') ?> </div>
+        <div class="collection-del-area col-xs-12 col-sm-3 col-lg-3">
     <?php echo (get_post_meta(get_the_ID(), 'pickup_location', true)); ?>
         </div>
 
-
-        <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
+        <div class="header-content col-xs-12 col-sm-3 col-lg-3"><?php _e('Delivery Address', 'shipme') ?> </div>
+        <div class="collection-del-area col-xs-12 col-sm-3 col-lg-3">
     <?php echo (get_post_meta(get_the_ID(), 'delivery_location', true)); ?>
         </div>
 
 
-
+        <div class="header-content col-xs-12 col-sm-2 col-lg-2"><?php _e('Budget', 'shipme') ?> </div>
         <div class="price-area col-xs-12 col-sm-2 col-lg-2">
     <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
         </div>
 
 
-        <div class="ending-area col-xs-12 col-sm-2 col-lg-2">
+        <!--<div class="ending-area col-xs-12 col-sm-2 col-lg-2">-->
                 <?php// echo '29d 3h 31s'; ?>
-        </div>
+        <!--</div>-->
 <?php 
         global $wpdb;
         $biddetails = $wpdb->get_results("SELECT bid,uid,winner,pid,date_made,description FROM tf_ship_bids where pid='".get_the_ID()."'ORDER BY date_made DESC");
@@ -1404,26 +1404,26 @@ function shipme_get_regular_job_post($class_optional = '') {
 
             </a>
         </div>
-
-        <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
+        <div class="header-content col-xs-12 col-sm-3 col-lg-3"><?php _e('Pickup Address', 'shipme') ?> </div>
+        <div class="collection-del-area col-xs-12 col-sm-3 col-lg-3">
     <?php echo (get_post_meta(get_the_ID(), 'pickup_location', true)); ?>
         </div>
 
-
-        <div class="collection-del-area col-xs-12 col-sm-2 col-lg-2">
+        <div class="header-content col-xs-12 col-sm-3 col-lg-3"><?php _e('Delivery Address', 'shipme') ?> </div>
+        <div class="collection-del-area col-xs-12 col-sm-3 col-lg-3">
     <?php echo (get_post_meta(get_the_ID(), 'delivery_location', true)); ?>
         </div>
 
 
-
+        <div class=" header-content col-xs-12 col-sm-2 col-lg-2"><?php _e('Price', 'shipme') ?> </div>
         <div class="price-area col-xs-12 col-sm-2 col-lg-2">
     <?php echo shipme_get_show_price(get_post_meta(get_the_ID(), 'price', true)); ?>
         </div>
 
 
-        <div class="ending-area col-xs-12 col-sm-2 col-lg-2">
+        <!--<div class="ending-area col-xs-12 col-sm-2 col-lg-2">-->
     <?php// echo '29d 3h 31s'; ?>
-        </div>
+        <!--</div>-->
 
 
         <div class="button-area col-xs-12 col-sm-2 col-lg-2">

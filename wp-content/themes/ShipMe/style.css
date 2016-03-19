@@ -112,7 +112,8 @@ body
 	margin:auto;
 	font-size:22px;
 	text-align:center;
-	font-family:'Bitter',Arial, Helvetica, sans-serif	;
+	/* font-family:'Bitter',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	margin-top:10px;
 	margin-bottom:10px;
 }
@@ -155,9 +156,8 @@ body
 	width:100%;
 	float:left;overflow:hidden;
 	margin-bottom:2px;
-	font-family:'Bitter',Arial, Helvetica, sans-serif	;
-	
-	
+	/* font-family:'Bitter',Arial, Helvetica, sans-serif	; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	
 }
 
@@ -241,7 +241,8 @@ margin:auto;
 
 .title-area
 {
-	font-family:'Bitter',Arial, Helvetica, sans-serif;
+	/* font-family:'Bitter',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	font-weight:600;
 	color:#888;
 	font-size:16px;
@@ -250,7 +251,8 @@ margin:auto;
 
 .message-area
 {
-	font-family: Arial, Helvetica, sans-serif;
+	/* font-family: Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	font-weight:600;
 	color:#aaa;
 	margin-top:10px;
@@ -258,7 +260,8 @@ margin:auto;
 
 .heds-area 
 {
-	font-family: Arial, Helvetica, sans-serif;
+	/* font-family: Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
  	font-size:12px;
 	font-weight:bold;
 	padding-top:15px;
@@ -280,7 +283,10 @@ margin:auto;
 .padd10 { padding:10px }
 .padd10a { padding-top:10px; padding-bottom:10px }
 /*------------------*/
-.balance { font-family:'Bitter',Arial, Helvetica, sans-serif; font-size:17px; }
+.balance {
+ /* font-family:'Bitter',Arial, Helvetica, sans-serif;  */
+ font-family: "Rubik",Verdana,Geneva,sans-serif;
+font-size:17px; }
 .virtual_sidebar>li.balance_bg { background:#F1FFC7 }
 .cms_cms 
 {
@@ -380,7 +386,8 @@ background:#F9E6E6;
 	margin-top:0;
 	text-align:left;
 	font-weight:400;
-	font-family:'Cabin',Arial, Helvetica, sans-serif
+	/* font-family:'Cabin',Arial, Helvetica, sans-serif */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 .post-new3 li p
@@ -408,7 +415,8 @@ background:#F9E6E6;
 .post-new li h3
 {
 	text-align:left;
-	font-family:'Bitter',Arial, Helvetica, sans-serif
+	/* font-family:'Bitter',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 
@@ -418,7 +426,7 @@ background:#F9E6E6;
 	display:block;
 	margin-bottom:5px;
 	overflow:hidden;
-	width:100%;
+	/* width:100%; */
 	padding:4px
 }
 
@@ -428,11 +436,12 @@ background:#F9E6E6;
 	margin:0;
 	text-align:left;
 	float:left;
-	width:200px;
+	/* width:200px; */
 	font-size:14px;
 	font-weight:400;
 	margin-top:10px;
-	font-family:'Cabin',Arial, Helvetica, sans-serif
+	/* font-family:'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 .post-new li p
@@ -441,7 +450,7 @@ background:#F9E6E6;
 	margin:0;
 	text-align:left;
 	float:left;
-	width:700px;
+	/* width:700px; */
 	overflow:hidden;
 	padding-top:0px;
 	margin-top:3px;
@@ -515,7 +524,8 @@ background:#F9E6E6;
 	font-size:32px;
 	font-weight:bold;
 	color:#009900;
-	font-family:'Bitter',Arial, Helvetica, sans-serif
+	/* font-family:'Bitter',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 .price-area{
@@ -523,7 +533,8 @@ background:#F9E6E6;
 	font-weight:bold;
 	color:#009900;
 	padding-top:10px;
-	font-family:'Bitter',Arial, Helvetica, sans-serif
+	/* font-family:'Bitter',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 .collection-del-area
@@ -532,7 +543,8 @@ background:#F9E6E6;
  
 	color:#333;
 	padding-top:10px;
-	font-family: Arial, Helvetica, sans-serif
+	/* font-family: Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 .ending-area
 {
@@ -540,7 +552,8 @@ background:#F9E6E6;
  	font-weight:bold;
 	color:#333;
 	padding-top:10px;
-	font-family: Arial, Helvetica, sans-serif
+	/* font-family: Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 .button-area
@@ -610,7 +623,8 @@ background:#F9E6E6;
 {
 	text-align:center;
 	font-size:45px;
-	font-family:'Source Sans Pro', sans-serif;
+	/* font-family:'Source Sans Pro', sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	font-weight:600;
 	margin-bottom:20px
 }
@@ -627,7 +641,8 @@ background:#F9E6E6;
 .my-page-title
 {
 	width:100%;
-	font-family:'Bitter', "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/* font-family:'Bitter', "Helvetica Neue", Helvetica, Arial, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	font-size:28px;
 	text-align:left;
 	margin:auto;
@@ -854,7 +869,8 @@ a.pst_njb:link, a.pst_njb:visited
 	font-weight:500;
 	color:#fff;
 	font-size:48px;
-	font-family:'Rubik',Verdana, Geneva, sans-serif;
+	/* font-family:'Rubik',Verdana, Geneva, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	    text-shadow: 1px 1px #222222;
 	vertical-align:middle;
 	margin-top:170px
@@ -871,8 +887,9 @@ a.pst_njb:link, a.pst_njb:visited
 	font-weight:300;
 	color:#fff;
 	font-size:23px;
-	font-family:'Bitter',Verdana, Geneva, sans-serif;
-	    text-shadow: 1px 1px #222222;
+	/* font-family:'Bitter',Verdana, Geneva, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
+	text-shadow: 1px 1px #222222;
 	vertical-align:middle;
 	 
 }
@@ -894,7 +911,8 @@ a.list_package:link, a.list_package:visited
 	padding:19px 35px;
 	text-transform:capitalize;
 	font-size:25px;
-	font-family:'Bitter',Verdana, Geneva, sans-serif;
+	/* font-family:'Bitter',Verdana, Geneva, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	text-decoration:none;
 	border-radius:2px
 }
@@ -915,7 +933,8 @@ a.list_package:hover
 .box_title
 {
 	width: 100%;
-    font-family: 'Bitter',Arial, Helvetica, sans-serif;
+    /* font-family: 'Bitter',Arial, Helvetica, sans-serif; */
+    font-family: "Rubik",Verdana,Geneva,sans-serif;
     font-size: 23px;
     line-height: 14px;
     font-weight: 500;
@@ -969,7 +988,8 @@ a.green_btn:link, a.green_btn:visited
 	margin-left:3px;
 	font-size:12px;
 	text-transform:capitalize;
-	font-family:'Cabin',Arial, Helvetica, sans-serif;
+	/* font-family:'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	margin-bottom:5px
 }
  
@@ -1026,7 +1046,8 @@ a.green_btn:hover
 	padding:5px;
 	font-size:16px;
 	font-weight:400;
-	font-family:'Cabin',Arial, Helvetica, sans-serif
+	/* font-family:'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 .check-email-div
@@ -1064,7 +1085,8 @@ a.submit_bottom2:link, a.submit_bottom2:visited
 	text-transform:capitalize;
 	text-decoration: none;
 	font-weight:500;
-	font-family: 'Cabin',Arial, Helvetica, sans-serif;
+	/* font-family: 'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	margin-right:5px;
 	float:left
 	 
@@ -1088,7 +1110,8 @@ a.submit_bottom3:link, a.submit_bottom3:visited
 	text-transform:capitalize;
 	text-decoration: none;
 	font-weight:500;
-	font-family: 'Cabin',Arial, Helvetica, sans-serif;
+	/* font-family: 'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	float:left
 	 
 	
@@ -1111,7 +1134,8 @@ a.submit_bottom4:link, a.submit_bottom4:visited
 	text-transform:capitalize;
 	text-decoration: none;
 	font-weight:500;
-	font-family: 'Cabin',Arial, Helvetica, sans-serif;
+	/* font-family: 'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	float:left;
 	margin-bottom:5px;
 	 
@@ -1137,7 +1161,8 @@ a.submit_bottom4:hover { background:#4E9ABE; text-decoration:none }
 	text-transform:capitalize;
 	text-decoration: none;
 	font-weight:500;
-	font-family: 'Cabin',Arial, Helvetica, sans-serif;
+	/* font-family: 'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	margin-right:5px;
 	 
 	
@@ -1176,7 +1201,8 @@ a.submit_bottom4:hover { background:#4E9ABE; text-decoration:none }
 
 .widget-title { 	
 	width:100%;
-	font-family: 'Bitter',Arial, Helvetica, sans-serif;
+	/* font-family: 'Bitter',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	font-size:17px;
 	line-height: 24px;
 	font-weight:400;
@@ -1283,7 +1309,8 @@ a.submit_bottom4:hover { background:#4E9ABE; text-decoration:none }
 	width:100%; 
 	min-height:60px;
 	background: #00B7A4;
-	font-family:'Cabin',Constantia, "Lucida Bright", "DejaVu Serif", Georgia, serif
+	/* font-family:'Cabin',Constantia, "Lucida Bright", "DejaVu Serif", Georgia, serif */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 }
 
 #site-info-inner
@@ -1334,7 +1361,8 @@ a.ye_buut:link, a.ye_buut:visited
 	text-transform:capitalize;
 	text-decoration: none;
 	font-weight:500;
-	font-family: 'Cabin',Arial, Helvetica, sans-serif;
+	/* font-family: 'Cabin',Arial, Helvetica, sans-serif; */
+	font-family: "Rubik",Verdana,Geneva,sans-serif;
 	margin-right:5px;
  
 	 
@@ -1344,7 +1372,8 @@ a.ye_buut:link, a.ye_buut:visited
 a.ye_buut:hover { background:#1D9C56; text-decoration:none }
 
 
-
+body{font-family: "Rubik",Verdana,Geneva,sans-serif !important;}
+button, input, select, textarea{font-family: "Rubik",Verdana,Geneva,sans-serif !important;}
 
 /* RESPONSIVE LAYOUT
 **********************************************************/

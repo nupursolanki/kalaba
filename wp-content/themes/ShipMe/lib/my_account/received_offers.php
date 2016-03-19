@@ -53,7 +53,7 @@ function shipme_theme_my_account_received_off_fnc() {
                                     <th>POST TITLE</th>
                                     <th>Transporters Name</th>
                                     <th>BID</th>
-                                    <th>DATE & TIME OF BID</th>
+                                    <th>DATE</th>
                                     <th>DESCRIPTION</th>
                                 </tr>
                             </thead>       

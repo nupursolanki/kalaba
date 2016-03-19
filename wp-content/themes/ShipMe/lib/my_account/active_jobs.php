@@ -76,11 +76,12 @@ function shipme_theme_my_account_active_jobs_fnc()
 					);		
 				
 				$args = array('post_type' => 'job_ship', 'author' => $uid, 'order' => 'DESC', 'orderby' => 'date', 'posts_per_page' => $post_per_page,
-				'paged' => 1, 'meta_query' => array($paid, $closed), 'post_status' =>array('draft','publish') );
+				'paged' => 1, 'meta_query' => array($paid, $closed), 'post_status' =>array('publish') );
 				
 				query_posts($args);
 				
 				if(have_posts()) :
+                                    shipme_table_head_thing();
 				while ( have_posts() ) : the_post();
 					$i++;
 					shipme_get_regular_job_post_account('zubs' . ($i%2));

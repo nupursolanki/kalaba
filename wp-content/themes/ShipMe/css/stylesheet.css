@@ -1,6 +1,4 @@
 
-
-
 .parafontsize p{font-size: 15px; line-height:20px;}
 .termpageliststyle ul{list-style-type: disc;font-size: 15px; line-height:20px;padding-left: 40px;}
 
@@ -68,7 +66,7 @@
 .remove {padding: 18px;}
 .package_form{width: 60%;float: left;}
 .package_image{width:40%;float: right;}
-.package-detail-front{width: 80%}
+.package-detail-front{width: 100%}
 
 
 
@@ -131,7 +129,7 @@
     margin-bottom: 5px;
     padding-left: 5px;}
 .my-only-widget-content .rms1 li p.rf2{padding-top: 0;margin: 0 0 4px;}
-.post-new li.two_col{float: left;width: 39%}
+.post-new li.two_col{float: left;/* width: 50% */}
 .post-new li.two_col p{width:100%}
 
 .post-new li.show_two_col{display: none}
@@ -146,3 +144,33 @@
 
 /*.bidPanel li div{padding: 0; float: left; display: inline-block}*/
 .bidPanel li div input {float: left}
+
+.header-content{display: none}
+.single #total_total #map{max-height: 450px !important;}
+
+.container_ship_no_bk .job_info{
+    width: auto;
+}
+.total-content-area.col-md-8 {
+    float: none;
+}
+/* .post-new li.single-col h2{width:auto;} */
+/* .post-new li.single-col p{width:auto;} */
+/* .post-new li.single-col{width:auto;} */
+
+body.page-template-shipme-special-page-template{font-family: "Rubik",Verdana,Geneva,sans-serif;font-size: 16px;}
+.post-new li h2{font-family: "Rubik",Verdana,Geneva,sans-serif;font-size: 16px;}
+.post-new li h3{font-family: "Rubik",Verdana,Geneva,sans-serif;}
+.single-col #here{width: 100%;}
+/*.single-col .div_for_p{width: 100%;}*/
+
+/*Load More Button*/
+.virtual_sidebar .load_more_button_area{background: none !important; display: block;float: none;margin: 0 auto;}
+.load_more_job{display: block;float: none !important;margin: 0 auto;width: 115px;}
+
+
+a.submit_bottom3:link, a.submit_bottom3:visited{padding: 5px 9px;}
+
+
+.title-area {text-transform: uppercase}
+.heds-area {text-transform: uppercase}

@@ -48,8 +48,6 @@ function shipme_theme_my_account_posted_offers_fnc() {
                     <div class="my-only-widget-content">
                         <?php
                         global $wpdb;
-
-                        echo $uid;
                         $bidpostids .= ' AND uid=' . $uid;
                         $biddetails = $wpdb->get_results("SELECT bid,uid,winner,pid,date_made,description FROM tf_ship_bids where winner='0'$bidpostids");
                         if (!empty($biddetails)) {
@@ -59,7 +57,7 @@ function shipme_theme_my_account_posted_offers_fnc() {
                                     <tr>
                                         <th>POST TITLE</th>
                                         <th>BID</th>
-                                        <th>DATE & TIME OF BID</th>
+                                        <th>DATE</th>
                                         <th>DESCRIPTION</th>
                                     </tr>
                                 </thead>       
@@ -74,24 +72,25 @@ function shipme_theme_my_account_posted_offers_fnc() {
                                         echo ' </tr>';
                                     }
                                     ?>
-                                <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.dataTables.min.js"></script>
-                                <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_url'); ?>/css/jquery.dataTables.min.css" />
-                                <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/natural.js"></script>
-                                <script type="text/javascript">
-                                    jQuery(document).ready(function () {
-                                        $('#receivedbid').DataTable({
-                                            columnDefs: [
-                                                {type: 'natural', targets: 2},
-                                            ]
-                                        });
+                                </tbody>
+                            </table>
+                            <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.dataTables.min.js"></script>
+                            <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_url'); ?>/css/jquery.dataTables.min.css" />
+                            <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/natural.js"></script>
+                            <script type="text/javascript">
+                                jQuery(document).ready(function () {
+                                    $('#receivedbid').DataTable({
+                                        columnDefs: [
+                                            {type: 'natural', targets: 2},
+                                        ]
                                     });
-                                </script>
-
-                                <?php
-                            }
-                            ?>
-                            </tbody>
-                        </table>
+                                });
+                            </script>
+                            <?php
+                        }else{
+                            echo "You are not applied on any job";
+                        }
+                        ?>
                     </div>
                 </li>
             </ul>

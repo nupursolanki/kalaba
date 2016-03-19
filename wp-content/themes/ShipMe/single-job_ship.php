@@ -455,7 +455,7 @@ global $post;
                                         <tr>
                                             <th>Name</th>
                                             <th>Bid Amount</th>
-                                            <th>Date & Time</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>       
                                     <tbody>

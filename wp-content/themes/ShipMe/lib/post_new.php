@@ -61,8 +61,8 @@ function shipme_theme_post_new_function() {
     </div>
 
 
-    <div class="container_ship_no_bk">
-        <div class="total-content-area col-xs-12 col-sm-12 col-lg-12">
+    <div class="container_ship_no_bk job_info">
+        <div class="total-content-area col-xs-12 col-sm-6 col-md-8 container">
 
             <!--            <div id="steps">
                             <ul>
@@ -1155,23 +1155,246 @@ function shipme_theme_post_new_function() {
         $cat = wp_get_object_terms($pid, 'job_ship_cat', array('order' => 'ASC', 'orderby' => 'term_id'));
         ?>     
 
-                <form method="post"  id="post-new-form" action="<?php echo shipme_post_new_with_pid_stuff_thg($pid, '1'); ?>">  
+                <form method="post"  id="post-new-form" class="form-horizontal" action="<?php echo shipme_post_new_with_pid_stuff_thg($pid, '1'); ?>">  
                     <input type="hidden" value="11" name="job_submit_step1" />
                     <ul class="post-new">
         <?php do_action('shipme_step1_before_title'); ?>
 
 
-                        <li>
+                        <li class="col-md-12 col-xs-12">
                             <h3><?php _e('Job Information', 'shipme'); ?></h3>
                         </li>
 
-                        <li class="<?php echo shipme_get_post_new_error_thing('job_title') ?> single-col">
+                        <li class="<?php echo shipme_get_post_new_error_thing('job_title') ?> single-col col-md-12 col-xs-12">
         <?php echo shipme_get_post_new_error_thing_display('job_title') ?>        
-                            <h2><?php echo __('Your job title', 'shipme'); ?></h2>
-                            <p><input type="text" size="50" class="do_input form-control" name="job_title" id="job_title" placeholder="<?php _e('eg: I need a package moved.', 'shipme') ?>" value="<?php echo $post->post_title == "Auto Draft" ? "" : $post->post_title ?>" /></p>
+                            <h2 class="col-md-2 col-xs-12"><?php echo __('Your job title', 'shipme'); ?></h2>
+                            <p class="col-md-10 col-xs-12"><input type="text" size="50" class="do_input form-control" name="job_title" id="job_title" placeholder="<?php _e('eg: I need a package moved.', 'shipme') ?>" value="<?php echo $post->post_title == "Auto Draft" ? "" : $post->post_title ?>" /></p>
+                        </li>
+
+	  <!-- # JS here -->
+
+                        <script src="<?php bloginfo('template_url') ?>/js/picker.js"  ></script>
+                        <script src="<?php bloginfo('template_url') ?>/js/picker.date.js"  ></script>
+                        <script src="<?php bloginfo('template_url') ?>/js/legacy.js"  ></script>
+                        <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url') ?>/css/datepicker/classic.css">
+                        <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url') ?>/css/datepicker/classic.date.css">
+
+                        <script>
+
+                            jQuery(document).ready(function () {
+//                                jQuery('#pickup_date').pickadate({min: new Date(), onSet: function (thingSet) {
+//                                        jQuery("#pickup_date_hidden").val(thingSet.select / 1000 + 12400);
+//
+//                                    }});
+//                                jQuery('#delivery_date').pickadate({min: new Date(), onSet: function (thingSet) {
+//                                        jQuery("#delivery_date_hidden").val(thingSet.select / 1000 + 12400);
+//                                    }});
+                            var from_$input = jQuery('#pickup_date').pickadate({min: new Date(), onSet: function (thingSet) {
+                                        jQuery("#pickup_date_hidden").val(thingSet.select / 1000 + 12400);
+
+                                    }});
+                               var from_picker = from_$input.pickadate('picker');
+                               var to_$input = jQuery('#delivery_date').pickadate({min: new Date(), onSet: function (thingSet) {
+                                        jQuery("#delivery_date_hidden").val(thingSet.select / 1000 + 12400);
+                                    }});
+                                var  to_picker = to_$input.pickadate('picker');
+//                                var from_$input = $('#input_from').pickadate(),
+//                                        from_picker = from_$input.pickadate('picker')
+//
+//                                var to_$input = $('#input_to').pickadate(),
+//                                        to_picker = to_$input.pickadate('picker')
+
+
+        // Check if there’s a “from” or “to” date to start with.
+                                if (from_picker.get('value')) {
+                                    //console.log(from_picker.get('select').pick);
+                                    to_picker.set('min', from_picker.get('select'));
+                                    jQuery("#pickup_date_hidden").val(from_picker.get('select').pick / 1000 + 12400);
+                                    jQuery("#delivery_date_hidden").val(to_picker.get('select').pick / 1000 + 12400);
+                                }
+                                if (to_picker.get('value')) {
+                                    //console.log(to_picker.get('select').pick);
+                                    from_picker.set('max', to_picker.get('select'));
+                                    jQuery("#pickup_date_hidden").val(from_picker.get('select').pick / 1000 + 12400);
+                                    jQuery("#delivery_date_hidden").val(to_picker.get('select').pick / 1000 + 12400);
+                                }
+
+        // When something is selected, update the “from” and “to” limits.
+                                from_picker.on('set', function (event) {
+                                    if (event.select) {
+                                        to_picker.set('min', from_picker.get('select'));
+                                        jQuery("#pickup_date_hidden").val(from_picker.get('select').pick / 1000 + 12400);
+                                        jQuery("#delivery_date_hidden").val(to_picker.get('select').pick / 1000 + 12400);
+                                    } else if ('clear' in event) {
+                                        to_picker.set('min', false)
+                                    }
+                                })
+                                to_picker.on('set', function (event) {
+                                    if (event.select) {
+                                        from_picker.set('max', to_picker.get('select'));
+                                        jQuery("#pickup_date_hidden").val(from_picker.get('select').pick / 1000 + 12400);
+                                        jQuery("#delivery_date_hidden").val(to_picker.get('select').pick / 1000 + 12400);
+                                    } else if ('clear' in event) {
+                                        from_picker.set('max', false)
+                                    }
+                                })
+                            });
+
+                            // This example displays an address form, using the autocomplete feature
+                            // of the Google Places API to help users fill in the information.
+
+                            var placeSearch, autocomplete, autocomplete2;
+
+
+                            function initAutocomplete() {
+                                // Create the autocomplete object, restricting the search to geographical
+                                // location types.
+                                autocomplete = new google.maps.places.Autocomplete(
+                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_pickup')),
+                                        {types: ['geocode']});
+
+                                // When the user selects an address from the dropdown, populate the address
+                                // fields in the form.
+                                autocomplete.addListener('place_changed', fillInAddress);
+
+
+                                //-------------------------------------------------------------------
+
+                                autocomplete2 = new google.maps.places.Autocomplete(
+                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_delivery')),
+                                        {types: ['geocode']});
+
+                                // When the user selects an address from the dropdown, populate the address
+                                // fields in the form.
+                                autocomplete2.addListener('place_changed', fillInAddress2);
+
+
+                            }
+
+                            // [START region_fillform]
+                            function fillInAddress() {
+                                // Get the place details from the autocomplete object.
+                                var place = autocomplete.getPlace();
+                                var lat = place.geometry.location.lat();
+                                var lng = place.geometry.location.lng();
+
+
+                                document.getElementById('pickup_lat').value = lat;
+                                document.getElementById('pickup_lng').value = lng;
+
+                            }
+
+                            function fillInAddress2() {
+                                // Get the place details from the autocomplete object.
+                                var place = autocomplete2.getPlace();
+                                var lat = place.geometry.location.lat();
+                                var lng = place.geometry.location.lng();
+
+
+                                document.getElementById('delivery_lat').value = lat;
+                                document.getElementById('delivery_lng').value = lng;
+
+                            }
+                            // [END region_fillform]
+
+                            // [START region_geolocation]
+                            // Bias the autocomplete object to the user's geographical location,
+                            // as supplied by the browser's 'navigator.geolocation' object.
+                            function geolocate_pickup() {
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(function (position) {
+                                        var geolocation = {
+                                            lat: position.coords.latitude,
+                                            lng: position.coords.longitude
+                                        };
+                                        var circle = new google.maps.Circle({
+                                            center: geolocation,
+                                            radius: position.coords.accuracy
+                                        });
+                                        autocomplete.setBounds(circle.getBounds());
+                                    });
+                                }
+                            }
+                            function geolocate_delivery() {
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(function (position) {
+                                        var geolocation = {
+                                            lat: position.coords.latitude,
+                                            lng: position.coords.longitude
+                                        };
+                                        var circle = new google.maps.Circle({
+                                            center: geolocation,
+                                            radius: position.coords.accuracy
+                                        });
+                                        autocomplete.setBounds(circle.getBounds());
+                                    });
+                                }
+                            }
+                            // [END region_geolocation]
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+
+                        <br/>
+                        <li class="two_col col-md-6 col-xs-12">        
+                            <h2><?php echo __('Pickup Location (address/zip)', 'shipme'); ?></h2>
+                        </li>
+                        <li class="two_col hidden_two_col col-md-6 col-xs-12">
+                            <h2 class="hidden_two_col"><?php echo __('Delivery Location (address/zip)', 'shipme'); ?></h2>
                         </li>
 
 
+                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_location') ?> two_col col-md-6 col-xs-12">
+        <?php echo shipme_get_post_new_error_thing_display('pickup_location') ?>        
+                            <!--<h2><?php //echo __('Location (address/zip)', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" onFocus="geolocate_pickup()" id="autocomplete_pickup" class="do_input form-control" name="pickup_location" placeholder="<?php _e('eg: New York, 15th ave', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'pickup_location', true); ?>" /></p>
+                        </li>
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_lat', true) ?>"  name="pickup_lat" id="pickup_lat"  />
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_lng', true) ?>"  name="pickup_lng" id="pickup_lng"  />
+
+                        <li class="two_col show_two_col col-md-6 col-xs-12">
+                            <h2><?php echo __('Delivery Location (address/zip)', 'shipme'); ?></h2>
+                        </li>
+
+                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_location') ?> two_col col-md-6 col-xs-12">
+        <?php echo shipme_get_post_new_error_thing_display('delivery_location') ?>        
+                            <!--<h2><?php //echo __('Location (address/zip)', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" class="do_input form-control" onFocus="geolocate_delivery()"  id="autocomplete_delivery" name="delivery_location" placeholder="<?php _e('eg: California, San Francisco, Lombard St', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'delivery_location', true); ?>" /></p>
+                        </li>
+
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_lat', true) ?>"  name="delivery_lat" id="delivery_lat"  />
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_lng', true) ?>"  name="delivery_lng" id="delivery_lng"  />
+
+
+                        <li class="two_col col-md-6 col-xs-12">        
+                            <h2><?php echo __('Pickup Date', 'shipme'); ?></h2>
+                        </li>
+                        <li class="two_col hidden_two_col">
+                            <h2 class="hidden_two_col"><?php echo __('Delivery Date', 'shipme'); ?></h2>
+                        </li>
+
+                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_date') ?> two_col date_field">
+        <?php echo shipme_get_post_new_error_thing_display('pickup_date') ?>        
+                            <!--<h2><?php //echo __('Pickup Date', 'shipme');   ?></h2>-->
+                            <p>
+			    <input type="text" size="50" class="do_input form-control" id="pickup_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>" value="<?php $zz = get_post_meta($pid, 'pickup_date', true);
+        echo (!empty($zz) ? date("j F, Y", $zz) : ''); ?>"  />
+	</p>
+                        </li>
+
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_date', true) ?>"  name="pickup_date" id="pickup_date_hidden"  />
+
+
+                        <li class="two_col show_two_col col-md-6 col-xs-12">
+                            <h2><?php echo __('Delivery Date', 'shipme'); ?></h2>
+                        </li>
+                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_date') ?> two_col date_field">
+        <?php echo shipme_get_post_new_error_thing_display('delivery_date') ?>        
+                            <!--<h2><?php //echo __('Delivery Date', 'shipme');   ?></h2>-->
+                            <p><input type="text" size="50" class="do_input form-control" id="delivery_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>"  value="<?php $zz = get_post_meta($pid, 'delivery_date', true);
+                    echo!empty($zz) ? date("j F, Y", $zz) : ''; ?>" /></p>
+                        </li>
+                        <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_date', true) ?>"  name="delivery_date" id="delivery_date_hidden"  />
+                  
 
 
 
@@ -1207,8 +1430,8 @@ function shipme_theme_post_new_function() {
                         </li>
                         -->
                         <!--code for add custome box of package -->
-
-                        <li><h2>Items to Transport</h2><div class="div_for_p">
+                        <li><h2>Items to Transport</h2></li>
+                        <li class="single-col col-md-10 col-md-offset-2 col-xs-12"><div class="div_for_p">
         <?php
         $package_detail = array();
         $package_detail = get_post_meta($pid, 'package_detail', true);
@@ -1258,8 +1481,8 @@ function shipme_theme_post_new_function() {
         }
         ?>  
                             </div></li>
-                        <li><h2></h2><p id="here"></p></li>
-                        <li class="single-col"><h2></h2><p ><p class="package-detail-front"><a href="javascript:void(0)" class="col-md-12 col-sm-12 add_package_detail add submit_bottom2"><?php _e('Add Packages'); ?></a></p></p></li>
+                        <li  class="single-col col-md-10 col-md-offset-2 col-xs-12"><h2></h2><p id="here"></p></li>
+                        <li class="single-col col-md-10 col-md-offset-2 col-xs-12"><h2></h2><p ><p class="package-detail-front"><a href="javascript:void(0)" class="col-sm-12 add_package_detail add submit_bottom2"><?php _e('Add Packages'); ?></a></p></p></li>
                         <!--                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                                                         Launch demo modal
                                                     </button>-->
@@ -1451,10 +1674,10 @@ function shipme_theme_post_new_function() {
                          
                         -->
 
-                        <li class="<?php echo shipme_get_post_new_error_thing('price') ?> single-col">
+                        <li class="<?php echo shipme_get_post_new_error_thing('price') ?> single-col col-md-12 col-xs-12">
         <?php echo shipme_get_post_new_error_thing_display('price') ?>        
-                            <h2><?php echo __('Job Price', 'shipme'); ?></h2>
-                            <p><input type="text" size="50" class="do_input form-control" name="price" placeholder="<?php echo shipme_get_currency() ?>" value="<?php echo get_post_meta($pid, 'price', true); ?>" /></p>
+                            <h2 class="col-md-2 col-xs-12"><?php echo __('Job Price', 'shipme'); ?></h2>
+                            <p class="col-md-10 col-xs-12"><input type="text" size="50" class="do_input form-control" name="price" placeholder="<?php echo shipme_get_currency() ?>" value="<?php echo get_post_meta($pid, 'price', true); ?>" /></p>
                         </li>
                         <!--                        <li>
                                                     <h3><?php _e('Package Pickup', 'shipme'); ?></h3>
@@ -1464,179 +1687,7 @@ function shipme_theme_post_new_function() {
                             <h3><?php _e('Package Delivery', 'shipme'); ?></h3>
                         </li>-->
 
-                        <!-- # JS here -->
-
-                        <script src="<?php bloginfo('template_url') ?>/js/picker.js"  ></script>
-                        <script src="<?php bloginfo('template_url') ?>/js/picker.date.js"  ></script>
-                        <script src="<?php bloginfo('template_url') ?>/js/legacy.js"  ></script>
-                        <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url') ?>/css/datepicker/classic.css">
-                        <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url') ?>/css/datepicker/classic.date.css">
-
-                        <script>
-
-                            jQuery(document).ready(function () {
-                                jQuery('#pickup_date').pickadate({min: new Date(), onSet: function (thingSet) {
-                                        jQuery("#pickup_date_hidden").val(thingSet.select / 1000 + 12400);
-
-                                    }});
-                                jQuery('#delivery_date').pickadate({min: new Date(), onSet: function (thingSet) {
-                                        jQuery("#delivery_date_hidden").val(thingSet.select / 1000 + 12400);
-                                    }});
-                            });
-
-                            // This example displays an address form, using the autocomplete feature
-                            // of the Google Places API to help users fill in the information.
-
-                            var placeSearch, autocomplete, autocomplete2;
-
-
-                            function initAutocomplete() {
-                                // Create the autocomplete object, restricting the search to geographical
-                                // location types.
-                                autocomplete = new google.maps.places.Autocomplete(
-                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_pickup')),
-                                        {types: ['geocode']});
-
-                                // When the user selects an address from the dropdown, populate the address
-                                // fields in the form.
-                                autocomplete.addListener('place_changed', fillInAddress);
-
-
-                                //-------------------------------------------------------------------
-
-                                autocomplete2 = new google.maps.places.Autocomplete(
-                                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_delivery')),
-                                        {types: ['geocode']});
-
-                                // When the user selects an address from the dropdown, populate the address
-                                // fields in the form.
-                                autocomplete2.addListener('place_changed', fillInAddress2);
-
-
-                            }
-
-                            // [START region_fillform]
-                            function fillInAddress() {
-                                // Get the place details from the autocomplete object.
-                                var place = autocomplete.getPlace();
-                                var lat = place.geometry.location.lat();
-                                var lng = place.geometry.location.lng();
-
-
-                                document.getElementById('pickup_lat').value = lat;
-                                document.getElementById('pickup_lng').value = lng;
-
-                            }
-
-                            function fillInAddress2() {
-                                // Get the place details from the autocomplete object.
-                                var place = autocomplete2.getPlace();
-                                var lat = place.geometry.location.lat();
-                                var lng = place.geometry.location.lng();
-
-
-                                document.getElementById('delivery_lat').value = lat;
-                                document.getElementById('delivery_lng').value = lng;
-
-                            }
-                            // [END region_fillform]
-
-                            // [START region_geolocation]
-                            // Bias the autocomplete object to the user's geographical location,
-                            // as supplied by the browser's 'navigator.geolocation' object.
-                            function geolocate_pickup() {
-                                if (navigator.geolocation) {
-                                    navigator.geolocation.getCurrentPosition(function (position) {
-                                        var geolocation = {
-                                            lat: position.coords.latitude,
-                                            lng: position.coords.longitude
-                                        };
-                                        var circle = new google.maps.Circle({
-                                            center: geolocation,
-                                            radius: position.coords.accuracy
-                                        });
-                                        autocomplete.setBounds(circle.getBounds());
-                                    });
-                                }
-                            }
-                            function geolocate_delivery() {
-                                if (navigator.geolocation) {
-                                    navigator.geolocation.getCurrentPosition(function (position) {
-                                        var geolocation = {
-                                            lat: position.coords.latitude,
-                                            lng: position.coords.longitude
-                                        };
-                                        var circle = new google.maps.Circle({
-                                            center: geolocation,
-                                            radius: position.coords.accuracy
-                                        });
-                                        autocomplete.setBounds(circle.getBounds());
-                                    });
-                                }
-                            }
-                            // [END region_geolocation]
-                        </script>
-                        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
-
-                        <br/>
-                        <li class="two_col">        
-                            <h2><?php echo __('Pickup Location (address/zip)', 'shipme'); ?></h2>
-                        </li>
-                        <li class="two_col hidden_two_col">
-                            <h2 class="hidden_two_col"><?php echo __('Delivery Location (address/zip)', 'shipme'); ?></h2>
-                        </li>
-
-
-                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_location') ?> two_col">
-        <?php echo shipme_get_post_new_error_thing_display('pickup_location') ?>        
-                            <!--<h2><?php //echo __('Location (address/zip)', 'shipme');   ?></h2>-->
-                            <p><input type="text" size="50" onFocus="geolocate_pickup()" id="autocomplete_pickup" class="do_input form-control" name="pickup_location" placeholder="<?php _e('eg: Ahmedabad Gujarat India', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'pickup_location', true); ?>" /></p>
-                        </li>
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_lat', true) ?>"  name="pickup_lat" id="pickup_lat"  />
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_lng', true) ?>"  name="pickup_lng" id="pickup_lng"  />
-
-                        <li class="two_col show_two_col">
-                            <h2><?php echo __('Delivery Location (address/zip)', 'shipme'); ?></h2>
-                        </li>
-
-                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_location') ?> two_col">
-        <?php echo shipme_get_post_new_error_thing_display('delivery_location') ?>        
-                            <!--<h2><?php //echo __('Location (address/zip)', 'shipme');   ?></h2>-->
-                            <p><input type="text" size="50" class="do_input form-control" onFocus="geolocate_delivery()"  id="autocomplete_delivery" name="delivery_location" placeholder="<?php _e('eg: Surat Gujarat India', 'shipme') ?>" value="<?php echo get_post_meta($pid, 'delivery_location', true); ?>" /></p>
-                        </li>
-
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_lat', true) ?>"  name="delivery_lat" id="delivery_lat"  />
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_lng', true) ?>"  name="delivery_lng" id="delivery_lng"  />
-
-
-                        <li class="two_col">        
-                            <h2><?php echo __('Pickup Date', 'shipme'); ?></h2>
-                        </li>
-                        <li class="two_col hidden_two_col">
-                            <h2 class="hidden_two_col"><?php echo __('Delivery Date', 'shipme'); ?></h2>
-                        </li>
-
-                        <li class="<?php echo shipme_get_post_new_error_thing('pickup_date') ?> two_col">
-        <?php echo shipme_get_post_new_error_thing_display('pickup_date') ?>        
-                            <!--<h2><?php //echo __('Pickup Date', 'shipme');   ?></h2>-->
-                            <p><input type="text" size="50" class="do_input form-control" id="pickup_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>" value="<?php $zz = get_post_meta($pid, 'pickup_date', true);
-        echo (!empty($zz) ? date("j F, Y", $zz) : ''); ?>"  /></p>
-                        </li>
-
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'pickup_date', true) ?>"  name="pickup_date" id="pickup_date_hidden"  />
-
-
-                        <li class="two_col show_two_col">
-                            <h2><?php echo __('Delivery Date', 'shipme'); ?></h2>
-                        </li>
-                        <li class="<?php echo shipme_get_post_new_error_thing('delivery_date') ?> two_col">
-        <?php echo shipme_get_post_new_error_thing_display('delivery_date') ?>        
-                            <!--<h2><?php //echo __('Delivery Date', 'shipme');   ?></h2>-->
-                            <p><input type="text" size="50" class="do_input form-control" id="delivery_date" placeholder="<?php _e('click here to choose date', 'shipme') ?>"  value="<?php $zz = get_post_meta($pid, 'delivery_date', true);
-                    echo!empty($zz) ? date("j F, Y", $zz) : ''; ?>" /></p>
-                        </li>
-                        <input type="hidden" value="<?php echo get_post_meta($pid, 'delivery_date', true) ?>"  name="delivery_date" id="delivery_date_hidden"  />
-                    </ul>
+                        </ul>
                     <!--                </form>              
                     <?php
                 } //end step1
@@ -1647,10 +1698,10 @@ function shipme_theme_post_new_function() {
                     <input type="hidden" value="11" name="job_submit_step2" />
 
                     <ul class="post-new">
-                        <li>
+                        <li class="col-md-12 col-xs-12">
                             <p><?php _e('Attach Images', 'shipme'); ?></p>
                         </li>
-                        <li>
+                        <li class="col-md-12 col-sm-12 col-xs-12">
                             <div class="cross_cross">
                                 <script type="text/javascript" src="<?php echo get_bloginfo('template_url'); ?>/js/dropzone.js"></script>     
                                 <link rel="stylesheet" href="<?php echo get_bloginfo('template_url'); ?>/css/dropzone.css" type="text/css" />
@@ -1763,34 +1814,34 @@ function shipme_theme_post_new_function() {
                         //					   	if($shipme_enable_featured_option != "no"):
                         ?>
 
-                        <li>
-                            <h2><?php _e("Need a Helper?", 'shipme'); ?></h2>
-                            <p><input type="checkbox" class="do_input_new" name="need_a_helper" value="1" <?php $feature = get_field('need_a_helper', $pid, true);
+                        <li class="col-md-12 col-sm-6 checkBox-fields">
+                            <h2 class="col-md-3 col-xs-12"><?php _e("Need a Helper?", 'shipme'); ?></h2>
+                            <p class="col-md-9 col-xs-12"><input type="checkbox" class="do_input_new" name="need_a_helper" value="1" <?php $feature = get_field('need_a_helper', $pid, true);
                 echo ($feature == "1" ? "checked='checked'" : "");
                 ?>  /> You want Helper For carry Loaded Package?</p>
                         </li>
 
-                        <li>
-                            <h2><?php _e("Fragile Materials", 'shipme'); ?></h2>
-                            <p><input type="checkbox" class="do_input_new" name="fragile_materials" value="1" 
+                        <li class="col-md-12 col-sm-6 checkBox-fields">
+                            <h2 class="col-md-3 col-xs-12"><?php _e("Fragile Materials", 'shipme'); ?></h2>
+                            <p class="col-md-9 col-xs-12"><input type="checkbox" class="do_input_new" name="fragile_materials" value="1" 
                                 <?php
                                 $feature = get_field('fragile_materials', $pid, true);
                                 echo ($feature == "1" ? "checked='checked'" : "");
                                 ?>  /> Is there any fragile materials?</p>
                         </li>
 
-                        <li>
-                            <h2><?php _e("Commercial Purpose", 'shipme'); ?></h2>
-                            <p><input type="checkbox" class="do_input_new" name="commercial_purpose" value="1" 
+                        <li class="col-md-12 col-sm-6 checkBox-fields">
+                            <h2 class="col-md-3 col-xs-12"><?php _e("Commercial Purpose", 'shipme'); ?></h2>
+                            <p class="col-md-9 col-xs-12"><input type="checkbox" class="do_input_new" name="commercial_purpose" value="1" 
                                 <?php
                                 $feature = get_field('commercial_purpose', $pid, true);
                                 echo ($feature == "1" ? "checked='checked'" : "");
                                 ?>  /> For Commercial Purpose ?</p>
                         </li>
 
-                        <li>
-                            <h2><?php _e("Packing Services", 'shipme'); ?></h2>
-                            <p><input type="checkbox" class="do_input_new" name="packing_services" value="1" 
+                        <li class="col-md-12 col-sm-6 checkBox-fields">
+                            <h2 class="col-md-3 col-xs-12"><?php _e("Packing Services", 'shipme'); ?></h2>
+                            <p class="col-md-9 col-xs-12"><input type="checkbox" class="do_input_new" name="packing_services" value="1" 
                                 <?php
                                 $feature = get_field('packing_services', $pid, true);
                                 echo ($feature == "1" ? "checked='checked'" : "");
@@ -1801,10 +1852,10 @@ function shipme_theme_post_new_function() {
                         $pst = $post->post_content;
                         $pst = str_replace("<br />", "", $pst);
                         ?>
-                        <li class="<?php echo shipme_get_post_new_error_thing('job_description') ?>">
+                        <li class="<?php echo shipme_get_post_new_error_thing('job_description') ?> col-md-12 col-xs-12">
                             <?php echo shipme_get_post_new_error_thing_display('job_description') ?>
-                            <h2><?php echo __('Special Instructions', 'shipme'); ?></h2>
-                            <p><textarea rows="3" cols="60" class="form-control do_input description_edit" placeholder="Special Instructions"  name="job_description"><?php echo trim($pst); ?></textarea></p>
+                            <h2 class="col-md-2 col-xs-12"><?php echo __('Special Instructions', 'shipme'); ?></h2>
+                            <p class="col-md-10 col-xs-12"><textarea rows="3" cols="60" class="form-control do_input description_edit"   name="job_description"><?php echo trim($pst); ?></textarea></p>
                         </li>
                         <!--   
                              <li>
@@ -1859,30 +1910,30 @@ function shipme_theme_post_new_function() {
                         <?php endif; ?>
                         -->
                         <?php if (!is_user_logged_in()) { ?>
-                            <li>
+                            <li class="col-md-12">
                                 <h2>&nbsp;</h2> 
-                                <p>
+                                <p class="col-md-12 col-xs-12">
                                     <input type="radio" class="do_input select_div" name="user_tp" id="login_user" value="login_user" checked="checked" /> <?php _e('Log In', $current_theme_locale_name); ?>&nbsp;&nbsp;&nbsp;
                                     <input type="radio" class="do_input select_div" name="user_tp" id="register_user" value="register_user" /> <?php _e('Register For New user', $current_theme_locale_name); ?>
                                 </p>
-                                <h2 class="displyaNone">&nbsp;</h2>
-                                <div class="login_user col-xs-6" style="display: none;margin-top: 10px">
-                                    <h2 class="displyaNone">&nbsp;</h2>
+                                <h2 class="displyaNone"></h2>
+                                <div class="login_user col-xs-12 col-md-8" style="display: none;margin-top: 10px">
+                                    <h2 class="displyaNone"></h2>
                                     <div class="col-md-12 row setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Username</label>-->
                                         <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;  display: inline-block;float:left;" id="log"  type="text" size="30" value="" name="log" placeholder="Enter Your Mobile Number">
                                         <span class="post-new-login-error"></span>
                                     </div>
-                                    <h2 class="displyaNone">&nbsp;</h2>
+                                    <h2 class="displyaNone"></h2>
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px">Password</label>-->
                                         <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;  display: inline-block; float:left;" id="log"  type="password" size="30" value="" name="user_pwd" placeholder="Enter Your Password">
                                         <span class="post-new-login-error"></span>
                                     </div>
                                 </div>
-                                <h2 class="displyaNone">&nbsp;</h2>
+                                <h2 class="displyaNone"></h2>
                                 <!--                                <h2 class="register_user" style="display: none; margin-top: 10px">&nbsp;</h2>-->
-                                <div class="register_user col-xs-6" style="display: none; margin-top: 10px" >
+                                <div class="register_user col-xs-12 col-md-8" style="display: none; margin-top: 10px" >
                                     <div class="col-md-12 row  setSize">
                                         <!--<label class="col-md-3" style="text-align: left; padding: 5px 0px" >Name</label>-->
                                         <input class="col-md-5 do_input form-control" style="text-align: left; margin: 5px 0px;display: inline-block; float:left;" id="reg_name"  type="text" size="30" value="" name="reg_name" placeholder="Enter Your Name">
@@ -2057,7 +2108,7 @@ function shipme_theme_post_new_function() {
                                 }
                                 </script>
                             <?php } ?>
-                        <li>
+                        <li class="col-md-12 col-xs-12">
                             &nbsp;
                         </li>
 

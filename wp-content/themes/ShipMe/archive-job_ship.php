@@ -89,12 +89,11 @@ endif;
 <div class="container_ship_no_bk mrg_topo">
     <div class="job-content-area col-xs-12 col-sm-4 col-lg-3">
         <!--        <ul style="list-style: none"><li class="">-->
-
         <p>Pickup Location (address/zip)</p>
-        <p><input type="text" value="" placeholder="eg: Ahmedabad, Indai" name="pickup_location" class="form-control" id="autocomplete_pickup" onfocus="geolocate_pickup()" size="20" autocomplete="off"></p>
+        <p><input type="text" value="" placeholder="eg: Ahmedabad, India" name="pickup_location" class="form-control" id="autocomplete_pickup" onfocus="geolocate_pickup()" size="20" autocomplete="off"></p>
 
         <p>Delivery Location (address/zip)</p>
-        <p><input type="text" value="" placeholder="eg: Ahmedabad, Indai" name="delivery_location" id="autocomplete_delivery" onfocus="geolocate_delivery()" class="do_input form-control" size="20" autocomplete="off"></p>
+        <p><input type="text" value="" placeholder="eg: Surat, India" name="delivery_location" class="form-control" id="autocomplete_delivery" onfocus="geolocate_delivery()" class="do_input form-control" size="20" autocomplete="off"></p>
         <a  class="submit_bottom2 search-location" href="javascript:void(0)"> Search</a>
 
         <div id="slider"></div>
@@ -117,38 +116,38 @@ endif;
     <script src="<?php echo get_template_directory_uri(); ?>/js/wNumb.js"></script>
     <script>
 
-                    var select = document.getElementById('price-2');
-                    var option = document.getElementById('price-1');
-                    var html5Slider = document.getElementById('html5');
-                    noUiSlider.create(html5Slider, {
-                    start: [0, 100000],
-                            connect: true,
-                            step :100,
-                            range: {
-                            'min': 0,
-                                    'max': 99999
-                            },
-                          format:  wNumb({
-                            decimals: 0,
-                            //postfix:' Rs.'
-                            })
-                    });
-                    var inputNumber = document.getElementById('input-number');
-                    html5Slider.noUiSlider.on('update', function (values, handle) {
+            var select = document.getElementById('price-2');
+            var option = document.getElementById('price-1');
+            var html5Slider = document.getElementById('html5');
+            noUiSlider.create(html5Slider, {
+                start: [0, 100000],
+                connect: true,
+                step: 100,
+                range: {
+                    'min': 0,
+                    'max': 99999
+                },
+                format: wNumb({
+                    decimals: 0,
+                    //postfix:' Rs.'
+                })
+            });
+            var inputNumber = document.getElementById('input-number');
+            html5Slider.noUiSlider.on('update', function (values, handle) {
 
-                    var value = values[handle];
-                            if (handle) {
+                var value = values[handle];
+                if (handle) {
                     select.value = value;
-                    } else {
+                } else {
                     option.value = value;
-                    }
-                    });
-                    select.addEventListener('change', function () {
-                    html5Slider.noUiSlider.set([null, this.value]);
-                    });
-                    option.addEventListener('change', function () {
-                    html5Slider.noUiSlider.set([this.value, null]);
-                    });</script>
+                }
+            });
+            select.addEventListener('change', function () {
+                html5Slider.noUiSlider.set([null, this.value]);
+            });
+            option.addEventListener('change', function () {
+                html5Slider.noUiSlider.set([this.value, null]);
+            });</script>
     <div class="col-xs-12 col-sm-8 col-lg-9">
         <div class="job-content-area col-xs-12 col-sm-12 col-lg-12">
 
@@ -174,73 +173,88 @@ endif;
     </div>
     <!--For Ajax Jobs Display-->
     <script>
-                $(document).ready(function () {
-
-        $(".job-content-area-inner").html("<img src='<?php echo get_template_directory_uri(); ?>/images/loading.gif' alt='Loading...'/>");
-                $.ajax({url: "<?php echo get_template_directory_uri(); ?>/page-templates/all_post_ajax.php", success: function (result) {
-                $(".job-content-area-inner").html(result);
+        $(document).ready(function () {
+            var offset = 0;
+            var ajax = '';
+            $(".job-content-area-inner").html("<img src='<?php echo get_template_directory_uri(); ?>/images/loading.gif' alt='Loading...'/>");
+            ajax = $.ajax({url: "<?php echo get_template_directory_uri(); ?>/page-templates/all_post_ajax.php", type: "POST", data: {"offset": offset}, success: function (result) {
+                    $(".job-content-area-inner").html(result);
+                    offset = 10;
                 }});
-                function ajax_call_filter() {
+            function ajax_call_filter() {
+                if (ajax) {
+                    ajax.abort();
+                }
                 $(".job-content-area-inner").html("<img src='<?php echo get_template_directory_uri(); ?>/images/loading.gif' alt='Loading...'/>");
-                        $.ajax({url: "<?php echo get_template_directory_uri(); ?>/page-templates/all_post_ajax.php", type: "POST", data: {"pickup_location": $('#autocomplete_pickup').val(), "delivery_location": $('#autocomplete_delivery').val(), "sort_by_post": $('.filter-drop-down').val(), "price-1": $('#price-1').val(), "price-2": $('#price-2').val()}, success: function (result) {
+                ajax = $.ajax({url: "<?php echo get_template_directory_uri(); ?>/page-templates/all_post_ajax.php", type: "POST", data: {"offset": offset, "pickup_location": $('#autocomplete_pickup').val(), "delivery_location": $('#autocomplete_delivery').val(), "sort_by_post": $('.filter-drop-down').val(), "price-1": $('#price-1').val(), "price-2": $('#price-2').val()}, success: function (result) {
                         $(".job-content-area-inner").html(result);
-                        }});
-                }
-        $('.filter-drop-down').change(function () {
-        ajax_call_filter();
+                        offset = 10;
+                    }});
+            }
+            $('.filter-drop-down').change(function () {
+                ajax_call_filter();
+            });
+            $('.search-location').click(function () {
+                ajax_call_filter();
+            });
+            $(document).on('click', '.load_more_job', function () {
+                $(document).find('.load_more_job').hide();
+                $(".job-content-area-inner").append("<img src='<?php echo get_template_directory_uri(); ?>/images/loading.gif' class='image-load' alt='Loading...'/>");
+                $.ajax({url: "<?php echo get_template_directory_uri(); ?>/page-templates/all_post_ajax.php", type: "POST", data: {"offset": offset, "pickup_location": $('#autocomplete_pickup').val(), "delivery_location": $('#autocomplete_delivery').val(), "sort_by_post": $('.filter-drop-down').val(), "price-1": $('#price-1').val(), "price-2": $('#price-2').val()}, success: function (result) {
+                        $(document).find('.image-load').hide();
+                        $(".job-content-area-inner").append(result);
+                        offset = offset + 5;
+                    }});
+            });
         });
-                $('.search-location').click(function () {
-        ajax_call_filter();
+        jQuery(document).ready(function () {
+            jQuery('#pickup_date').pickadate({min: new Date(), onSet: function (thingSet) {
+                    jQuery("#pickup_date_hidden").val(thingSet.select / 1000 + 12400);
+                }});
+            jQuery('#delivery_date').pickadate({min: new Date(), onSet: function (thingSet) {
+                    jQuery("#delivery_date_hidden").val(thingSet.select / 1000 + 12400);
+                }});
         });
-        });
-                jQuery(document).ready(function () {
-        jQuery('#pickup_date').pickadate({min: new Date(), onSet: function (thingSet) {
-        jQuery("#pickup_date_hidden").val(thingSet.select / 1000 + 12400);
-        }});
-                jQuery('#delivery_date').pickadate({min: new Date(), onSet: function (thingSet) {
-        jQuery("#delivery_date_hidden").val(thingSet.select / 1000 + 12400);
-        }});
-        });
-                // This example displays an address form, using the autocomplete feature
-                // of the Google Places API to help users fill in the information.
+        // This example displays an address form, using the autocomplete feature
+        // of the Google Places API to help users fill in the information.
 
-                var placeSearch, autocomplete, autocomplete2;
-                function initAutocomplete() {
-                // Create the autocomplete object, restricting the search to geographical
-                // location types.
-                autocomplete = new google.maps.places.Autocomplete(
-                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_pickup')),
-                {types: ['(cities)']});
-                        // When the user selects an address from the dropdown, populate the address
-                        // fields in the form.
-                        autocomplete.addListener('place_changed', fillInAddress);
-                        //-------------------------------------------------------------------
+        var placeSearch, autocomplete, autocomplete2;
+        function initAutocomplete() {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+            autocomplete = new google.maps.places.Autocomplete(
+                    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_pickup')),
+                    {types: ['(cities)']});
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            autocomplete.addListener('place_changed', fillInAddress);
+            //-------------------------------------------------------------------
 
-                        autocomplete2 = new google.maps.places.Autocomplete(
-                                /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_delivery')),
-                        {types: ['(cities)']});
-                        // When the user selects an address from the dropdown, populate the address
-                        // fields in the form.
-                        autocomplete2.addListener('place_changed', fillInAddress2);
-                }
+            autocomplete2 = new google.maps.places.Autocomplete(
+                    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete_delivery')),
+                    {types: ['(cities)']});
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            autocomplete2.addListener('place_changed', fillInAddress2);
+        }
 
         // [START region_fillform]
         function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-                var lat = place.geometry.location.lat();
-                var lng = place.geometry.location.lng();
-                document.getElementById('pickup_lat').value = lat;
-                document.getElementById('pickup_lng').value = lng;
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+            var lat = place.geometry.location.lat();
+            var lng = place.geometry.location.lng();
+            document.getElementById('pickup_lat').value = lat;
+            document.getElementById('pickup_lng').value = lng;
         }
 
         function fillInAddress2() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete2.getPlace();
-                var lat = place.geometry.location.lat();
-                var lng = place.geometry.location.lng();
-                document.getElementById('delivery_lat').value = lat;
-                document.getElementById('delivery_lng').value = lng;
+            // Get the place details from the autocomplete object.
+            var place = autocomplete2.getPlace();
+            var lat = place.geometry.location.lat();
+            var lng = place.geometry.location.lng();
+            document.getElementById('delivery_lat').value = lat;
+            document.getElementById('delivery_lng').value = lng;
         }
         // [END region_fillform]
 
@@ -248,37 +262,37 @@ endif;
         // Bias the autocomplete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
         function geolocate_pickup() {
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-        var geolocation = {
-        lat: position.coords.latitude,
-                lng: position.coords.longitude
-        };
-                var circle = new google.maps.Circle({
-                center: geolocation,
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle({
+                        center: geolocation,
                         radius: position.coords.accuracy
+                    });
+                    autocomplete.setBounds(circle.getBounds());
                 });
-                autocomplete.setBounds(circle.getBounds());
-        });
-        }
+            }
         }
 
 
 
         function geolocate_delivery() {
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-        var geolocation = {
-        lat: position.coords.latitude,
-                lng: position.coords.longitude
-        };
-                var circle = new google.maps.Circle({
-                center: geolocation,
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle({
+                        center: geolocation,
                         radius: position.coords.accuracy
+                    });
+                    autocomplete.setBounds(circle.getBounds());
                 });
-                autocomplete.setBounds(circle.getBounds());
-        });
-        }
+            }
         }
 
         // [END region_geolocation]
@@ -286,16 +300,11 @@ endif;
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 
-
-
     <div id="left-sidebar" class="account-right-sidebar col-xs-12 col-sm-4 col-lg-3  ">
         <ul class="virtual_sidebar" id="six-years2">
             <?php dynamic_sidebar('other-page-area'); ?>
         </ul>
     </div>
-
-
-
 
 </div> 
 

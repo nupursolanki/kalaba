@@ -57,7 +57,8 @@ if(isset($_POST['price-2'])){
 
 $prs_string_qu = wp_parse_args($query_string);
 $prs_string_qu['post_type'] = 'job_ship';
-$prs_string_qu['posts_per_page'] = -1;
+$prs_string_qu['posts_per_page'] = 10;
+$prs_string_qu['offset'] = $_POST['offset'];
 $prs_string_qu['meta_query'] = array($closed, $paid,$pickup_location,$delivery_location,$price_1,$price_2);
 $prs_string_qu['meta_key'] = 'featured';
 //$prs_string_qu['posts_per_page'] = -1;
@@ -128,7 +129,7 @@ $prs_string_qu['orderby'] = 'date';
 $prs_string_qu['order'] = 'DESC';
 }
 
-query_posts($prs_string_qu);
+$thePosts = query_posts($prs_string_qu);
 
 ?>
 <ul class="virtual_sidebar" id="six-years">
@@ -144,17 +145,17 @@ if (have_posts()):
                     <div class="heds-area col-xs-12 col-sm-2 col-lg-2">   </div>
 
 
-                    <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Pickup', 'shipme') ?> </div>
+                    <div class="heds-area  col-xs-12 col-sm-3 col-lg-3"><?php _e('Pickup', 'shipme') ?> </div>
 
 
-                    <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Delivery', 'shipme') ?></div>
+                    <div class="heds-area  col-xs-12 col-sm-3 col-lg-3"><?php _e('Delivery', 'shipme') ?></div>
 
 
 
                     <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php _e('Budget', 'shipme') ?></div>
 
 
-                    <div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php // _e('Time Due', 'shipme') ?> </div>
+                    <!--<div class="heds-area  col-xs-12 col-sm-2 col-lg-2"><?php // _e('Time Due', 'shipme') ?> </div>-->
 
 
 
@@ -169,24 +170,37 @@ if (have_posts()):
                     <?php
                 endwhile;
 
-                echo '</li>';
+                
 
 
-                if (function_exists('wp_pagenavi')):
-                    echo '<li class="widget-container widget_text  "> <div class="my-only-widget-content " >';
-                    wp_pagenavi();
-                    echo '</div></li>';
-                endif;
-
-            else:
-
-                echo '<li class="widget-container widget_text  "> <div class="my-only-widget-content " >';
-                echo __('No jobs posted and active on the site yet.', "shipme");
-                echo '</div></li>';
+//                if (function_exists('wp_pagenavi')):
+//                    echo '<li class="widget-container widget_text  "> <div class="my-only-widget-content " >';
+//                    wp_pagenavi();
+//                    echo '</div></li>';
+//                endif;
+//
+//            else:
+//
+//                echo '<li class="widget-container widget_text  "> <div class="my-only-widget-content " >';
+//                echo __('No jobs posted and active on the site yet.', "shipme");
+//                echo '</div></li>';
 
             endif;
             // Reset Post Data
             wp_reset_postdata();
+            global $wp_query; 
+         if($_POST['offset']+5 >=$wp_query->found_posts){
+             echo '<li class="widget-container widget_text  "> <div class="my-only-widget-content " >';
+             echo "NO More Jobs";
+             echo '</div></li>';
+         }
+         else{
+//             echo $wp_query->found_posts;
+             echo '<li class="widget-container widget_text load_more_button_area">';
+             echo"<a href='javascript:void(0)' class='submit_bottom3 load_more_job'>Load More Jobs</a>";
+             echo '</li>';
+         }
+           echo '</li>'; 
             ?>
 
 
